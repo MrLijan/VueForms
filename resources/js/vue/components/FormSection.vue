@@ -7,12 +7,25 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Description</label>
-      <textarea
-        class="textarea"
-        rows="3"
-        placeholder="The following form will be used for..."
-      ></textarea>
+      <label class="label">Type</label>
+      <div class="control">
+        <div class="select">
+          <select>
+            <option>Regular Input</option>
+            <option>Paragraph</option>
+            <option>Checkbox</option>
+            <option>Dropdown</option>
+            <option>Progress bar</option>
+            <option>Date</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="required is-pulled-right">
+      <label class="checkbox">
+        <input type="checkbox" />
+        Required field
+      </label>
     </div>
   </section>
 </template>
@@ -34,5 +47,9 @@ export default {
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
   border-top: 6px solid #48c774;
+}
+
+.checkbox {
+  overflow: hidden !important;
 }
 </style>
