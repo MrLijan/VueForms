@@ -1,19 +1,31 @@
 <template>
-  <div>
-    This is from home page
+  <div class="container is-max-desktop">
+    <section class="title">
+      <h1>Create your form</h1>
+    </section>
+    <section>
+      <FormHeader />
+    </section>
+
+    <section class="form-body"></section>
   </div>
 </template>
 
 <script>
-export default {
-  setup () {
-    
+import FormHeader from "../components/FormHeader";
 
-    return {}
+export default {
+  components: {
+    FormHeader
+  },
+  setup() {
+    return {};
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.title > h1 {
+  overflow: hidden !important;
+}
 </style>
