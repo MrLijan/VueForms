@@ -1,17 +1,28 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 
-import Home from '../views/Home';
+import Home from "../views/Home";
+import Creator from "../views/Creator";
+import Submit from "../views/Submit";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/home",
+    name: "Home",
     component: Home
+  },
+  {
+    path: "/creator",
+    name: "Creator",
+    component: Creator
+  },
+  {
+    path: "/Sbumit",
+    name: "Submit",
+    component: Submit
   }
 ];
-
 
 export default createRouter({
   history: createWebHistory(),
   routes
-})
+});
