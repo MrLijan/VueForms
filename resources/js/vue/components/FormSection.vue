@@ -5,12 +5,12 @@
       class="is-flex is-justify-content-space-between is-align-items-center"
     >
       <div class="field">
-        <label class="label">Field Name</label>
+        <label class="label">Name</label>
         <div class="control">
           <input
             class="input"
             :type="text"
-            placeholder="i.e. Boring Wozniak"
+            placeholder="How are you today?"
             v-model="inputName"
           />
         </div>
@@ -21,18 +21,18 @@
           <div class="select">
             <select v-model="selectType">
               <option value="text">Short Answer</option>
-              <option value="textarea">Paragraph</option>
               <option value="date">Date</option>
               <option value="email">Email</option>
               <option value="tel">Cellphone</option>
               <option value="number">Number</option>
+              <option value="textarea">Paragraph</option>
             </select>
           </div>
         </div>
       </div>
       <div class="required is-pulled-right">
         <label class="checkbox">
-          <input type="checkbox" />
+          <input type="checkbox" v-model="required" />
           Required field
         </label>
       </div>
@@ -40,9 +40,11 @@
 
     <!-- FIELD EXAMPLE -->
     <section class="section-footer">
-      <label class="label" for="">Input Example</label>
+      <label class="label" for="">Example</label>
       <div class="example-field">
-        <label class="label" for="">{{ inputName }}</label>
+        <label class="label" for="">
+          {{ required ? inputName + "*" : inputName }}
+        </label>
         <FormInput :type="selectType" />
       </div>
     </section>
@@ -60,11 +62,13 @@ export default {
 
   setup() {
     const selectType = ref("text");
-    const inputName = ref(null);
+    const inputName = ref("");
+    const required = ref(false);
 
     return {
       selectType,
-      inputName
+      inputName,
+      required
     };
   }
 };
@@ -91,7 +95,8 @@ export default {
 
 .example-field {
   margin-top: 10px;
-  border: dotted 1px var(--app-border);
+  border: dashed 1px var(--app-border);
+  border-radius: 6px;
   padding: 15px 15px;
 }
 </style>
