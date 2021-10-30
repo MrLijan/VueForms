@@ -6,7 +6,7 @@ import Submit from "../views/Submit";
 
 const routes = [
   {
-    path: "/home",
+    path: "/",
     name: "Home",
     component: Home
   },
@@ -16,7 +16,7 @@ const routes = [
     component: Creator
   },
   {
-    path: "/Sbumit",
+    path: "/submit",
     name: "Submit",
     component: Submit
   }
