@@ -1,24 +1,30 @@
 <template>
-  <section class="container">
-    <div class="field">
-      <label class="label">Give it a name</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="i.e. Boring Wozniak" />
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Describe it</label>
+  <section>
+    <div v-if="type == 'textarea'">
       <textarea
         class="textarea"
-        rows="3"
-        placeholder="The following form will be used for..."
+        name="textarea"
+        id=""
+        cols="30"
+        rows="5"
       ></textarea>
+    </div>
+    <div v-else>
+      <input class="input" :type="type" name="" />
     </div>
   </section>
 </template>
 
 <script>
 export default {
+  props: {
+    type: {
+      type: String,
+      required: true,
+      default: "text"
+    }
+  },
+
   setup() {
     return {};
   }
@@ -34,5 +40,9 @@ export default {
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
   border-top: 6px solid #48c774;
+}
+
+.checkbox {
+  overflow: hidden !important;
 }
 </style>
