@@ -5,11 +5,11 @@
       class="is-flex is-justify-content-space-between is-align-items-center"
     >
       <div class="field">
-        <label class="label">Name</label>
+        <label class="label">Title</label>
         <div class="control">
           <input
             class="input"
-            :type="text"
+            :type="inputType"
             placeholder="How are you today?"
             v-model="inputName"
           />
@@ -19,7 +19,7 @@
         <label class="label">Type</label>
         <div class="control">
           <div class="select">
-            <select v-model="selectType">
+            <select v-model="inputType">
               <option value="text">Short Answer</option>
               <option value="date">Date</option>
               <option value="email">Email</option>
@@ -45,9 +45,14 @@
         <label class="label" for="">
           {{ required ? inputName + "*" : inputName }}
         </label>
-        <FormInput :type="selectType" />
+        <FormInput :type="inputType" />
       </div>
     </section>
+
+    <hr class="solid" />
+
+    <!-- FIELD CONTROL -->
+    <section></section>
   </section>
 </template>
 
@@ -56,17 +61,30 @@ import { ref } from "vue";
 import FormInput from "./FormInput.vue";
 
 export default {
+  props: {
+    inputType: {
+      type: String,
+      default: "text"
+    },
+    title: {
+      type: String
+    },
+    required: {
+      type: Boolean
+    }
+  },
+
   components: {
     FormInput
   },
 
-  setup() {
-    const selectType = ref("text");
-    const inputName = ref("");
-    const required = ref(false);
+  setup(props) {
+    const inputType = ref(props.inputType);
+    const inputName = ref(props.title);
+    const required = ref(props.required);
 
     return {
-      selectType,
+      inputType,
       inputName,
       required
     };
