@@ -1,31 +1,28 @@
 <template>
   <div class="container is-max-desktop">
-    <!-- PAGE TITLE -->
-    <section class="title">
-      <h1>Create your form</h1>
-    </section>
-    <!-- FORM HEADER -->
+    <!-- PAGE HEADER -->
     <section>
-      <FormHeader />
+      <h1 class="is-size-1">Your Forms</h1>
     </section>
 
-    <!-- FORM BODY -->
-    <!-- <section v-for="sec in sections" :key="sec">
-      <FormSection />
-    </section> -->
-    <section v-for="field in form.fields" :key="field">
-      <FormField
-        :title="field.title"
-        :inputType="field.type"
-        :required="field.required"
-      />
-    </section>
-
-    <!-- FORM CONTROL -->
-    <section>
-      <button class="button is-success" @click="addSection()">
-        Add Section
-      </button>
+    <!-- FORMS LIST -->
+    <section class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Form Name</th>
+            <th>Form Name</th>
+            <th>Form Name</th>
+            <th>Form Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>Form name 1</td>
+          <td>Form name 1</td>
+          <td>Form name 1</td>
+          <td>Form name 1</td>
+        </tbody>
+      </table>
     </section>
   </div>
 </template>
@@ -92,5 +89,19 @@ export default {
 
 .container > * {
   margin-bottom: 20px;
+}
+
+.table-container {
+  box-sizing: border-box;
+  padding: var(--app-container-paddding);
+
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  background-color: var(--app-white);
+  border-top: 6px solid #48c774;
+}
+
+.table {
+  width: 100%;
 }
 </style>
