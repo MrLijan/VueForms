@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
@@ -48,32 +48,41 @@ export default {
     const sections = ref([1]);
 
     const addSection = () => {
-      sections.value.push(1);
-      console.log(sections.value);
+      form.fields.push({
+        title: "",
+        type: "text",
+        required: false,
+        answer: ""
+      });
     };
 
-    const form = {
+    const form = reactive({
       name: "This is the form",
+      description:
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
       id: 234,
       creator: "Liram Jan",
       fields: [
         {
           title: "How are you today?",
           type: "textarea",
-          required: true
+          required: true,
+          answer: null
         },
         {
           title: "Let me ask you some question",
           type: "text",
-          required: true
+          required: true,
+          answer: null
         },
         {
           title: "What is the date today?",
           type: "date",
-          required: false
+          required: false,
+          answer: ""
         }
       ]
-    };
+    });
 
     return {
       selector,

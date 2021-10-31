@@ -4,12 +4,12 @@
     <section
       class="is-flex is-justify-content-space-between is-align-items-center"
     >
-      <div class="field">
+      <div class="field is-flex-grow-1">
         <label class="label">Title</label>
         <div class="control">
           <input
             class="input"
-            :type="inputType"
+            type="text"
             placeholder="How are you today?"
             v-model="inputName"
           />
@@ -30,12 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="required is-pulled-right">
-        <label class="checkbox">
-          <input type="checkbox" v-model="required" />
-          Required field
-        </label>
-      </div>
+      <div class="required is-pulled-right"></div>
     </section>
 
     <!-- FIELD EXAMPLE -->
@@ -52,13 +47,23 @@
     <hr class="solid" />
 
     <!-- FIELD CONTROL -->
-    <section></section>
+    <section class="flex is-pulled-right">
+      <!-- <Icon src="trash" /> -->
+      <label class="checkbox">
+        <input type="checkbox" v-model="required" />
+        Required field
+      </label>
+      <button class="button is-danger is-small" @click="deleteField">
+        Delete
+      </button>
+    </section>
   </section>
 </template>
 
 <script>
 import { ref } from "vue";
 import FormInput from "./FormInput.vue";
+// import Icon from "./Icon.vue";
 
 export default {
   props: {
@@ -76,6 +81,7 @@ export default {
 
   components: {
     FormInput
+    // Icon
   },
 
   setup(props) {
@@ -83,10 +89,15 @@ export default {
     const inputName = ref(props.title);
     const required = ref(props.required);
 
+    const deleteField = (e) => {
+      console.log("d", e);
+    };
+
     return {
       inputType,
       inputName,
-      required
+      required,
+      deleteField
     };
   }
 };
@@ -105,6 +116,7 @@ export default {
 
 .checkbox {
   overflow: hidden !important;
+  padding-right: 15px;
 }
 
 .section-footer {
