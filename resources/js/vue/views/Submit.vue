@@ -1,12 +1,12 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
-    <section class="title">
-      <h1>Create your form</h1>
-    </section>
-    <!-- FORM HEADER -->
-    <section>
-      <FormHeader />
+    <section class="header px-5">
+      <div class="title">
+        <h1 class="is-size-1">{{ form.name }}</h1>
+        <span class="tag is-light">Form ID: {{ form.id }}</span>
+      </div>
+      <p>{{ form.description }}</p>
     </section>
 
     <!-- FORM BODY -->
@@ -25,7 +25,9 @@
 
     <!-- FORM CONTROL -->
     <section>
-      <button class="button is-success" @click="logForm">Add Section</button>
+      <button class="button is-success is-pulled-right" @click="logForm">
+        Submit Form
+      </button>
     </section>
   </div>
 </template>
@@ -46,6 +48,8 @@ export default {
     // Form config:
     let form = reactive({
       name: "This is the form",
+      description:
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
       id: 234,
       creator: "Liram Jan",
       fields: [
@@ -92,6 +96,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title > h1 {
   overflow: hidden !important;
 }
