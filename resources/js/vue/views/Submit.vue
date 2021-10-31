@@ -13,46 +13,38 @@
     <!-- <section v-for="sec in sections" :key="sec">
       <FormSection />
     </section> -->
-    <section v-for="field in form.fields" :key="field">
-      <FormField
+    <section v-for="(field, index) in form.fields" :key="field">
+      <Field
         :title="field.title"
         :inputType="field.type"
         :required="field.required"
+        v-model:answer="answer"
+        @answer="logAnswer(index, $event)"
       />
     </section>
 
     <!-- FORM CONTROL -->
     <section>
-      <button class="button is-success" @click="addSection()">
-        Add Section
-      </button>
+      <button class="button is-success" @click="logForm">Add Section</button>
     </section>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import FormHeader from "../components/FormHeader";
-import FormField from "../components/FormField";
+import Field from "../components/Field";
 import FormInput from "../components/FormInput";
 
 export default {
   components: {
     FormHeader,
-    FormField,
+    Field,
     FormInput
   },
   setup() {
-    const selector = ref(null);
-
-    const sections = ref([1]);
-
-    const addSection = () => {
-      sections.value.push(1);
-      console.log(sections.value);
-    };
-
-    const form = {
+    // Form config:
+    let form = reactive({
       name: "This is the form",
       id: 234,
       creator: "Liram Jan",
@@ -60,26 +52,40 @@ export default {
         {
           title: "How are you today?",
           type: "textarea",
-          required: true
+          required: true,
+          answer: null
         },
         {
           title: "Let me ask you some question",
           type: "text",
-          required: true
+          required: true,
+          answer: null
         },
         {
           title: "What is the date today?",
           type: "date",
-          required: false
+          required: false,
+          answer: ""
         }
       ]
+    });
+
+    const answer = ref(null);
+
+    const logAnswer = (index, event) => {
+      form.fields[index].answer = event;
     };
 
+    const logForm = () => {
+      console.log(form);
+    };
+
+    //END OF SETUP
     return {
-      selector,
-      sections,
-      addSection,
-      form
+      form,
+      answer,
+      logAnswer,
+      logForm
     };
   }
 };

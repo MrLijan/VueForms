@@ -1,0 +1,80 @@
+<template>
+  <section class="container">
+    <!-- FIELD BODY -->
+    <label class="label">
+      {{ required ? "*" + inputName : inputName }}
+    </label>
+    <FormInput :type="inputType" @onInput="logInput" />
+  </section>
+</template>
+
+<script>
+import { ref } from "vue";
+import FormInput from "./FormInput.vue";
+
+export default {
+  props: {
+    inputType: {
+      type: String,
+      default: "text"
+    },
+    title: {
+      type: String
+    },
+    required: {
+      type: Boolean
+    },
+    answer: {
+      type: String
+    }
+  },
+
+  components: {
+    FormInput
+  },
+
+  setup(props, { emit }) {
+    const inputType = ref(props.inputType);
+    const inputName = ref(props.title);
+    const required = ref(props.required);
+
+    const logInput = (event) => {
+      emit("answer", event);
+    };
+
+    return {
+      inputType,
+      inputName,
+      required,
+      logInput
+    };
+  }
+};
+</script>
+
+<style lang="css" scoped>
+.container {
+  box-sizing: border-box;
+  padding: var(--app-container-paddding);
+
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  background-color: var(--app-white);
+  border-top: 6px solid #48c774;
+}
+
+.checkbox {
+  overflow: hidden !important;
+}
+
+.section-footer {
+  margin-top: 20px;
+}
+
+.example-field {
+  margin-top: 10px;
+  border: dashed 1px var(--app-border);
+  border-radius: 6px;
+  padding: 15px 15px;
+}
+</style>

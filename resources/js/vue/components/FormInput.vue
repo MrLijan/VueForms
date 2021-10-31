@@ -7,15 +7,25 @@
         id=""
         cols="30"
         rows="5"
+        v-model="input"
+        @input="emitValue"
       ></textarea>
     </div>
     <div v-else>
-      <input class="input" :type="type" name="" />
+      <input
+        class="input"
+        :type="type"
+        name="input"
+        v-model="input"
+        @input="emitValue"
+      />
     </div>
   </section>
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   props: {
     type: {
@@ -25,8 +35,19 @@ export default {
     }
   },
 
-  setup() {
-    return {};
+  emits: ["onInput"],
+
+  setup(props, { emit }) {
+    const input = ref("");
+
+    const emitValue = () => {
+      emit("onInput", input.value);
+    };
+
+    return {
+      input,
+      emitValue
+    };
   }
 };
 </script>
