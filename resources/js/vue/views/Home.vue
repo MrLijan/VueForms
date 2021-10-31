@@ -17,10 +17,12 @@
           </tr>
         </thead>
         <tbody>
-          <td>Form name 1</td>
-          <td>Form name 1</td>
-          <td>Form name 1</td>
-          <td>Form name 1</td>
+          <tr>
+            <td>Form name 1</td>
+            <td>Form name 1</td>
+            <td>Form name 1</td>
+            <td>Form name 1</td>
+          </tr>
         </tbody>
       </table>
     </section>
