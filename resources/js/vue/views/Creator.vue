@@ -22,10 +22,14 @@
     </section>
 
     <!-- FORM CONTROL -->
-    <section>
-      <button class="button is-success" @click="addSection()">
-        Add Section
-      </button>
+    <section class="form-control-wrapper is-flex is-justify-content-center">
+      <div class="is-flex form-control">
+        <button class="button is-info" @click="addSection()">
+          Add Section
+        </button>
+        <div class="vl"></div>
+        <button class="button is-success" @click="saveForm()">Save Form</button>
+      </div>
     </section>
   </div>
 </template>
@@ -101,5 +105,23 @@ export default {
 
 .container > * {
   margin-bottom: 20px;
+}
+
+.form-control {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 15px;
+  max-width: 33.3%;
+  background-color: white;
+  padding: 15px 15px;
+  border-radius: 15px;
+  border: 1px solid var(--app-border);
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%),
+    0 0 0 1px rgb(10 10 10 / 2%);
+}
+
+.vl {
+  border-left: 1px solid var(--app-border);
+  margin: 5px 15px;
 }
 </style>
