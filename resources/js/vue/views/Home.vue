@@ -97,4 +97,8 @@ export default {
 .table {
   width: 100%;
 }
+
+.table-body:hover {
+  background-color: black;
+}
 </style>
