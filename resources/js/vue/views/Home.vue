@@ -10,18 +10,20 @@
       <table class="table">
         <thead>
           <tr>
+            <th>Form Number</th>
             <th>Form Name</th>
-            <th>Form Name</th>
-            <th>Form Name</th>
-            <th>Form Name</th>
+            <th>Creator</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Form name 1</td>
-            <td>Form name 1</td>
-            <td>Form name 1</td>
-            <td>Form name 1</td>
+          <tr v-for="form in forms" :key="form">
+            <td>{{ form.key }}</td>
+            <td>
+              <strong>{{ form.name }}</strong>
+            </td>
+            <td>{{ form.creator }}</td>
+            <td>Edit | Submit</td>
           </tr>
         </tbody>
       </table>
@@ -30,7 +32,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
@@ -42,6 +45,7 @@ export default {
     FormInput
   },
   setup() {
+    const store = useStore();
     const selector = ref(null);
 
     const sections = ref([1]);
@@ -51,34 +55,21 @@ export default {
       console.log(sections.value);
     };
 
-    const form = {
-      name: "This is the form",
-      id: 234,
-      creator: "Liram Jan",
-      fields: [
-        {
-          title: "How are you today?",
-          type: "textarea",
-          required: true
-        },
-        {
-          title: "Let me ask you some question",
-          type: "text",
-          required: true
-        },
-        {
-          title: "What is the date today?",
-          type: "date",
-          required: false
-        }
-      ]
-    };
+    //Dispatch action
+    function fetchForms() {
+      store.dispatch("form/getForms");
+    }
+
+    fetchForms();
+
+    const forms = computed(() => store.state.form.forms);
 
     return {
       selector,
       sections,
       addSection,
-      form
+      forms,
+      fetchForms
     };
   }
 };
