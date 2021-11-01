@@ -179,7 +179,7 @@ return [
 
         
         // mongodb:
-        Jenssegers\Mongodb\MongodbServiceProvider::class,
+        // Jenssegers\Mongodb\MongodbServiceProvider::class,
 
     ],
 
