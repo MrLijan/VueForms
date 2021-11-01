@@ -1,0 +1,26 @@
+{
+  "name": "This is the form",
+  "description": "Some description here.",
+  "key": 234,
+  "creator": "Liram Jan",
+  "fields": [
+    {
+      "title": "How are you today?",
+      "type": "textarea",
+      "required": true,
+      "answer": null
+    },
+    {
+      "title": "Let me ask you some question",
+      "type": "text",
+      "required": true,
+      "answer": null
+    },
+    {
+      "title": "What is the date today?",
+      "type": "date",
+      "required": false,
+      "answer": ""
+    }
+  ]
+}
