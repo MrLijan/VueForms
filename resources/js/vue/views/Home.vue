@@ -23,7 +23,9 @@
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
-            <td>Edit | Submit</td>
+            <td>
+              <button class="button"><Icon src="arrow-top-right" /></button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -37,12 +39,14 @@ import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
+import Icon from "../components/Icon";
 
 export default {
   components: {
     FormHeader,
     FormField,
-    FormInput
+    FormInput,
+    Icon
   },
   setup() {
     const store = useStore();
