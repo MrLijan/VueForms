@@ -30,7 +30,7 @@
 
     <!-- FORM CONTROL -->
     <section>
-      <button class="button is-success is-pulled-right" @click="logForm">
+      <button class="button is-success is-pulled-right" @click="submitForm">
         Submit Form
       </button>
     </section>
@@ -79,7 +79,8 @@ export default {
       form.value.fields[index].answer = event;
     };
 
-    const logForm = () => {
+    // Submitting Form
+    const submitForm = () => {
       console.log(form.value);
     };
 
@@ -89,10 +90,10 @@ export default {
       getForm,
       answer,
       setAnswer,
-      logForm,
       setUser,
       user,
-      submit
+      submit,
+      submitForm
     };
   }
 };
