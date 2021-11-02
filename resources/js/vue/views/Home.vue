@@ -7,7 +7,7 @@
 
     <!-- FORMS LIST -->
     <section class="table-container">
-      <table class="table">
+      <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>Form Number</th>
@@ -26,6 +26,14 @@
             <td>
               <router-link :to="`/submit/${form.key}`">
                 <button class="button"><Icon src="arrow-top-right" /></button>
+              </router-link>
+              <router-link :to="`/edit/${form.key}`">
+                <button class="button"><Icon src="pen" /></button>
+              </router-link>
+              <router-link :to="`/delete/${form.key}`">
+                <button class="button">
+                  <Icon src="trash" />
+                </button>
               </router-link>
             </td>
           </tr>
