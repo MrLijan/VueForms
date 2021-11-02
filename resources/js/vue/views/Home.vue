@@ -23,13 +23,11 @@
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
-<<<<<<< HEAD
             <td>
-              <button class="button"><Icon src="arrow-top-right" /></button>
+              <router-link :to="`/submit/${form.key}`">
+                <button class="button"><Icon src="arrow-top-right" /></button>
+              </router-link>
             </td>
-=======
-            <td><Icon src="trash" /></td>
->>>>>>> 5e797423dfd0bc73f2419976d426686a1cf014fe
           </tr>
         </tbody>
       </table>
@@ -43,11 +41,7 @@ import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
-<<<<<<< HEAD
 import Icon from "../components/Icon";
-=======
-import Icon from "../components/Icon.vue";
->>>>>>> 5e797423dfd0bc73f2419976d426686a1cf014fe
 
 export default {
   components: {
@@ -75,6 +69,8 @@ export default {
     fetchForms();
 
     const forms = computed(() => store.state.form.forms);
+
+    // Handle
 
     return {
       selector,

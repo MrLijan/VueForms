@@ -6,6 +6,7 @@
         <h1 class="is-size-1">{{ form.name }}</h1>
         <span class="tag is-light">Form ID: {{ form.key }}</span>
       </div>
+      <div class="tag is-success">Created by: {{ form.creator }}</div>
       <p>{{ form.description }}</p>
     </section>
 
