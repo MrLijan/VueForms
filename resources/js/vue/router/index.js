@@ -16,7 +16,7 @@ const routes = [
     component: Creator
   },
   {
-    path: "/submit",
+    path: "/submit/:key",
     name: "Submit",
     component: Submit
   }

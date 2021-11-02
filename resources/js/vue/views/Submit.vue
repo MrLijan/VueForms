@@ -4,7 +4,7 @@
     <section class="header px-5">
       <div class="title">
         <h1 class="is-size-1">{{ form.name }}</h1>
-        <span class="tag is-light">Form ID: {{ form.id }}</span>
+        <span class="tag is-light">Form ID: {{ form.key }}</span>
       </div>
       <p>{{ form.description }}</p>
     </section>
@@ -33,7 +33,9 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import Field from "../components/Field";
 import FormInput from "../components/FormInput";
@@ -45,48 +47,34 @@ export default {
     FormInput
   },
   setup() {
-    // Form config:
-    const form = reactive({
-      name: "This is the form",
-      description:
-        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-      id: 234,
-      creator: "Liram Jan",
-      fields: [
-        {
-          title: "How are you today?",
-          type: "textarea",
-          required: true,
-          answer: null
-        },
-        {
-          title: "Let me ask you some question",
-          type: "text",
-          required: true,
-          answer: null
-        },
-        {
-          title: "What is the date today?",
-          type: "date",
-          required: false,
-          answer: ""
-        }
-      ]
-    });
+    const route = useRoute();
+    const store = useStore();
 
+    // Dispatch Fetch Form action in store
+    function getForm(key) {
+      store.dispatch("form/getSingleForm", key);
+    }
+
+    const form = computed(() => store.state.form.singleForm);
+
+    getForm(route.params.key);
+
+    // Handling answer:
     const answer = ref(null);
+    let submit = reactive({});
 
     const logAnswer = (index, event) => {
-      form.fields[index].answer = event;
+      form.value.fields[index].answer = event;
     };
 
     const logForm = () => {
-      console.log(form);
+      console.log(form.value);
     };
 
     //END OF SETUP
     return {
       form,
+      getForm,
       answer,
       logAnswer,
       logForm

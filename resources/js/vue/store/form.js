@@ -9,10 +9,9 @@ export default {
 
   state: {
     forms: {},
-    liram: {
-      yam: "Liram"
-    }
+    singleForm: {}
   },
+
   actions: {
     async getForms(context) {
       const data = await axios.get(apiPath).then((res) => {
@@ -20,12 +19,25 @@ export default {
       });
 
       context.commit("SET_FORMS", data);
+    },
+
+    async getSingleForm(context, payload) {
+      const data = await axios.get(`${apiPath}/${payload}`).then((res) => {
+        return res.data;
+      });
+
+      context.commit("SET_SINGLE_FORM", data);
     }
   },
+
   mutations: {
     SET_FORMS(state, value) {
       state.forms = value;
+    },
+    SET_SINGLE_FORM(state, value) {
+      state.singleForm = value[0];
     }
   },
+
   getters: {}
 };
