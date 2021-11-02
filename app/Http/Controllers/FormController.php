@@ -12,4 +12,9 @@ class FormController extends Controller
     {
         return Form::all();
     }
+
+    public function show($key)
+    {
+        return Form::where('key', (int)$key)->get();
+    }
 }
