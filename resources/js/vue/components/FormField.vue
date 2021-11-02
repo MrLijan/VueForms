@@ -111,7 +111,7 @@ export default {
   border-radius: 8px;
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
-  border-top: 6px solid #48c774;
+  border-top: 6px solid var(--app-field-top);
 }
 
 .checkbox {

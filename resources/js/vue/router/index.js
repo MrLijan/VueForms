@@ -19,6 +19,11 @@ const routes = [
     path: "/submit/:key",
     name: "Submit",
     component: Submit
+  },
+  {
+    path: "/edit/:key",
+    name: "Edit",
+    component: Creator
   }
 ];
 

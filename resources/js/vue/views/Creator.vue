@@ -3,6 +3,7 @@
     <!-- PAGE TITLE -->
     <section class="title">
       <h1>Create your form</h1>
+      <span class="tag is-light">Form ID: {{ form.key }}</span>
     </section>
     <!-- FORM HEADER -->
     <section>
@@ -35,7 +36,9 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, computed, reactive } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
@@ -47,9 +50,34 @@ export default {
     FormInput
   },
   setup() {
+    const route = useRoute();
+    const store = useStore();
     const selector = ref(null);
-
     const sections = ref([1]);
+
+    const randKey = () => {
+      return Math.floor(100000 + Math.random() * 900000);
+    };
+
+    let form = reactive({
+      name: "",
+      description: "",
+      key: randKey(),
+      creator: "",
+      fields: [
+        { title: "This is your first Field", type: "textarea", required: false }
+      ]
+    });
+
+    // Dispatch Fetch Form action in Store
+    if (route.params.key) {
+      function getForm(key) {
+        store.dispatch("form/getSingleForm", key);
+      }
+      getForm(route.params.key);
+
+      form = computed(() => store.state.form.singleForm);
+    }
 
     const addSection = () => {
       form.fields.push({
@@ -60,34 +88,9 @@ export default {
       });
     };
 
-    const form = reactive({
-      name: "This is the form",
-      description: "Some description here.",
-      id: 234,
-      creator: "Liram Jan",
-      fields: [
-        {
-          title: "How are you today?",
-          type: "textarea",
-          required: true,
-          answer: null
-        },
-        {
-          title: "Let me ask you some question",
-          type: "text",
-          required: true,
-          answer: null
-        },
-        {
-          title: "What is the date today?",
-          type: "date",
-          required: false,
-          answer: ""
-        }
-      ]
-    });
-
     return {
+      route,
+      store,
       selector,
       sections,
       addSection,
@@ -98,7 +101,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.title > h1 {
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   overflow: hidden !important;
 }
 

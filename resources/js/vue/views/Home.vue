@@ -1,8 +1,13 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE HEADER -->
-    <section>
+    <section
+      class="is-flex is-justify-content-space-between is-align-items-flex-end"
+    >
       <h1 class="is-size-1">Your Forms</h1>
+      <router-link to="/creator">
+        <button class="button is-success">NEW FORM</button>
+      </router-link>
     </section>
 
     <!-- FORMS LIST -->
@@ -107,7 +112,7 @@ export default {
   border-radius: 8px;
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
-  border-top: 6px solid #48c774;
+  border-top: 6px solid var(--app-field-top);
 }
 
 .table {
