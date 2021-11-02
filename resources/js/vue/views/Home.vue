@@ -23,7 +23,7 @@
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
-            <td>Edit | Submit</td>
+            <td><Icon src="trash" /></td>
           </tr>
         </tbody>
       </table>
@@ -37,12 +37,14 @@ import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
+import Icon from "../components/Icon.vue";
 
 export default {
   components: {
     FormHeader,
     FormField,
-    FormInput
+    FormInput,
+    Icon
   },
   setup() {
     const store = useStore();
@@ -100,5 +102,9 @@ export default {
 
 .table-body:hover {
   background-color: black;
+}
+
+td {
+  overflow: hidden !important;
 }
 </style>
