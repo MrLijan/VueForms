@@ -30,13 +30,17 @@
             <td>{{ form.creator }}</td>
             <td>
               <router-link :to="`/submit/${form.key}`">
-                <button class="button"><Icon src="arrow-top-right" /></button>
+                <button class="button is-small is-info is-light">
+                  <Icon src="arrow-top-right" />
+                </button>
               </router-link>
               <router-link :to="`/edit/${form.key}`">
-                <button class="button"><Icon src="pen" /></button>
+                <button class="button is-small is-warning is-light">
+                  <Icon src="pen" />
+                </button>
               </router-link>
               <router-link :to="`/delete/${form.key}`">
-                <button class="button">
+                <button class="button is-small is-danger is-light">
                   <Icon src="trash" />
                 </button>
               </router-link>
@@ -125,5 +129,10 @@ export default {
 
 td {
   overflow: hidden !important;
+  flex-shrink: 50%;
+}
+
+td > * {
+  margin-left: 5px !important;
 }
 </style>
