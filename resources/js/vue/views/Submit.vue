@@ -10,16 +10,21 @@
     </section>
 
     <!-- FORM BODY -->
-    <!-- <section v-for="sec in sections" :key="sec">
-      <FormSection />
-    </section> -->
+    <section>
+      <Field
+        title="Tell us your name"
+        inputType="text"
+        v-model:answer="user"
+        @answer="setUser"
+      />
+    </section>
     <section v-for="(field, index) in form.fields" :key="field">
       <Field
         :title="field.title"
         :inputType="field.type"
         :required="field.required"
         v-model:answer="answer"
-        @answer="logAnswer(index, $event)"
+        @answer="setAnswer(index, $event)"
       />
     </section>
 
@@ -62,8 +67,15 @@ export default {
     // Handling answer:
     const answer = ref(null);
     let submit = reactive({});
+    const user = ref("");
 
-    const logAnswer = (index, event) => {
+    // Setting the user:
+    const setUser = (event) => {
+      form.value.filledBy = event;
+    };
+
+    // Setting the answer
+    const setAnswer = (index, event) => {
       form.value.fields[index].answer = event;
     };
 
@@ -76,8 +88,11 @@ export default {
       form,
       getForm,
       answer,
-      logAnswer,
-      logForm
+      setAnswer,
+      logForm,
+      setUser,
+      user,
+      submit
     };
   }
 };
