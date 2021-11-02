@@ -23,9 +23,13 @@
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
+<<<<<<< HEAD
             <td>
               <button class="button"><Icon src="arrow-top-right" /></button>
             </td>
+=======
+            <td><Icon src="trash" /></td>
+>>>>>>> 5e797423dfd0bc73f2419976d426686a1cf014fe
           </tr>
         </tbody>
       </table>
@@ -39,7 +43,11 @@ import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
+<<<<<<< HEAD
 import Icon from "../components/Icon";
+=======
+import Icon from "../components/Icon.vue";
+>>>>>>> 5e797423dfd0bc73f2419976d426686a1cf014fe
 
 export default {
   components: {
@@ -104,5 +112,9 @@ export default {
 
 .table-body:hover {
   background-color: black;
+}
+
+td {
+  overflow: hidden !important;
 }
 </style>
