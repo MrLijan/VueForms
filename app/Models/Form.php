@@ -10,5 +10,5 @@ use Jenssegers\Mongodb\Eloquent\Model;
 class Form extends Model 
 {
     protected $connection = 'mongodb';
-    protected $collection = 'Forms';
+    protected $collection = 'forms';
 }
