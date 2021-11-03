@@ -11,5 +11,5 @@ class FilledForm extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'FilledForms';
+    protected $collection = 'filled_forms';
 }

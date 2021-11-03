@@ -24,11 +24,11 @@ class FormFactory extends Factory
         return [
             'created_at' => $this->faker->date(),
             'key' => $this->faker->numberBetween(111111, 999999),
-            'name' => Str::random(25),
-            'description' => Str::random(250),
+            'name' => $this->faker->sentence(5),
+            'description' => $this->faker->sentence(30),
             'creator' => $this->faker->name(),
             'fields' => [
-                'title' => $this->faker->name(),
+                'title' => $this->faker->sentence(5),
                 'type' => $this->randType(),
                 'required' => false,
                 'answer' => null,
