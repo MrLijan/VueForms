@@ -9,31 +9,12 @@
     </section>
 
     <!-- FORMS LIST -->
-    <section class="main-table">
-      <table>
+    <section class="table-container">
+      <table class="table is-hoverable is-striped">
         <thead>
           <tr>
-            Form Key
-          </tr>
-          <tr>
-            Name
-          </tr>
-          <tr>
-            Created by
-          </tr>
-          <tr>
-            Actions
-          </tr>
-        </thead>
-      </table>
-    </section>
-
-    <section>
-      <table class="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>Form Number</th>
-            <th>Form Name</th>
+            <th>Key</th>
+            <th>Name</th>
             <th>Creator</th>
             <th>Actions</th>
           </tr>
@@ -158,7 +139,6 @@ export default {
 }
 
 .table-container {
-  box-sizing: border-box;
   padding: var(--app-container-paddding);
 
   border-radius: 8px;
@@ -167,8 +147,20 @@ export default {
   border-top: 6px solid var(--app-field-top);
 }
 
+table {
+  table-layout: auto;
+}
+
 td > * {
   margin-left: 5px !important;
   overflow: hidden !important;
+}
+
+td {
+  border: none !important;
+}
+
+tr {
+  border-bottom: 1px solid #dbdbdb;
 }
 </style>
