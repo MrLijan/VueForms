@@ -39,16 +39,25 @@
                   <Icon src="pen" />
                 </button>
               </router-link>
-              <router-link :to="`/delete/${form.key}`">
-                <button class="button is-small is-danger is-light">
-                  <Icon src="trash" />
-                </button>
-              </router-link>
+              <!-- DELETE FUNCTION -->
+              <button
+                class="button is-small is-danger is-light"
+                @click="modal = !modal"
+              >
+                <Icon src="trash" />
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </section>
+    <div class="modal" :class="modal ? 'is-active' : ''">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <!-- Any other Bulma elements you want -->
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
   </div>
 </template>
 
@@ -68,17 +77,11 @@ export default {
     Icon
   },
   setup() {
+    // Variables:
     const store = useStore();
-    const selector = ref(null);
+    const modal = ref(false);
 
-    const sections = ref([1]);
-
-    const addSection = () => {
-      sections.value.push(1);
-      console.log(sections.value);
-    };
-
-    //Dispatch action
+    // Dispatch Fetching the form
     function fetchForms() {
       store.dispatch("form/getForms");
     }
@@ -87,14 +90,11 @@ export default {
 
     const forms = computed(() => store.state.form.forms);
 
-    // Handle
-
+    // END OF SETUP
     return {
-      selector,
-      sections,
-      addSection,
       forms,
-      fetchForms
+      fetchForms,
+      modal
     };
   }
 };
