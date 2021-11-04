@@ -8,6 +8,12 @@ use App\Models\Form;
 
 class FormController extends Controller
 {
+
+    protected function randKey() 
+    {
+        return rand(100000, 999999);
+    }
+
     public function index() 
     {
         return Form::all();
@@ -32,7 +38,18 @@ class FormController extends Controller
 
     public function create(Request $req) 
     {
-        $data = $req;
-        echo $data->getContent();
+        $form = new Form;
+        
+        $form->name = $req->name;
+        $form->description = $req->description;
+        $form->key = $this->randKey();
+        $form->creator = $req->creator;
+        $form->fields = $req->fields;
+
+        
+        $form->save();
+
+        return response()->json(["result" => 'Created', 201]);
+
     }
 }
