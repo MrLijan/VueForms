@@ -1,80 +1,33 @@
 [
   {
-    "name": "Form of example Part.1 ",
-    "description": "This form will be the example of Form part 1",
-    "key": 791246,
-    "creator": "Asaf Roussu",
-    "fields": [
-      {
-        "title": "How are you today?",
-        "type": "textarea",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "Let me ask you some question",
-        "type": "text",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "What is the date today?",
-        "type": "date",
-        "required": false,
-        "answer": ""
-      }
-    ]
-  },
-  {
-    "name": "Form of example Part.1 ",
-    "description": "This form will be the example of Form part 1",
-    "key": 385673,
-    "creator": "Liram Jan",
-    "fields": [
-      {
-        "title": "How are you today?",
-        "type": "textarea",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "Let me ask you some question",
-        "type": "text",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "What is the date today?",
-        "type": "date",
-        "required": false,
-        "answer": ""
-      }
-    ]
-  },
-  {
-    "name": "Work from home quiz",
-    "description": "The following form will cover the...",
-    "key": 475891,
-    "creator": "Yarden Samorai",
-    "fields": [
-      {
-        "title": "How are you today?",
-        "type": "textarea",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "Let me ask you some question",
-        "type": "text",
-        "required": true,
-        "answer": null
-      },
-      {
-        "title": "What is the date today?",
-        "type": "date",
-        "required": false,
-        "answer": ""
-      }
-    ]
+    "filled_by": "Liram Jan",
+    "submitted_at": "2021-01-11",
+    "submit_key": 48938323,
+    "context": {
+      "name": "Form of example Part.1 ",
+      "description": "This form will be the example of Form part 1",
+      "key": 791246,
+      "creator": "Asaf Roussu",
+      "fields": [
+        {
+          "title": "How are you today?",
+          "type": "textarea",
+          "required": true,
+          "answer": null
+        },
+        {
+          "title": "Let me ask you some question",
+          "type": "text",
+          "required": true,
+          "answer": null
+        },
+        {
+          "title": "What is the date today?",
+          "type": "date",
+          "required": false,
+          "answer": ""
+        }
+      ]
+    }
   }
 ]
