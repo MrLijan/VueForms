@@ -19,15 +19,6 @@ class FormFactory extends Factory
      */
     public function definition()
     {
-        // function fields() {
-        //     $obj = (object) array('title' => $this->faker->sentence(5),
-        //         'type' => $this->randType(),
-        //         'required' => false,
-        //         'answer' => null);
-            
-        //         return $obj;
-        // }
-
         return [
             'created_at' => $this->faker->date(),
             'key' => $this->faker->numberBetween(111111, 999999),
