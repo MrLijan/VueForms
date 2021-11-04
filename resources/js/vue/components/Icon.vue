@@ -66,5 +66,6 @@ export default {
 
 .icon-wrapper {
   box-sizing: border-box;
+  overflow: hidden !important;
 }
 </style>

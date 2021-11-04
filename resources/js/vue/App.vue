@@ -4,7 +4,7 @@
       <h2>Liram's Logo</h2>
       <p>This should be improved</p>
     </nav>
-    <section class="container mt-5">
+    <section class="container mt-5 is-max-desktop">
       <router-view />
     </section>
   </div>

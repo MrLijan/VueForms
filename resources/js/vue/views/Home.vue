@@ -1,9 +1,7 @@
 <template>
-  <div class="container is-max-desktop">
+  <div>
     <!-- PAGE HEADER -->
-    <section
-      class="is-flex is-justify-content-space-between is-align-items-flex-end"
-    >
+    <section class="home-header">
       <h1 class="is-size-1">Your Forms</h1>
       <router-link to="/creator">
         <button class="button is-success">NEW FORM</button>
@@ -11,7 +9,26 @@
     </section>
 
     <!-- FORMS LIST -->
-    <section class="table-container">
+    <section class="main-table">
+      <table>
+        <thead>
+          <tr>
+            Form Key
+          </tr>
+          <tr>
+            Name
+          </tr>
+          <tr>
+            Created by
+          </tr>
+          <tr>
+            Actions
+          </tr>
+        </thead>
+      </table>
+    </section>
+
+    <section>
       <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
@@ -28,17 +45,19 @@
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
-            <td>
-              <router-link :to="`/submit/${form.key}`">
-                <button class="button is-small is-info is-light">
-                  <Icon src="arrow-top-right" />
-                </button>
-              </router-link>
-              <router-link :to="`/edit/${form.key}`">
-                <button class="button is-small is-warning is-light">
-                  <Icon src="pen" />
-                </button>
-              </router-link>
+            <td class="is-flex">
+              <button
+                class="button is-small is-info is-light"
+                @click="redirectUser(`/submit/${form.key}`)"
+              >
+                <Icon src="arrow-top-right" />
+              </button>
+              <button
+                class="button is-small is-warning is-light"
+                @click="redirectUser(`/edit/${form.key}`)"
+              >
+                <Icon src="pen" />
+              </button>
               <!-- DELETE FUNCTION -->
               <button
                 class="button is-small is-danger is-light"
@@ -81,6 +100,7 @@
 <script>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import FormHeader from "../components/FormHeader";
 import FormField from "../components/FormField";
 import FormInput from "../components/FormInput";
@@ -96,7 +116,13 @@ export default {
   setup() {
     // Variables:
     const store = useStore();
+    const router = useRouter();
     const modal = ref(false);
+
+    // Handle Redirecting:
+    const redirectUser = (path) => {
+      router.push(path);
+    };
 
     // Dispatch Fetching the form
     function fetchForms() {
@@ -109,6 +135,7 @@ export default {
 
     // END OF SETUP
     return {
+      redirectUser,
       forms,
       fetchForms,
       modal
@@ -118,8 +145,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.title > h1 {
-  overflow: hidden !important;
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
 }
 
 .container > * {
@@ -136,20 +167,8 @@ export default {
   border-top: 6px solid var(--app-field-top);
 }
 
-.table {
-  width: 100%;
-}
-
-.table-body:hover {
-  background-color: black;
-}
-
-td {
-  overflow: hidden !important;
-  flex-shrink: 50%;
-}
-
 td > * {
   margin-left: 5px !important;
+  overflow: hidden !important;
 }
 </style>

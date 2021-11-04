@@ -78,13 +78,15 @@ export default {
     // Save Form handler:
     const saveForm = () => {
       console.log(form);
+      store.dispatch("form/saveForm", form);
     };
 
-    // EDITOR PAGE HANDLER:
+    /* EDITOR PAGE HANDLER: */
     //If the router contain Keys, an dispatch method will be executed
     //in order to fetch the exact form.
     if (route.params.key) {
       function getForm(key) {
+        console.log(form);
         store.dispatch("form/getSingleForm", key);
       }
 

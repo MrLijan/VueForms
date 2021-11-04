@@ -27,6 +27,14 @@ export default {
       });
 
       context.commit("SET_SINGLE_FORM", data);
+    },
+
+    async saveForm(payload) {
+      console.log(payload);
+
+      await axios.post(`${apiPath}/create`, payload).then((res) => {
+        return res.data;
+      });
     }
   },
 
