@@ -19,7 +19,14 @@ class FormFactory extends Factory
      */
     public function definition()
     {
-        
+        // function fields() {
+        //     $obj = (object) array('title' => $this->faker->sentence(5),
+        //         'type' => $this->randType(),
+        //         'required' => false,
+        //         'answer' => null);
+            
+        //         return $obj;
+        // }
 
         return [
             'created_at' => $this->faker->date(),
@@ -28,10 +35,18 @@ class FormFactory extends Factory
             'description' => $this->faker->sentence(30),
             'creator' => $this->faker->name(),
             'fields' => [
-                'title' => $this->faker->sentence(5),
-                'type' => $this->randType(),
-                'required' => false,
-                'answer' => null,
+                (object) [
+                    'title' => $this->faker->sentence(5),
+                    'type' => $this->randType(),
+                    'required' => false,
+                    'answer' => null
+                ],
+                (object) [
+                    'title' => $this->faker->sentence(5),
+                    'type' => $this->randType(),
+                    'required' => false,
+                    'answer' => null
+                ]
             ]
         ];
     }
