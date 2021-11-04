@@ -44,13 +44,14 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  /* overflow: auto !important; */
+  overflow: auto !important;
 }
 
 body {
   font-family: "Zen Kaku Gothic New", sans-serif;
   font-weight: 400;
   background-color: var(--app-bg) !important;
+  display: grid;
 }
 
 nav {

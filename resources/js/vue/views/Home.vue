@@ -64,7 +64,7 @@
             ></button>
           </header>
           <section class="modal-card-body">
-            <p>You are going to delete this entry</p>
+            <p>You are about to delete this entry,</p>
             <p>Are you sure?</p>
           </section>
           <footer class="modal-card-foot">

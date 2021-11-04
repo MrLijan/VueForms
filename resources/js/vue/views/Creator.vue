@@ -55,30 +55,17 @@ export default {
     const selector = ref(null);
     const sections = ref([1]);
 
-    const randKey = () => {
-      return Math.floor(100000 + Math.random() * 900000);
-    };
-
+    // Form VAR
     let form = reactive({
       name: "",
       description: "",
-      key: randKey(),
       creator: "",
       fields: [
         { title: "This is your first Field", type: "textarea", required: false }
       ]
     });
 
-    // Dispatch Fetch Form action in Store
-    if (route.params.key) {
-      function getForm(key) {
-        store.dispatch("form/getSingleForm", key);
-      }
-      getForm(route.params.key);
-
-      form = computed(() => store.state.form.singleForm);
-    }
-
+    // Add section handler:
     const addSection = () => {
       form.fields.push({
         title: "",
@@ -88,13 +75,32 @@ export default {
       });
     };
 
+    // Save Form handler:
+    const saveForm = () => {
+      console.log(form);
+    };
+
+    // EDITOR PAGE HANDLER:
+    //If the router contain Keys, an dispatch method will be executed
+    //in order to fetch the exact form.
+    if (route.params.key) {
+      function getForm(key) {
+        store.dispatch("form/getSingleForm", key);
+      }
+
+      getForm(route.params.key);
+
+      form = computed(() => store.state.form.singleForm);
+    }
+    // END OF SETUP
     return {
       route,
       store,
       selector,
       sections,
       addSection,
-      form
+      form,
+      saveForm
     };
   }
 };

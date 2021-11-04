@@ -61,6 +61,7 @@ export default {
   stroke: currentColor !important;
   width: 100% !important;
   height: 100% !important;
+  overflow: hidden !important;
 }
 
 .icon-wrapper {
