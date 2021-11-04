@@ -54,7 +54,24 @@
     <div class="modal" :class="modal ? 'is-active' : ''">
       <div class="modal-background"></div>
       <div class="modal-content">
-        <!-- Any other Bulma elements you want -->
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">We need your confimation!</p>
+            <button
+              class="delete"
+              aria-label="close"
+              @click="modal = !modal"
+            ></button>
+          </header>
+          <section class="modal-card-body">
+            <p>You are going to delete this entry</p>
+            <p>Are you sure?</p>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
