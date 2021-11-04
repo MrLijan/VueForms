@@ -21,31 +21,20 @@
         </thead>
         <tbody>
           <tr v-for="form in forms" :key="form">
-            <td>{{ form.key }}</td>
+            <td>
+              <code>{{ form.key }}</code>
+            </td>
             <td>
               <strong>{{ form.name }}</strong>
             </td>
             <td>{{ form.creator }}</td>
             <td class="is-flex">
-              <button
-                class="button is-small is-info is-light"
+              <Icon
+                src="arrow-top-right"
                 @click="redirectUser(`/submit/${form.key}`)"
-              >
-                <Icon src="arrow-top-right" />
-              </button>
-              <button
-                class="button is-small is-warning is-light"
-                @click="redirectUser(`/edit/${form.key}`)"
-              >
-                <Icon src="pen" />
-              </button>
-              <!-- DELETE FUNCTION -->
-              <button
-                class="button is-small is-danger is-light"
-                @click="modal = !modal"
-              >
-                <Icon src="trash" />
-              </button>
+              />
+              <Icon src="pen" @click="redirectUser(`/edit/${form.key}`)" />
+              <Icon src="trash" @click="modal = !modal" />
             </td>
           </tr>
         </tbody>
@@ -132,6 +121,11 @@ export default {
   align-items: center;
 
   margin-bottom: 10px;
+}
+
+.home-header > h1 {
+  font-weight: 900;
+  color: var(--app-border);
 }
 
 .container > * {
