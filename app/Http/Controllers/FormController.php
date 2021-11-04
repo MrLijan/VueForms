@@ -17,4 +17,12 @@ class FormController extends Controller
     {
         return Form::where('key', (int)$key)->get();
     }
+
+    public function destroy($key)
+    {
+        $form = Form::where('key', (int)$key);
+        $form->delete();
+
+        return response()->json(['result' => 'Deleted'], 200);
+    }
 }
