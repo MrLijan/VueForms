@@ -26,6 +26,7 @@ export default {
 :root {
   --app-bg: hsl(216, 45%, 98%);
   --app-text: hsl(225, 34%, 20%);
+  --modal-bg: hsla(225, 34%, 20%, 0.5);
   --app-white: hsl(0, 0%, 100%);
   --app-shadow: 0px 5px 15px -5px hsl(220, 2%, 68%);
   --app-border: hsla(220, 2%, 68%, 0.5);

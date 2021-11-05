@@ -40,30 +40,15 @@
         </tbody>
       </table>
     </section>
-    <div class="modal" :class="modal ? 'is-active' : ''">
-      <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">We need your confimation!</p>
-            <button
-              class="delete"
-              aria-label="close"
-              @click="modal = !modal"
-            ></button>
-          </header>
-          <section class="modal-card-body">
-            <p>You are about to delete this entry,</p>
-            <p>Are you sure?</p>
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button is-success">Save changes</button>
-            <button class="button">Cancel</button>
-          </footer>
+
+    <!-- MODAL -->
+    <section class="modal-wrapper" v-if="modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h5>We need your confirmation</h5>
         </div>
       </div>
-      <button class="modal-close is-large" aria-label="close"></button>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -87,7 +72,7 @@ export default {
     // Variables:
     const store = useStore();
     const router = useRouter();
-    const modal = ref(false);
+    const modal = ref(true);
 
     // Handle Redirecting:
     const redirectUser = (path) => {
@@ -156,5 +141,15 @@ td {
 
 tr {
   border-bottom: 1px solid #dbdbdb;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-bg);
+  z-index: 10;
 }
 </style>
