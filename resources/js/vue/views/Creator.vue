@@ -3,7 +3,9 @@
     <!-- PAGE TITLE -->
     <section class="title">
       <h1>Create your form</h1>
-      <span class="tag is-light">Form ID: {{ form.key }}</span>
+      <span class="tag is-light" v-if="route.params.key"
+        >Form ID: {{ form.key }}</span
+      >
     </section>
     <!-- FORM HEADER -->
     <section>
@@ -11,9 +13,6 @@
     </section>
 
     <!-- FORM BODY -->
-    <!-- <section v-for="sec in sections" :key="sec">
-      <FormSection />
-    </section> -->
     <section v-for="field in form.fields" :key="field">
       <FormField
         :title="field.title"
@@ -94,6 +93,7 @@ export default {
 
       form = computed(() => store.state.form.singleForm);
     }
+
     // END OF SETUP
     return {
       route,
