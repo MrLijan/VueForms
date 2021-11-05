@@ -10,7 +10,7 @@
 
     <!-- FORMS LIST -->
     <section class="table-container">
-      <table class="table is-hoverable is-striped">
+      <table class="table is-hoverable is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Key</th>
@@ -34,7 +34,7 @@
                 @click="redirectUser(`/submit/${form.key}`)"
               />
               <Icon src="pen" @click="redirectUser(`/edit/${form.key}`)" />
-              <Icon src="trash" @click="modal = !modal" />
+              <Icon src="trash" @click="userConfirmation(form.key)" />
             </td>
           </tr>
         </tbody>
@@ -46,6 +46,15 @@
       <div class="modal-card">
         <div class="modal-header">
           <h5>We need your confirmation</h5>
+          <Icon src="close" @click="modal = !modal" />
+        </div>
+        <div class="modal-body">
+          <p>You are about to delete this entry,</p>
+          <p>Are you sure?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="button is-light">No, Abort!</button>
+          <button class="button is-danger">Yes, I'm sure</button>
         </div>
       </div>
     </section>
@@ -72,7 +81,7 @@ export default {
     // Variables:
     const store = useStore();
     const router = useRouter();
-    const modal = ref(true);
+    let modal = ref(false);
 
     // Handle Redirecting:
     const redirectUser = (path) => {
@@ -88,12 +97,18 @@ export default {
 
     const forms = computed(() => store.state.form.forms);
 
+    // DELETION HANDLER:
+    const userConfirmation = (key) => {
+      modal.value = !modal.value;
+    };
+
     // END OF SETUP
     return {
       redirectUser,
       forms,
       fetchForms,
-      modal
+      modal,
+      userConfirmation
     };
   }
 };
@@ -143,6 +158,8 @@ tr {
   border-bottom: 1px solid #dbdbdb;
 }
 
+/* MODAL STYLES */
+
 .modal-wrapper {
   position: fixed;
   top: 0;
@@ -151,5 +168,51 @@ tr {
   height: 100vh;
   background-color: var(--modal-bg);
   z-index: 10;
+
+  display: grid;
+  place-items: center;
+}
+
+.modal-card {
+  max-width: 45%;
+  border-radius: 10px;
+  border: 1px solid var(--app-border);
+  background-color: white;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+  z-index: 3;
+
+  box-shadow: var(--app-shadow);
+}
+
+.modal-header :nth-child(1) {
+  font-weight: 900;
+  font-size: 1.12em;
+}
+
+.modal-header :nth-child(2) {
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 25px 10px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2em;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 0;
+}
+
+.modal-footer :nth-child(1) {
+  flex-grow: 1;
 }
 </style>
