@@ -13,6 +13,18 @@
       </div>
     </div>
     <div class="field">
+      <label class="label">What's your name?</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="i.e. Liram Jan"
+          :value="creator"
+          @input="$emit('update:creator', $event.target.value)"
+        />
+      </div>
+    </div>
+    <div class="field">
       <label class="label">Describe it</label>
       <textarea
         class="textarea"
@@ -33,6 +45,10 @@ export default {
       default: ""
     },
     description: {
+      type: String,
+      default: ""
+    },
+    creator: {
       type: String,
       default: ""
     }
