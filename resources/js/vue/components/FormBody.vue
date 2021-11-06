@@ -1,5 +1,5 @@
 <template>
-  <section class="container" v-for="field in fields" :key="field">
+  <section class="container" v-for="(field, index) in fields" :key="index">
     <!-- SECTION BODY -->
     <section class="container-content">
       <div class="field is-flex-grow-1">
@@ -74,25 +74,30 @@ export default {
   },
 
   setup(props) {
-    const fields = reactive(props.data);
+    const fields = props.data;
 
-    var field = reactive({
-      type: "textarea",
-      name: "What do you whish to know?",
-      isRequired: false,
-      answer: ""
-    });
+    // const field = {
+    //   title: "What do you whish to know?",
+    //   type: "textarea",
+    //   isRequired: false,
+    //   answer: ""
+    // };
 
     const logField = () => {
       return fields;
     };
 
     const addNewField = () => {
-      fields.push(field);
+      fields.push({
+        title: "What do you whish to know?",
+        type: "textarea",
+        isRequired: false,
+        answer: ""
+      });
+      console.log(fields);
     };
 
     return {
-      field,
       fields,
       logField,
       addNewField
