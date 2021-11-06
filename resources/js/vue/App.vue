@@ -31,7 +31,9 @@ export default {
   --app-shadow: 0px 5px 15px -5px hsl(220, 2%, 68%);
   --app-border: hsla(220, 2%, 68%, 0.5);
 
-  --app-field-top: hsl(153, 53%, 51%);
+  --app-green: hsl(153, 53%, 51%);
+  --app-blue: hsl(204, 86%, 53%);
+  --app-yellow: hsl(48, 100%, 67%);
 
   --app-container-paddding: 25px 25px;
 }

@@ -66,14 +66,14 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import FormHeader from "../components/FormHeader";
-import FormField from "../components/FormField";
+import FormBody from "../components/FormBody";
 import FormInput from "../components/FormInput";
 import Icon from "../components/Icon";
 
 export default {
   components: {
     FormHeader,
-    FormField,
+    FormBody,
     FormInput,
     Icon
   },

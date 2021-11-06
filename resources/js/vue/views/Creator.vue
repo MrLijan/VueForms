@@ -12,28 +12,24 @@
       <FormHeader
         v-model:name="form.name"
         v-model:description="form.description"
+        v-model:creator="form.creator"
       />
     </section>
 
     <!-- FORM BODY -->
-    <section v-for="(index, field) in form.fields" :key="field">
-      <FormField
-        ref="field"
-        :title="field.title"
-        :inputType="field.type"
-        :required="field.required"
-        @updated="saveForm(index, $event)"
-      />
+    <section class="form-body">
+      <h2>Questions to be asked:</h2>
+      <FormBody ref="field" :data="form.fields" />
     </section>
 
     <!-- FORM CONTROL -->
     <section class="form-control-wrapper is-flex is-justify-content-center">
       <div class="is-flex form-control">
-        <button class="button is-info" @click="addSection()">
+        <button class="button is-info" @click="addNewFieldAtChild()">
           Add Section
         </button>
         <div class="vl"></div>
-        <button class="button is-success" @click="saveForm()">Save Form</button>
+        <button class="button is-success" @click="saveForm">Save Form</button>
       </div>
     </section>
   </div>
@@ -44,13 +40,13 @@ import { ref, computed, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
-import FormField from "../components/FormField";
+import FormBody from "../components/FormBody";
 import FormInput from "../components/FormInput";
 
 export default {
   components: {
     FormHeader,
-    FormField,
+    FormBody,
     FormInput
   },
   setup() {
@@ -59,21 +55,26 @@ export default {
     const selector = ref(null);
     const sections = ref([1]);
 
-    // Form name + Description
-    let formName = "";
-    let formDesc = "";
-
     // Form Variables:
     let form = reactive({
       name: "",
       description: "",
       creator: "",
       fields: [
-        { title: "This is your first Field", type: "textarea", required: false }
+        {
+          title: "This is your first Field",
+          type: "textarea",
+          isRequired: false,
+          answer: ""
+        },
+        {
+          title: "This is your first Field",
+          type: "textarea",
+          isRequired: false,
+          answer: ""
+        }
       ]
     });
-
-    let finalForm = reactive(form);
 
     // Add section handler:
     const addSection = () => {
@@ -86,9 +87,22 @@ export default {
     };
 
     // Save Form handler:
-    const saveForm = (index, event) => {
-      finalForm.fields[index] = event;
+    const saveForm = () => {
+      const data = field.value.logField();
+      form.fields = data;
+      console.log(form.fields);
     };
+
+    const field = ref();
+
+    const saveField = () => {
+      const data = field.value.logField();
+      console.log(data);
+    };
+
+    function addNewFieldAtChild() {
+      field.value.addNewField();
+    }
 
     /* EDITOR PAGE HANDLER: */
     //If the router contain Keys, an dispatch method will be executed
@@ -113,8 +127,9 @@ export default {
       addSection,
       form,
       saveForm,
-      formName,
-      formDesc
+      saveField,
+      field,
+      addNewFieldAtChild
     };
   }
 };

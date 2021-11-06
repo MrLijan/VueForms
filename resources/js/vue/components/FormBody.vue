@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="container" v-for="field in fields" :key="field">
     <!-- SECTION BODY -->
     <section
       class="is-flex is-justify-content-space-between is-align-items-center"
@@ -11,7 +11,7 @@
             class="input"
             type="text"
             placeholder="How are you today?"
-            v-model="inputName"
+            v-model="field.title"
           />
         </div>
       </div>
@@ -19,7 +19,7 @@
         <label class="label">Type</label>
         <div class="control">
           <div class="select">
-            <select v-model="inputType">
+            <select v-model="field.type">
               <option value="text">Short Answer</option>
               <option value="date">Date</option>
               <option value="email">Email</option>
@@ -37,10 +37,10 @@
     <section class="section-footer">
       <label class="label" for="">Example</label>
       <div class="example-field">
-        <label class="label" for="">
-          {{ required ? inputName + "*" : inputName }}
+        <label class="label">
+          {{ field.required ? field.title + "*" : field.title }}
         </label>
-        <FormInput :type="inputType" />
+        <FormInput :type="field.type" />
       </div>
     </section>
 
@@ -50,7 +50,7 @@
     <section class="flex is-pulled-right">
       <!-- <Icon src="trash" /> -->
       <label class="checkbox">
-        <input type="checkbox" v-model="required" />
+        <input type="checkbox" v-model="field.required" />
         Required field
       </label>
       <button class="button is-danger is-small" @click="deleteField">
@@ -61,68 +61,43 @@
 </template>
 
 <script>
-import { ref, reactive, onUpdated } from "vue";
+import { ref, reactive } from "vue";
 import FormInput from "./FormInput.vue";
-import { useStore } from "vuex";
-// import Icon from "./Icon.vue";
 
 export default {
   props: {
-    inputType: {
-      type: String,
-      default: "text"
-    },
-    title: {
-      type: String
-    },
-    required: {
-      type: Boolean
+    data: {
+      type: Object
     }
   },
 
   components: {
     FormInput
-    // Icon
   },
 
-  setup(props, { emit }) {
-    const store = useStore();
-    const inputType = ref(props.inputType);
-    const inputName = ref(props.title);
-    const required = ref(props.required);
+  setup(props) {
+    const fields = reactive(props.data);
 
     var field = reactive({
-      type: "",
-      name: "",
-      isRequired: false
+      type: "textarea",
+      name: "What do you whish to know?",
+      isRequired: false,
+      answer: ""
     });
 
-    // Emit the field data
-    // const logField = () => {
-    //   field = {
-    //     type: inputType.value,
-    //     name: inputName.value,
-    //     isRequired: required.value
-    //   };
+    const logField = () => {
+      return fields;
+    };
 
-    //   return field;
-    // };
-
-    const logField = onUpdated(() => {
-      field = {
-        type: inputType.value,
-        name: inputName.value,
-        isRequired: required.value
-      };
-      emit("updated", field);
-    });
+    const addNewField = () => {
+      fields.push(field);
+    };
 
     return {
-      inputType,
-      inputName,
-      required,
       field,
-      logField
+      fields,
+      logField,
+      addNewField
     };
   }
 };
@@ -136,7 +111,8 @@ export default {
   border-radius: 8px;
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
-  border-top: 6px solid var(--app-field-top);
+  border-top: 6px solid var(--app-blue);
+  margin-bottom: 10px;
 }
 
 .checkbox {
