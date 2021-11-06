@@ -34,6 +34,7 @@ export default {
   --app-green: hsl(153, 53%, 51%);
   --app-blue: hsl(204, 86%, 53%);
   --app-yellow: hsl(48, 100%, 67%);
+  --app-red: hsl(348, 100%, 61%);
 
   --app-container-paddding: 25px 25px;
 }

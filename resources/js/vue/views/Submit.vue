@@ -11,23 +11,25 @@
     </section>
 
     <!-- FORM BODY -->
-    <section>
-      <Field
-        title="Tell us your name"
-        inputType="text"
-        v-model:answer="user"
-        @answer="setUser"
-      />
-    </section>
-    <section v-for="(field, index) in form.fields" :key="field">
-      <Field
-        :title="field.title"
-        :inputType="field.type"
-        :required="field.required"
-        v-model:answer="answer"
-        @answer="setAnswer(index, $event)"
-      />
-    </section>
+    <form action="">
+      <section>
+        <Field
+          title="Tell us your name"
+          inputType="text"
+          v-model:answer="user"
+          @answer="setUser"
+        />
+      </section>
+      <section v-for="(field, index) in form.fields" :key="field">
+        <Field
+          :title="field.title"
+          :inputType="field.type"
+          :required="field.required"
+          v-model:answer="answer"
+          @answer="setAnswer(index, $event)"
+        />
+      </section>
+    </form>
 
     <!-- FORM CONTROL -->
     <section>
@@ -109,6 +111,8 @@ export default {
 
 .title > h1 {
   overflow: hidden !important;
+  font-weight: 900;
+  padding: 8px 0;
 }
 
 .container > * {

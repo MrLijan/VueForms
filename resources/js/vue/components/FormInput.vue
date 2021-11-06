@@ -20,11 +20,14 @@
         @input="emitValue"
       />
     </div>
+    <div class="required" v-if="required">
+      {{ validation }}
+    </div>
   </section>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 export default {
   props: {
@@ -32,21 +35,29 @@ export default {
       type: String,
       required: true,
       default: "text"
+    },
+    required: {
+      type: Boolean
     }
   },
 
   emits: ["onInput"],
 
   setup(props, { emit }) {
-    const input = ref("");
+    const input = ref(null);
 
     const emitValue = () => {
       emit("onInput", input.value);
     };
 
+    const validation = computed(() => {
+      return input.value === "" ? "Requried field" : "";
+    });
+
     return {
       input,
-      emitValue
+      emitValue,
+      validation
     };
   }
 };
@@ -65,5 +76,9 @@ export default {
 
 .checkbox {
   overflow: hidden !important;
+}
+
+.required {
+  color: var(--app-red);
 }
 </style>

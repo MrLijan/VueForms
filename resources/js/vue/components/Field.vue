@@ -4,7 +4,7 @@
     <label class="label">
       {{ required ? "*" + inputName : inputName }}
     </label>
-    <FormInput :type="inputType" @onInput="logInput" />
+    <FormInput :type="inputType" @onInput="logInput" :required="required" />
   </section>
 </template>
 
@@ -60,7 +60,8 @@ export default {
   border-radius: 8px;
   border: 1px solid var(--app-border);
   background-color: var(--app-white);
-  border-top: 6px solid #48c774;
+  border-top: 6px solid var(--app-blue);
+  margin-bottom: 15px;
 }
 
 .checkbox {
