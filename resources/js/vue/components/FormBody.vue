@@ -1,9 +1,7 @@
 <template>
   <section class="container" v-for="field in fields" :key="field">
     <!-- SECTION BODY -->
-    <section
-      class="is-flex is-justify-content-space-between is-align-items-center"
-    >
+    <section class="container-content">
       <div class="field is-flex-grow-1">
         <label class="label">Title</label>
         <div class="control">
@@ -113,6 +111,12 @@ export default {
   background-color: var(--app-white);
   border-top: 6px solid var(--app-blue);
   margin-bottom: 10px;
+}
+
+.container-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkbox {

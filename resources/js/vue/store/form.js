@@ -29,10 +29,9 @@ export default {
       context.commit("SET_SINGLE_FORM", data);
     },
 
-    async saveForm(payload) {
-      console.log(payload);
-
+    async createNewForm(context, payload) {
       await axios.post(`${apiPath}/create`, payload).then((res) => {
+        console.log(res.data);
         return res.data;
       });
     }

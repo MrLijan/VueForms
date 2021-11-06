@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 import form from "./form";
-import creator from "./creator";
 
 // Create main store with Modules:
 export default createStore({
@@ -10,7 +9,6 @@ export default createStore({
   getters: {},
 
   modules: {
-    form,
-    creator
+    form
   }
 });

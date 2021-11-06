@@ -2,7 +2,7 @@
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
     <section class="title">
-      <h1>Create your form</h1>
+      <h1 class="is-size-1">Create your form</h1>
       <span class="tag is-light" v-if="route.params.key"
         >Form ID: {{ form.key }}</span
       >
@@ -18,7 +18,6 @@
 
     <!-- FORM BODY -->
     <section class="form-body">
-      <h2>Questions to be asked:</h2>
       <FormBody ref="field" :data="form.fields" />
     </section>
 
@@ -52,8 +51,7 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    const selector = ref(null);
-    const sections = ref([1]);
+    const field = ref();
 
     // Form Variables:
     let form = reactive({
@@ -66,38 +64,14 @@ export default {
           type: "textarea",
           isRequired: false,
           answer: ""
-        },
-        {
-          title: "This is your first Field",
-          type: "textarea",
-          isRequired: false,
-          answer: ""
         }
       ]
     });
 
-    // Add section handler:
-    const addSection = () => {
-      form.fields.push({
-        title: "Field Title",
-        type: "textarea",
-        required: false,
-        answer: ""
-      });
-    };
-
     // Save Form handler:
     const saveForm = () => {
-      const data = field.value.logField();
-      form.fields = data;
-      console.log(form.fields);
-    };
-
-    const field = ref();
-
-    const saveField = () => {
-      const data = field.value.logField();
-      console.log(data);
+      form.fields = field.value.logField();
+      store.dispatch("form/createNewForm", form);
     };
 
     function addNewFieldAtChild() {
@@ -122,12 +96,8 @@ export default {
     return {
       route,
       store,
-      selector,
-      sections,
-      addSection,
       form,
       saveForm,
-      saveField,
       field,
       addNewFieldAtChild
     };
@@ -141,6 +111,12 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   overflow: hidden !important;
+}
+
+.title > h1 {
+  font-weight: 900;
+  color: var(--app-border);
+  padding: 8px;
 }
 
 .container > * {
