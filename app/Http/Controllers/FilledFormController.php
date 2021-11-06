@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class FilledFormController extends Controller
 {
+
+    protected function randKey() 
+    {
+        return rand(10000000, 99999999);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +27,18 @@ class FilledFormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $req)
     {
-        //
+        $filled = new FilledForm;
+        
+        $filled->filled_by = $req->filled_by;
+        $filled->submit_key = $this->randKey();
+        $filled->context = $req->context;
+
+        
+        $filled->save();
+
+        return response()->json(["result" => 'Created', 201]);
     }
 
     /**
