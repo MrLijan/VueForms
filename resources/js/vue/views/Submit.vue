@@ -67,6 +67,13 @@ export default {
 
     getForm(route.params.key);
 
+    const filledForm = reactive({
+      form_key: form.value.key,
+      form_name: form.value.name,
+      filled_by: "",
+      fields: form.value.fields
+    });
+
     // Handling answer:
     const answer = ref(null);
     let submit = reactive({});
@@ -74,17 +81,17 @@ export default {
 
     // Setting the user:
     const setUser = (event) => {
-      form.value.filledBy = event;
+      filledForm.filled_by = event;
     };
 
     // Setting the answer
     const setAnswer = (index, event) => {
-      form.value.fields[index].answer = event;
+      filledForm.fields[index].answer = event;
     };
 
     // Submitting Form
     const submitForm = () => {
-      console.log(form.value);
+      store.dispatch("filledForm/submitForm", filledForm);
     };
 
     //END OF SETUP

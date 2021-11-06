@@ -31,9 +31,11 @@ class FilledFormController extends Controller
     {
         $filled = new FilledForm;
         
-        $filled->filled_by = $req->filled_by;
+        $filled->form_key = $req->form_key;
+        $filled->form_name = $req->form_name;
         $filled->submit_key = $this->randKey();
-        $filled->context = $req->context;
+        $filled->filled_by = $req->filled_by;
+        $filled->fileds = $req->fields;
 
         
         $filled->save();

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import form from "./form";
+import filledForm from "./filledForm";
 
 // Create main store with Modules:
 export default createStore({
@@ -9,6 +10,7 @@ export default createStore({
   getters: {},
 
   modules: {
-    form
+    form,
+    filledForm
   }
 });
