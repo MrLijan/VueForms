@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive, onUpdated } from "vue";
 import FormInput from "./FormInput.vue";
+import { useStore } from "vuex";
 // import Icon from "./Icon.vue";
 
 export default {
@@ -84,20 +85,44 @@ export default {
     // Icon
   },
 
-  setup(props) {
+  setup(props, { emit }) {
+    const store = useStore();
     const inputType = ref(props.inputType);
     const inputName = ref(props.title);
     const required = ref(props.required);
 
-    const deleteField = (e) => {
-      console.log("d", e);
-    };
+    var field = reactive({
+      type: "",
+      name: "",
+      isRequired: false
+    });
+
+    // Emit the field data
+    // const logField = () => {
+    //   field = {
+    //     type: inputType.value,
+    //     name: inputName.value,
+    //     isRequired: required.value
+    //   };
+
+    //   return field;
+    // };
+
+    const logField = onUpdated(() => {
+      field = {
+        type: inputType.value,
+        name: inputName.value,
+        isRequired: required.value
+      };
+      emit("updated", field);
+    });
 
     return {
       inputType,
       inputName,
       required,
-      deleteField
+      field,
+      logField
     };
   }
 };

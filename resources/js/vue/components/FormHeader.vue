@@ -3,7 +3,13 @@
     <div class="field">
       <label class="label">Give it a name</label>
       <div class="control">
-        <input class="input" type="text" placeholder="i.e. Boring Wozniak" />
+        <input
+          class="input"
+          type="text"
+          placeholder="i.e. Boring Wozniak"
+          :value="name"
+          @input="$emit('update:name', $event.target.value)"
+        />
       </div>
     </div>
     <div class="field">
@@ -12,6 +18,8 @@
         class="textarea"
         rows="3"
         placeholder="The following form will be used for..."
+        :value="description"
+        @input="$emit('update:description', $event.target.value)"
       ></textarea>
     </div>
   </section>
@@ -19,8 +27,15 @@
 
 <script>
 export default {
-  setup() {
-    return {};
+  props: {
+    name: {
+      type: String,
+      default: ""
+    },
+    description: {
+      type: String,
+      default: ""
+    }
   }
 };
 </script>

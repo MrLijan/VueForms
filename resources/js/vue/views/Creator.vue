@@ -9,15 +9,20 @@
     </section>
     <!-- FORM HEADER -->
     <section>
-      <FormHeader />
+      <FormHeader
+        v-model:name="form.name"
+        v-model:description="form.description"
+      />
     </section>
 
     <!-- FORM BODY -->
-    <section v-for="field in form.fields" :key="field">
+    <section v-for="(index, field) in form.fields" :key="field">
       <FormField
+        ref="field"
         :title="field.title"
         :inputType="field.type"
         :required="field.required"
+        @updated="saveForm(index, $event)"
       />
     </section>
 
@@ -54,7 +59,11 @@ export default {
     const selector = ref(null);
     const sections = ref([1]);
 
-    // Form VAR
+    // Form name + Description
+    let formName = "";
+    let formDesc = "";
+
+    // Form Variables:
     let form = reactive({
       name: "",
       description: "",
@@ -64,20 +73,21 @@ export default {
       ]
     });
 
+    let finalForm = reactive(form);
+
     // Add section handler:
     const addSection = () => {
       form.fields.push({
-        title: "",
-        type: "text",
+        title: "Field Title",
+        type: "textarea",
         required: false,
         answer: ""
       });
     };
 
     // Save Form handler:
-    const saveForm = () => {
-      console.log(form);
-      store.dispatch("form/saveForm", form);
+    const saveForm = (index, event) => {
+      finalForm.fields[index] = event;
     };
 
     /* EDITOR PAGE HANDLER: */
@@ -102,7 +112,9 @@ export default {
       sections,
       addSection,
       form,
-      saveForm
+      saveForm,
+      formName,
+      formDesc
     };
   }
 };
