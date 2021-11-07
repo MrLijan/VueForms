@@ -1,8 +1,8 @@
 # VueForms
 
+
 ## Mission Description
 
----
 
 Welcome to the Form Builder application exam. This app is a simple web
 application that allows the user to create a custom form to which anyone can
@@ -22,7 +22,6 @@ To complete the task, the following stack should be implemented:
 
 ## Mission Details
 
----
 
 The following pages should be created:
 
@@ -32,8 +31,6 @@ The following pages should be created:
 
 ### 1. Form List page
 
----
-
 This page will include a list of all forms and also a link to create a new form. The list of forms is a table with the following columns:
 
 - Form ID,
@@ -42,9 +39,6 @@ This page will include a list of all forms and also a link to create a new form.
 - Submit page redirection.
 
 ### 2. Form Builder page
-
----
-
 On this page, you'll implement a wizard to create a form. This wizard will contain a container where you are able to add:
 
 - Field label,
@@ -60,14 +54,13 @@ At the end of the creation process, the user should redirect to the `/forms list
 page.
 
 ### 3. Form Submit page
-
----
-
 On this page, you'll display a specific form by its `id`. This form must include all the relevant fields and a submit button. On submit, all data will be saved.
 
 At the end of the submission process, the user should redirect to the forms
 list page.
 
-### Children Pages:
 
-[API Routes](VueForms%20c99c3c321b26401b8b946fb3523ba8f6/API%20Routes%20d55f41f8bcbd4718ae99934e2b1ab6aa.md)
+
+### Children Pages:
+---
+[API Routes](API-Routes.md)
