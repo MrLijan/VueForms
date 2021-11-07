@@ -23,6 +23,7 @@ use App\Http\Controllers\FilledFormController;
 Route::get('/forms', [FormController::class, 'index']);
 Route::get('/forms/{key}', [FormController::class, 'show']);
 Route::delete('/forms/{key}/delete', [FormController::class, 'destroy']);
+Route::put('/forms/{key}/update', [FormController::class, 'update']);
 Route::post('/forms/create', [FormController::class, 'create']);
 
 Route::post('/filled/create', [FilledFormController::class, 'create']);

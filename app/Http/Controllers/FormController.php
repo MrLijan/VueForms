@@ -52,4 +52,20 @@ class FormController extends Controller
         return response()->json(["result" => 'Created', 201]);
 
     }
+
+    public function update(Request $req, $key) 
+    {
+        $form = Form::where('key', (int)$key);
+        
+        $form->name = $req->name;
+        $form->description = $req->description;
+        $form->key = $req->key;
+        $form->creator = $req->creator;
+        $form->fields = $req->fields;
+
+        
+        $form->save();
+
+        return response()->json(["result" => 'Updated', 201]);
+    }
 }
