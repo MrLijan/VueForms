@@ -1,65 +1,73 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# VueForms
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Mission Description
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Welcome to the Form Builder application exam. This app is a simple web
+application that allows the user to create a custom form to which anyone can
+submit answers (Like *Google Forms*).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+To complete the task, the following stack should be implemented:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Backend - PHP Laravel,
+2. Database - MongoDB,
+3. Front-end framework (React, Vue, Svelte, etc...).
 
-## Learning Laravel
+### Guidelines
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- You can use any general-purpose libraries that don't specifically solve the form creation case.
+- You need to commit all of your actions while you work on this project.
+- You will be required to add additional functionality after you finish the project when choosing libraries, keep that in mind.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Mission Details
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+The following pages should be created:
 
-### Premium Partners
+1. *Forms List,*
+2. *Form Builder,*
+3. *Form Submit,*
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### 1. Form List page
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+This page will include a list of all forms and also a link to create a new form. The list of forms is a table with the following columns:
 
-## Code of Conduct
+- Form ID,
+- Form Name,
+- Number of submissions,
+- Submit page redirection.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Form Builder page
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+On this page, you'll implement a wizard to create a form. This wizard will contain a container where you are able to add:
 
-## License
+- Field label,
+- Input name,
+- Input type,
+- Submit button in order to save this form.
+    
+    
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The field label and input name are free text, and the input type is of the following input types: `text, date, email, Tel,` and `number`. When you are done adding fields, you should enter the form name and hit the submit button in order to add the form to your forms list.
+
+At the end of the creation process, the user should redirect to the `/forms list`
+page.
+
+### 3. Form Submit page
+
+---
+
+On this page, you'll display a specific form by its `id`. This form must include all the relevant fields and a submit button. On submit, all data will be saved.
+
+At the end of the submission process, the user should redirect to the forms
+list page.
+
+### Children Pages:
+
+[API Routes](VueForms%20c99c3c321b26401b8b946fb3523ba8f6/API%20Routes%20d55f41f8bcbd4718ae99934e2b1ab6aa.md)
