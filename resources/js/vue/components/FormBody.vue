@@ -45,7 +45,7 @@
     <hr class="solid" />
 
     <!-- FIELD CONTROL -->
-    <section class="flex is-pulled-right">
+    <section class="field-control">
       <!-- <Icon src="trash" /> -->
       <label class="checkbox">
         <input type="checkbox" v-model="field.required" />
@@ -109,6 +109,7 @@ export default {
 <style lang="css" scoped>
 .container {
   box-sizing: border-box;
+  display: grid;
   padding: var(--app-container-paddding);
 
   border-radius: 8px;
@@ -138,5 +139,9 @@ export default {
   border: dashed 1px var(--app-border);
   border-radius: 6px;
   padding: 15px 15px;
+}
+
+.field-control {
+  justify-self: end;
 }
 </style>
