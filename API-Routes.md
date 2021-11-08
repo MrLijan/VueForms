@@ -15,6 +15,7 @@ The following page will deeply describe the API routes of `VueForms`.
 - GET `/forms/{key}` - will fetch an exact form by its key,
 - DELETE `/forms/{key}/delete` - will delete a specific form by its key.
 - POST `/forms/create` - create a new form in the database,
+- PUT `/forms/{key}/update` - update an existing form,
     
     
 
