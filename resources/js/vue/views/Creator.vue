@@ -18,7 +18,7 @@
 
     <!-- FORM BODY -->
     <section class="form-body">
-      <FormBody ref="field" :data="form.fields" />
+      <FormBody ref="field" :data="form.fields" :key="formBodyKey" />
     </section>
 
     <!-- FORM CONTROL -->
@@ -28,14 +28,23 @@
           Add Section
         </button>
         <div class="vl"></div>
-        <button class="button is-success" @click="saveForm">Save Form</button>
+        <button
+          class="button is-success"
+          @click="updateForm"
+          v-if="route.params.key"
+        >
+          Update Form
+        </button>
+        <button class="button is-success" @click="saveForm" v-else>
+          Save Form
+        </button>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import { ref, computed, reactive } from "vue";
+import { ref, computed, reactive, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
@@ -52,6 +61,7 @@ export default {
     const route = useRoute();
     const store = useStore();
     const field = ref();
+    const formBodyKey = ref(1);
 
     // Form Variables:
     let form = reactive({
@@ -68,28 +78,33 @@ export default {
       ]
     });
 
+    /* EDITOR PAGE HANDLER: */
+    //If the router contain Keys, an dispatch method will be executed
+    //in order to fetch the exact form.
+    if (route.params.key) {
+      onMounted(() => {
+        store.dispatch("form/getSingleForm", route.params.key);
+      });
+
+      form = computed(() => {
+        formBodyKey.value++;
+        return store.state.form.singleForm;
+      });
+    }
+
     // Save Form handler:
     const saveForm = () => {
       form.fields = field.value.logField();
       store.dispatch("form/createNewForm", form);
     };
 
+    const updateForm = () => {
+      form.fields = field.value.logField();
+      store.dispatch("form/updateForm", form.value);
+    };
+
     function addNewFieldAtChild() {
       field.value.addNewField();
-    }
-
-    /* EDITOR PAGE HANDLER: */
-    //If the router contain Keys, an dispatch method will be executed
-    //in order to fetch the exact form.
-    if (route.params.key) {
-      function getForm(key) {
-        console.log(form);
-        store.dispatch("form/getSingleForm", key);
-      }
-
-      getForm(route.params.key);
-
-      form = computed(() => store.state.form.singleForm);
     }
 
     // END OF SETUP
@@ -98,8 +113,10 @@ export default {
       store,
       form,
       saveForm,
+      updateForm,
       field,
-      addNewFieldAtChild
+      addNewFieldAtChild,
+      formBodyKey
     };
   }
 };

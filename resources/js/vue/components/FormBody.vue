@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import FormInput from "./FormInput.vue";
 
 export default {
@@ -74,7 +74,7 @@ export default {
   },
 
   setup(props) {
-    const fields = props.data;
+    const fields = ref(props.data);
 
     // const field = {
     //   title: "What do you whish to know?",
@@ -84,11 +84,11 @@ export default {
     // };
 
     const logField = () => {
-      return fields;
+      return fields.value;
     };
 
     const addNewField = () => {
-      fields.push({
+      fields.value.push({
         title: "What do you whish to know?",
         type: "textarea",
         isRequired: false,

@@ -34,6 +34,16 @@ export default {
         console.log(res.data);
         return res.data;
       });
+    },
+
+    async updateForm(context, payload) {
+      console.log(payload.key);
+      await axios
+        .put(`${apiPath}/${payload.key}/update`, payload)
+        .then((res) => {
+          console.log(res.data);
+          return res.data;
+        });
     }
   },
 
@@ -46,5 +56,9 @@ export default {
     }
   },
 
-  getters: {}
+  getters: {
+    singleForm(state) {
+      return state.singleForm;
+    }
+  }
 };
