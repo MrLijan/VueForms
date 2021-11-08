@@ -51,7 +51,7 @@
         <input type="checkbox" v-model="field.required" />
         Required field
       </label>
-      <button class="button is-danger is-small" @click="deleteField">
+      <button class="button is-danger is-small" @click="deleteField(index)">
         Delete
       </button>
     </section>
@@ -97,10 +97,15 @@ export default {
       console.log(fields);
     };
 
+    const deleteField = (index) => {
+      fields.value.splice(index, 1);
+    };
+
     return {
       fields,
       logField,
-      addNewField
+      addNewField,
+      deleteField
     };
   }
 };
