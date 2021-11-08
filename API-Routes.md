@@ -32,19 +32,16 @@ The following page will deeply describe the API routes of `VueForms`.
         "title": "How are you today?",
         "type": "textarea",
         "required": true,
-        "answer": null
       },
       {
         "title": "Let me ask you some question",
         "type": "text",
         "required": true,
-        "answer": null
       },
       {
         "title": "What is the date today?",
         "type": "date",
         "required": false,
-        "answer": ""
       }
     ]
   }
@@ -74,19 +71,19 @@ The following page will deeply describe the API routes of `VueForms`.
         "title": "How are you today?",
         "type": "textarea",
         "required": true,
-        "answer": null
+        "answer": "I'm fine, how are you?"
       },
       {
         "title": "Let me ask you some question",
         "type": "text",
         "required": true,
-        "answer": null
+        "answer": "Go ahead"
       },
       {
         "title": "What is the date today?",
         "type": "date",
         "required": false,
-        "answer": ""
+        "answer": "I don't know man"
       }
     ]
   }
