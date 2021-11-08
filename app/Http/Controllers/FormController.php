@@ -23,7 +23,7 @@ class FormController extends Controller
     
     public function show($key)
     {
-        return Form::where('key', (int)$key)->get();
+        return Form::firstWhere('key', (int)$key)->get();
     }
 
     
@@ -55,16 +55,24 @@ class FormController extends Controller
 
     public function update(Request $req, $key) 
     {
-        $form = Form::where('key', (int)$key);
+        $form = Form::firstWhere('key', (int)$key)->update([
+            "name" => $req->name,
+            "description" => $req->description,
+            "key" => $req->key,
+            "creator" => $req->creator,
+            "fields" => $req->fields
+        ]);
         
-        $form->name = $req->name;
-        $form->description = $req->description;
-        $form->key = $req->key;
-        $form->creator = $req->creator;
-        $form->fields = $req->fields;
+            // $form->name = "LIRAM";
+            // $form->description = $req->description;
+            // $form->key = $req->key;
+            // $form->creator = $req->creator;
+            // $form->fields = $req->fields;
 
         
-        $form->save();
+
+        
+        // $form->save();
 
         return response()->json(["result" => 'Updated', 201]);
     }

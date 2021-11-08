@@ -37,7 +37,6 @@ export default {
     },
 
     async updateForm(context, payload) {
-      console.log(payload.key);
       await axios
         .put(`${apiPath}/${payload.key}/update`, payload)
         .then((res) => {

@@ -12,4 +12,5 @@ class Form extends Model
     use HasFactory;
     protected $connection = 'mongodb';
     protected $collection = 'forms';
+    protected $guarded = ["_id"];
 }
