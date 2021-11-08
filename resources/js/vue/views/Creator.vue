@@ -1,11 +1,12 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
-    <section class="title">
+    <section class="title" v-if="form.key">
+      <h1 class="is-size-1">{{ form.name }}</h1>
+      <span class="tag is-light">Form Key: {{ form.key }}</span>
+    </section>
+    <section class="title" v-else>
       <h1 class="is-size-1">Create your form</h1>
-      <span class="tag is-light" v-if="route.params.key"
-        >Form ID: {{ form.key }}</span
-      >
     </section>
     <!-- FORM HEADER -->
     <section>
@@ -127,6 +128,11 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  overflow: hidden !important;
+}
+
+.title > .tag {
+  padding: 0 20px;
   overflow: hidden !important;
 }
 
