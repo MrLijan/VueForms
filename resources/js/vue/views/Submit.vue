@@ -20,15 +20,17 @@
           @answer="setUser"
         />
       </section>
-      <section v-for="(field, index) in form.fields" :key="field">
+      <section v-for="(field, idx) in form.fields" :key="idx">
         <Field
           :title="field.title"
           :inputType="field.type"
           :required="field.required"
           :options="field.options"
           v-model:answer="answer"
-          @answer="setAnswer(index, $event)"
+          @answer="setAnswer(idx, $event)"
+          :key="fieldKey"
         />
+        <!-- <SubmitBody :fields="form.fields" :key="fieldKey" /> -->
       </section>
     </form>
 
@@ -42,44 +44,43 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import Field from "../components/Field";
 import FormInput from "../components/FormInput";
+// import SubmitBody from "../components/SubmitBody";
 
 export default {
   components: {
     FormHeader,
     Field,
     FormInput
+    // SubmitBody
   },
   setup() {
     const route = useRoute();
     const store = useStore();
+    const fieldKey = ref(1);
 
     // Dispatch Fetch Form action in store
-    function getForm(key) {
-      store.dispatch("form/getSingleForm", key);
-    }
+    store.dispatch("form/getSingleForm", route.params.key);
 
     const form = computed(() => store.state.form.singleForm);
-    console.log(form.value);
 
-    getForm(route.params.key);
-
-    const filledForm = reactive({
-      form_key: form.value.key,
-      form_name: form.value.name,
-      filled_by: "",
-      fields: form.value.fields
+    let filledForm = computed(() => {
+      return {
+        form_key: form.value.key,
+        form_name: form.value.name,
+        filled_by: "",
+        fields: form.value.fields
+      };
     });
 
     // Handling answer:
     const answer = ref(null);
-    let submit = reactive({});
-    const user = ref("");
+    const user = ref(null);
 
     // Setting the user:
     const setUser = (event) => {
@@ -87,26 +88,26 @@ export default {
     };
 
     // Setting the answer
-    const setAnswer = (index, event) => {
-      filledForm.fields[index].answer = event;
+    const setAnswer = (idx, event) => {
+      filledForm.value.fields[idx].answer = event;
     };
 
     // Submitting Form
     const submitForm = () => {
-      console.log(filledForm);
-      store.dispatch("filledForm/submitForm", filledForm);
+      console.log(filledForm.value);
+      //store.dispatch("filledForm/submitForm", filledForm);
     };
 
     //END OF SETUP
     return {
       form,
-      getForm,
       answer,
+      fieldKey,
       setAnswer,
       setUser,
       user,
-      submit,
-      submitForm
+      submitForm,
+      filledForm
     };
   }
 };
