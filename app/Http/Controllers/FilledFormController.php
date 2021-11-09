@@ -102,7 +102,18 @@ class FilledFormController extends Controller
         return response()->json(['result' => 'Deleted'], 200);
     }
 
-    public function count() {
-        return FilledForm::count();
+
+    /**
+     * 
+     * @return \Illuminate\Http\Response
+     */
+
+    public function count(Request $req) 
+    {
+        $form_key = $req->query('key');
+
+        $filled = FilledForm::where('form_key', (int) $form_key)->get();
+
+        return $filled->count();
     }
 }

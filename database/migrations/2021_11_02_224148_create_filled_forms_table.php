@@ -16,10 +16,10 @@ class CreateFilledFormsTable extends Migration
         Schema::create('filled_forms', function (Blueprint $table) {
             $table->id();
             $table->timestamps('created_at');
-            $table->integer('key')->unique();
-            $table->string('name');
-            $table->string('description');
-            $table->string('creator');
+            $table->integer('form_key');
+            $table->string('form_name');
+            $table->string('filled_key')->unique();
+            $table->string('filled_by');
             $table->array('fields');
         });
     }

@@ -18,30 +18,33 @@ class FilledFormFactory extends Factory
      * @return array
      */
     public function definition()
-    {   
-
-        
+    {
         return [
-            'created_at' => $this->faker->date(),
-            'filled_by' => $this->faker->name(),
-            'filled_key' => $this->faker->numberBetween(10000000, 99999999),
-            'context' => (object) [
-                'key' => $this->faker->numberBetween(000000, 999999),
-                'fields' => [
-                    (object) [
-                        'title' => $this->faker->sentence(5),
-                        'type' => $this->randType(),
-                        'required' => false,
-                        'answer' => null,
-                    ],
-                    (object) [
-                        'title' => $this->faker->sentence(5),
-                        'type' => $this->randType(),
-                        'required' => false,
-                        'answer' => null,
-                    ]
+            "form_key" => $this->faker->numberBetween(100000, 999999),
+            "form_name" => $this->faker->sentence(5),
+            "filled_key" => $this->faker->numberBetween(10000000, 99999999),
+            "filled_by" => $this->faker->name(),
+            "fields" => (object) [
+                (object) [
+                    "title" => $this->faker->sentence(3),
+                    "type" => $this->randType(),
+                    "isRequired" => true,
+                    "answer" => null
+                ],
+                (object) [
+                    "title" => $this->faker->sentence(3),
+                    "type" => $this->randType(),
+                    "isRequired" => true,
+                    "answer" => null
+                ],
+                (object) [
+                    "title" => $this->faker->sentence(3),
+                    "type" => $this->randType(),
+                    "isRequired" => true,
+                    "answer" => null
                 ]
             ]
         ];
+        
     }
 }
