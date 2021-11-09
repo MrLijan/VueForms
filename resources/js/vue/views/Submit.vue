@@ -43,20 +43,18 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import Field from "../components/Field";
 import FormInput from "../components/FormInput";
-// import SubmitBody from "../components/SubmitBody";
 
 export default {
   components: {
     FormHeader,
     Field,
     FormInput
-    // SubmitBody
   },
   setup() {
     const route = useRoute();

@@ -23,7 +23,7 @@ class FormController extends Controller
     
     public function show($key)
     {
-        return Form::firstWhere('key', (int)$key)->get();
+        return Form::where('key', (int)$key)->first();
     }
 
     

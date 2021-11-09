@@ -51,7 +51,7 @@ export default {
       state.forms = value;
     },
     SET_SINGLE_FORM(state, value) {
-      state.singleForm = value[0];
+      state.singleForm = value;
     }
   },
 
