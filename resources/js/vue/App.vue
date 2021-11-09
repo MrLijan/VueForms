@@ -51,10 +51,14 @@ export default {
   /* overflow: auto !important; */
 }
 
+html {
+  background-color: var(--app-bg) !important;
+  overflow: auto;
+}
+
 body {
   font-family: "Zen Kaku Gothic New", sans-serif;
   font-weight: 400;
-  background-color: var(--app-bg) !important;
   display: grid;
 }
 
