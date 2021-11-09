@@ -30,7 +30,6 @@
           @answer="setAnswer(idx, $event)"
           :key="fieldKey"
         />
-        <!-- <SubmitBody :fields="form.fields" :key="fieldKey" /> -->
       </section>
     </form>
 
