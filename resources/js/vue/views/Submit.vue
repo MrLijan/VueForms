@@ -25,6 +25,7 @@
           :title="field.title"
           :inputType="field.type"
           :required="field.required"
+          :options="field.options"
           v-model:answer="answer"
           @answer="setAnswer(index, $event)"
         />
@@ -64,6 +65,7 @@ export default {
     }
 
     const form = computed(() => store.state.form.singleForm);
+    console.log(form.value);
 
     getForm(route.params.key);
 
@@ -91,6 +93,7 @@ export default {
 
     // Submitting Form
     const submitForm = () => {
+      console.log(filledForm);
       store.dispatch("filledForm/submitForm", filledForm);
     };
 

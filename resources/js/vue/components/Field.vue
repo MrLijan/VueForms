@@ -4,7 +4,12 @@
     <label class="label">
       {{ required ? "*" + inputName : inputName }}
     </label>
-    <FormInput :type="inputType" @onInput="logInput" :required="required" />
+    <FormInput
+      :type="inputType"
+      @onInput="logInput"
+      :required="required"
+      :options="options"
+    />
   </section>
 </template>
 
@@ -24,6 +29,7 @@ export default {
     required: {
       type: Boolean
     },
+    options: {},
     answer: {
       type: String
     }

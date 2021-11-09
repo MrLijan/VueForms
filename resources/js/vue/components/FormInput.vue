@@ -11,6 +11,13 @@
         @input="emitValue"
       ></textarea>
     </div>
+    <div v-else-if="type == 'select'" class="select">
+      <select name="select" id="select" v-model="input" @input="emitValue">
+        <option v-for="option in options" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
     <div v-else>
       <input
         class="input"
@@ -35,6 +42,9 @@ export default {
       type: String,
       required: true,
       default: "text"
+    },
+    options: {
+      type: [String, Array]
     },
     required: {
       type: Boolean

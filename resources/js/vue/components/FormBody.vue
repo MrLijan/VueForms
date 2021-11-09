@@ -24,6 +24,7 @@
               <option value="tel">Cellphone</option>
               <option value="number">Number</option>
               <option value="textarea">Paragraph</option>
+              <option value="select">Selection</option>
             </select>
           </div>
         </div>
@@ -38,7 +39,7 @@
         <label class="label">
           {{ field.required ? field.title + "*" : field.title }}
         </label>
-        <FormInput :type="field.type" />
+        <FormInput :type="field.type" :options="field.options" />
       </div>
     </section>
 
