@@ -29,13 +29,13 @@ class FormFactory extends Factory
                 (object) [
                     'title' => $this->faker->sentence(5),
                     'type' => $this->randType(),
-                    'required' => false,
+                    'isRequired' => true,
                     'answer' => null
                 ],
                 (object) [
                     'title' => $this->faker->sentence(5),
                     'type' => $this->randType(),
-                    'required' => false,
+                    'isRequired' => false,
                     'answer' => null
                 ]
             ]
