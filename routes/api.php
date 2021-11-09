@@ -26,5 +26,9 @@ Route::delete('/forms/{key}/delete', [FormController::class, 'destroy']);
 Route::put('/forms/{key}/update', [FormController::class, 'update']);
 Route::post('/forms/create', [FormController::class, 'create']);
 
+Route::get('/filled', [FilledFormController::class, 'index']);
+Route::get('filled/{key}', [FilledFormController::class, 'show']);
+Route::delete('filled/{key}/delete', [FilledFormController::class, 'destroy']);
 Route::post('/filled/create', [FilledFormController::class, 'create']);
+Route::get('filled/count', [FilledFormController::class, 'count']);
 

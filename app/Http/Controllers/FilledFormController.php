@@ -19,7 +19,7 @@ class FilledFormController extends Controller
      */
     public function index()
     {
-        //
+        return FilledForm::all();
     }
 
     /**
@@ -60,9 +60,9 @@ class FilledFormController extends Controller
      * @param  \App\Models\FilledForm  $filledForm
      * @return \Illuminate\Http\Response
      */
-    public function show(FilledForm $filledForm)
+    public function show($key)
     {
-        //
+        return FilledForm::where('filled_key', (int)$key)->first();  
     }
 
     /**
@@ -96,6 +96,13 @@ class FilledFormController extends Controller
      */
     public function destroy(FilledForm $filledForm)
     {
-        //
+        $filled = FilledForm::where('filled_key', (int)$key);
+        $filled->delete();
+
+        return response()->json(['result' => 'Deleted'], 200);
+    }
+
+    public function count() {
+        return FilledForm::count();
     }
 }
