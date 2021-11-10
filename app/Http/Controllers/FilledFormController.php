@@ -17,7 +17,7 @@ class FilledFormController extends Controller
     protected function fetchKey($key)
     {
         $form = Form::where('key', (int) $key)->first();
-        return $form->_id;
+        return $form->id;
     }
 
 
@@ -40,9 +40,9 @@ class FilledFormController extends Controller
     public function create(Request $req)
     {
         $filled = new FilledForm;
-        $form_key = $req->form_key;
+        $form_key = $this->fetchKey($req->form_key);
         
-        $filled->form_key = $this->fetchKey($form_key);
+        $filled->form_key = $form_key;
         $filled->form_name = $req->form_name;
         $filled->filled_key = $this->randKey();
         $filled->filled_by = $req->filled_by;

@@ -14,7 +14,7 @@ export default {
 
   actions: {
     async submitForm(context, payload) {
-      await axios.post(`${apiPath}/create`, payload).then((res) => {
+      await axios.post(`${apiPath}/create`, payload.value).then((res) => {
         console.log(res);
       });
     }

@@ -81,7 +81,7 @@ export default {
 
     // Setting the user:
     const setUser = (event) => {
-      filledForm.filled_by = event;
+      filledForm.value.filled_by = event;
     };
 
     // Setting the answer
@@ -91,8 +91,7 @@ export default {
 
     // Submitting Form
     const submitForm = () => {
-      console.log(filledForm.value);
-      //store.dispatch("filledForm/submitForm", filledForm);
+      store.dispatch("filledForm/submitForm", filledForm);
     };
 
     //END OF SETUP
