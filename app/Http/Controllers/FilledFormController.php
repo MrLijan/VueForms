@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FilledForm;
+use App\Models\Form;
 use Illuminate\Http\Request;
 
 class FilledFormController extends Controller
@@ -12,6 +13,14 @@ class FilledFormController extends Controller
     {
         return rand(10000000, 99999999);
     }
+
+    protected function fetchKey($key)
+    {
+        $form = Form::where('key', (int) $key)->first();
+        return $form->_id;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +30,7 @@ class FilledFormController extends Controller
     {
         return FilledForm::all();
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -30,10 +40,11 @@ class FilledFormController extends Controller
     public function create(Request $req)
     {
         $filled = new FilledForm;
+        $form_key = $req->form_key;
         
-        $filled->form_key = $req->form_key;
+        $filled->form_key = $this->fetchKey($form_key);
         $filled->form_name = $req->form_name;
-        $filled->submit_key = $this->randKey();
+        $filled->filled_key = $this->randKey();
         $filled->filled_by = $req->filled_by;
         $filled->fileds = $req->fields;
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // use App\Http\Requests\FormRequest;
 use App\Models\Form;
+use App\Models\FilledForm;
 
 class FormController extends Controller
 {
@@ -13,6 +14,7 @@ class FormController extends Controller
     {
         return rand(100000, 999999);
     }
+
 
     public function index() 
     {
@@ -36,6 +38,7 @@ class FormController extends Controller
         return response()->json(['result' => 'Deleted'], 200);
     }
 
+
     public function create(Request $req) 
     {
         $form = new Form;
@@ -52,6 +55,7 @@ class FormController extends Controller
         return response()->json(["result" => 'Created', 201]);
 
     }
+    
 
     public function update(Request $req, $key) 
     {
