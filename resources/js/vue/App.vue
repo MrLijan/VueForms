@@ -7,6 +7,11 @@
     <section class="container mt-5 is-max-desktop">
       <router-view />
     </section>
+    <footer class="footer is-size-7">
+      <div class="has-text-centered">
+        Developed and created by MrLijan (liramj21@gmail.com)
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -77,6 +82,12 @@ nav {
 
 nav > h2 {
   font-weight: 900 !important;
+}
+
+footer {
+  background: none !important;
+  display: flex;
+  justify-content: center;
 }
 
 /* ROUTER-VIEW */
