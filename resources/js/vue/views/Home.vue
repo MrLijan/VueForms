@@ -10,7 +10,7 @@
 
     <!-- FORMS LIST -->
     <section class="table-container">
-      <table class="table is-hoverable is-striped is-fullwidth">
+      <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>Key</th>
@@ -22,7 +22,7 @@
         <tbody>
           <tr v-for="form in forms" :key="form">
             <td>
-              <code>{{ form.key }}</code>
+              <span class="tag is-light is-info">{{ form.key }}</span>
             </td>
             <td>
               <strong>{{ form.name }}</strong>
