@@ -2,7 +2,7 @@
   <transition name="slide-fade">
     <div class="wrapper">
       <Icon src="close" class="ico" />
-      <div class="text">{{ text }}</div>
+      <div class="text" :class="classType">{{ text }}</div>
     </div>
   </transition>
 </template>
@@ -25,9 +25,34 @@ export default {
   setup(props) {
     const text = ref(props.data.text);
     const type = ref(props.data.type);
+
+    const classType = ref("info");
+
+    switch (type) {
+      case "success":
+        classType = "success";
+        break;
+
+      case "info":
+        classType = "info";
+        break;
+
+      case "warning":
+        classType = "warning";
+        break;
+
+      case "danger":
+        classType = "danger";
+        break;
+
+      default:
+        classType = "info";
+    }
+
     return {
       text,
-      type
+      type,
+      classType
     };
   }
 };
