@@ -1,5 +1,8 @@
 <template>
   <div>
+    <section class="toasts">
+      <Toast :data="toast" v-for="toast in toasts" :key="toast" />
+    </section>
     <nav>
       <h2>Liram's Logo</h2>
       <p>This should be improved</p>
@@ -16,9 +19,26 @@
 </template>
 
 <script>
+import Toast from "./components/Toast.vue";
+
 export default {
+  components: {
+    Toast
+  },
+
   setup() {
-    return {};
+    const toasts = [
+      { type: "success", text: "Lorem ipsum dolor as tamet" },
+      { type: "error", text: "Lorem ipsum dolor as tamet" },
+      { type: "warning", text: "Lorem ipsum dolor as tamet" },
+      {
+        type: "info",
+        text: "Lorem ipsum dolor as tame Lorem ipsum dolor as tamet Lorem ipsum dolor as tamet"
+      }
+    ];
+    return {
+      toasts
+    };
   }
 };
 </script>
@@ -37,7 +57,7 @@ export default {
   --app-border: hsla(220, 2%, 68%, 0.5);
 
   --app-green: hsl(153, 53%, 51%);
-  --app-blue: hsl(204, 86%, 53%);
+  --app-green-shadow: hsl(138, 45%, 94%);
   --app-yellow: hsl(48, 100%, 67%);
   --app-red: hsl(348, 100%, 61%);
 
@@ -88,6 +108,19 @@ footer {
   background: none !important;
   display: flex;
   justify-content: center;
+}
+
+.toasts {
+  position: fixed;
+  top: 25px;
+  width: 100%;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+}
+
+.toasts > div {
+  margin-bottom: 10px;
 }
 
 /* ROUTER-VIEW */
