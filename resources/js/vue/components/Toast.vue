@@ -1,8 +1,8 @@
 <template>
   <transition name="slide-fade">
-    <div class="wrapper">
+    <div class="wrapper" :class="type">
       <Icon src="close" class="ico" />
-      <div class="text" :class="classType">{{ text }}</div>
+      <div class="text">{{ text }}</div>
     </div>
   </transition>
 </template>
@@ -13,8 +13,12 @@ import Icon from "./Icon.vue";
 
 export default {
   props: {
-    data: {
-      type: Object
+    type: {
+      type: String
+    },
+    text: {
+      type: String,
+      default: "Default Toast Text"
     }
   },
 
@@ -23,36 +27,14 @@ export default {
   },
 
   setup(props) {
-    const text = ref(props.data.text);
-    const type = ref(props.data.type);
+    const text = ref(props.text);
+    const type = ref(props.type);
 
-    const classType = ref("info");
-
-    switch (type) {
-      case "success":
-        classType = "success";
-        break;
-
-      case "info":
-        classType = "info";
-        break;
-
-      case "warning":
-        classType = "warning";
-        break;
-
-      case "danger":
-        classType = "danger";
-        break;
-
-      default:
-        classType = "info";
-    }
+    console.log(text.value, type.value);
 
     return {
       text,
-      type,
-      classType
+      type
     };
   }
 };
@@ -69,9 +51,28 @@ export default {
   width: 320px;
 
   border-radius: 15px;
-  border: 1.5px solid var(--app-green);
-  background-color: var(--app-green-shadow);
+
   box-shadow: var(--app-shadow);
+}
+
+.success {
+  background-color: var(--app-green-shadow);
+  border: 1.5px solid var(--app-green);
+}
+
+.info {
+  background-color: var(--app-blue-shadow);
+  border: 1.5px solid var(--app-blue);
+}
+
+.warning {
+  background-color: var(--app-yellow-shadow);
+  border: 1.5px solid var(--app-yellow);
+}
+
+.error {
+  background-color: var(--app-red-shadow);
+  border: 1.5px solid var(--app-red);
 }
 
 .wrapper > .ico {

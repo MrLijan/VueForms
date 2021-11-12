@@ -1,7 +1,9 @@
 <template>
   <div>
     <section class="toasts">
-      <Toast :data="toast" v-for="toast in toasts" :key="toast" />
+      <div v-for="(toast, index) in toasts" :key="index">
+        <Toast :type="toast.type" :text="toast.text" />
+      </div>
     </section>
     <nav>
       <h2>Liram's Logo</h2>
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import Toast from "./components/Toast.vue";
 
 export default {
@@ -36,6 +39,8 @@ export default {
         text: "Lorem ipsum dolor as tame Lorem ipsum dolor as tamet Lorem ipsum dolor as tamet"
       }
     ];
+
+    console.log(toasts);
     return {
       toasts
     };
@@ -58,8 +63,15 @@ export default {
 
   --app-green: hsl(153, 53%, 51%);
   --app-green-shadow: hsl(138, 45%, 94%);
+
   --app-yellow: hsl(48, 100%, 67%);
-  --app-red: hsl(348, 100%, 61%);
+  --app-yellow-shadow: hsl(39, 91%, 96%);
+
+  --app-red: hsl(11, 82%, 55%);
+  --app-red-shadow: hsl(13, 76%, 95%);
+
+  --app-blue: hsl(204, 86%, 53%);
+  --app-blue-shadow: hsl(213, 67%, 94%);
 
   --app-container-paddding: 25px 25px;
 }
