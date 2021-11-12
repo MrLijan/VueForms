@@ -30,8 +30,6 @@ export default {
     const text = ref(props.text);
     const type = ref(props.type);
 
-    console.log(text.value, type.value);
-
     return {
       text,
       type

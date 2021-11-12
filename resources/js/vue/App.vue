@@ -36,7 +36,6 @@ export default {
       return store.state.toast.activeToasts;
     });
 
-    console.log(toasts);
     return {
       toasts
     };

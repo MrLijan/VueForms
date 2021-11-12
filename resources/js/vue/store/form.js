@@ -1,7 +1,11 @@
 import axios from "axios";
-// import { storeKey } from "vuex";
 
 const apiPath = `${process.env.MIX_API_URL}/forms`;
+
+// Helper
+const randID = () => {
+  return (Math.random().toString(36) + Date.now().toString(36)).substr(2);
+};
 
 // Form Store Module:
 export default {
@@ -14,7 +18,16 @@ export default {
 
   actions: {
     async getForms(context) {
+      const toast = {
+        id: randID(),
+        type: "info",
+        text: "Fetching all forms..."
+      };
+
+      context.dispatch("toast/newToast", toast, { root: true });
+
       const data = await axios.get(apiPath).then((res) => {
+        context.dispatch("toast/newToast", toast, { root: true });
         return res.data;
       });
 

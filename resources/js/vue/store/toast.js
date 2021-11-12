@@ -15,6 +15,7 @@ export default {
   mutations: {
     SET_NEW_TOAST(state, value) {
       state.activeToasts.push({
+        id: value.id,
         type: value.type,
         text: value.text
       });
