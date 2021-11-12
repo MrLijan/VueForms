@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import Toast from "./components/Toast.vue";
 
 export default {
@@ -30,15 +31,10 @@ export default {
   },
 
   setup() {
-    const toasts = [
-      { type: "success", text: "Lorem ipsum dolor as tamet" },
-      { type: "error", text: "Lorem ipsum dolor as tamet" },
-      { type: "warning", text: "Lorem ipsum dolor as tamet" },
-      {
-        type: "info",
-        text: "Lorem ipsum dolor as tame Lorem ipsum dolor as tamet Lorem ipsum dolor as tamet"
-      }
-    ];
+    const store = useStore();
+    const toasts = computed(() => {
+      return store.state.toast.activeToasts;
+    });
 
     console.log(toasts);
     return {
