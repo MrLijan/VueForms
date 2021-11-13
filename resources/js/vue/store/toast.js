@@ -3,7 +3,7 @@ export default {
   namespaced: true,
 
   state: {
-    activeToasts: []
+    toasts: []
   },
 
   actions: {
@@ -14,17 +14,28 @@ export default {
 
   mutations: {
     SET_NEW_TOAST(state, value) {
-      state.activeToasts.push({
+      state.toasts.push({
         id: value.id,
         type: value.type,
         text: value.text
       });
+    },
+
+    SET_TOAST_ON_SUCCESS(state, value) {
+      const index = state.toasts
+        .map((toast) => {
+          return toast.id;
+        })
+        .indexOf(value.id);
+
+      state.toasts[index].type = "success";
+      state.toasts[index].text = "Fetching completed";
     }
   },
 
   getters: {
-    activeToasts(state) {
-      return state.activeToasts;
+    toasts(state) {
+      return state.toasts;
     }
   }
 };
