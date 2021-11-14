@@ -18,48 +18,57 @@ export default {
 
   actions: {
     async getForms(context) {
-      const toast = {
-        id: randID(),
-        type: "info",
-        text: "Fetching all forms..."
-      };
+      // const toast = {
+      //   id: randID(),
+      //   type: "info",
+      //   text: "Fetching all forms..."
+      // };
 
-      context.dispatch("toast/newToast", toast, { root: true });
+      // context.dispatch("toast/newToast", toast, { root: true });
 
-      const data = await axios.get(apiPath).then((res) => {
-        context.dispatch("toast/newToast", toast, { root: true });
-        return res.data;
-      });
+      const data = await axios
+        .get(apiPath)
+        .then((res) => {
+          context.commit("SET_FORMS", res.data);
+        })
+        .catch((err) => {
+          return err;
+        });
 
-      context.commit("SET_FORMS", data);
+      return data;
     },
 
     async getSingleForm(context, payload) {
       const data = await axios.get(`${apiPath}/${payload}`).then((res) => {
-        return res.data;
+        context.commit("SET_SINGLE_FORM", res.data);
       });
 
-      context.commit("SET_SINGLE_FORM", data);
+      return data;
     },
 
     async createNewForm(context, payload) {
-      await axios.post(`${apiPath}/create`, payload).then((res) => {
-        console.log(res.data);
-        return res.data;
-      });
+      const data = await axios
+        .post(`${apiPath}/create`, payload)
+        .then((res) => {
+          return res.data;
+        });
+
+      return data;
     },
 
     async updateForm(context, payload) {
-      await axios
+      const data = await axios
         .put(`${apiPath}/${payload.key}/update`, payload)
         .then((res) => {
           console.log(res.data);
           return res.data;
         });
+
+      return data;
     },
 
     async deleteForm(context, payload) {
-      await axios
+      const data = await axios
         .delete(`${apiPath}/${payload}/delete`)
         .then((res) => {
           context.dispatch("getForms");
@@ -68,6 +77,8 @@ export default {
         .catch((err) => {
           return err;
         });
+
+      return data;
     }
   },
 
