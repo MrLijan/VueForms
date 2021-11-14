@@ -24,7 +24,7 @@
         <Field
           :title="field.title"
           :inputType="field.type"
-          :required="field.required"
+          :isRequired="field.isRequired"
           :options="field.options"
           v-model:answer="answer"
           @answer="setAnswer(idx, $event)"

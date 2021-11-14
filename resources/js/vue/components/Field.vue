@@ -2,12 +2,12 @@
   <section class="container">
     <!-- FIELD BODY -->
     <label class="label">
-      {{ required ? "*" + inputName : inputName }}
+      {{ isRequired ? "*" + inputName : inputName }}
     </label>
     <FormInput
       :type="inputType"
       @onInput="logInput"
-      :required="required"
+      :required="isRequired"
       :options="options"
     />
   </section>
@@ -26,7 +26,7 @@ export default {
     title: {
       type: String
     },
-    required: {
+    isRequired: {
       type: Boolean
     },
     options: {
@@ -44,7 +44,7 @@ export default {
   setup(props, { emit }) {
     const inputType = ref(props.inputType);
     const inputName = ref(props.title);
-    const required = ref(props.required);
+    const isRequired = ref(props.isRequired);
 
     const logInput = (event) => {
       emit("answer", event);
@@ -53,7 +53,7 @@ export default {
     return {
       inputType,
       inputName,
-      required,
+      isRequired,
       logInput
     };
   }

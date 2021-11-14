@@ -58,7 +58,7 @@
     <section class="field-control">
       <!-- <Icon src="trash" /> -->
       <label class="checkbox">
-        <input type="checkbox" v-model="field.required" />
+        <input type="checkbox" v-model="field.isRequired" />
         Required field
       </label>
       <button class="button is-danger is-small" @click="deleteField(index)">
