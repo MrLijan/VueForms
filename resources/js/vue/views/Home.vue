@@ -29,26 +29,23 @@
             </td>
             <td>{{ form.creator }}</td>
             <td class="is-flex">
-              <button class="button is-small is-light is-link">
-                <Icon
-                  src="external_link"
-                  @click="redirectUser(`/submit/${form.key}`)"
-                  class="ex-link"
-                />
+              <button
+                class="button is-small is-light is-link"
+                @click="redirectUser(`/submit/${form.key}`)"
+              >
+                <Icon src="external_link" class="ex-link" />
               </button>
-              <button class="button is-small is-light is-warning">
-                <Icon
-                  src="pen"
-                  @click="redirectUser(`/edit/${form.key}`)"
-                  stroke="hsl(48, 100%, 67%)"
-                />
+              <button
+                class="button is-small is-light is-warning"
+                @click="redirectUser(`/edit/${form.key}`)"
+              >
+                <Icon src="pen" stroke="hsl(48, 100%, 67%)" />
               </button>
-              <button class="button is-small is-light is-danger">
-                <Icon
-                  src="trash"
-                  @click="deleteForm(form.key)"
-                  stroke="hsl(11, 82%, 55%)"
-                />
+              <button
+                class="button is-small is-light is-danger"
+                @click="deleteForm(form.key)"
+              >
+                <Icon src="trash" stroke="hsl(11, 82%, 55%)" />
               </button>
             </td>
           </tr>
