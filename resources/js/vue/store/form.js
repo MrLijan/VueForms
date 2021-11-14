@@ -60,7 +60,6 @@ export default {
       const data = await axios
         .put(`${apiPath}/${payload.key}/update`, payload)
         .then((res) => {
-          console.log(res.data);
           return res.data;
         });
 
