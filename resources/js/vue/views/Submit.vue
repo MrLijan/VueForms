@@ -22,6 +22,8 @@
           inputType="text"
           v-model:answer="user"
           @answer="setUser"
+          :isRequired="true"
+          :key="fieldKey"
         />
       </section>
       <section v-for="(field, idx) in form.fields" :key="idx">
@@ -50,7 +52,7 @@
 
 <script>
 import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import Field from "../components/Field";
@@ -64,6 +66,7 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const fieldKey = ref(1);
 
@@ -97,8 +100,17 @@ export default {
 
     // Submitting Form
     const submitForm = () => {
-      store.dispatch("filledForm/submitForm", filledForm);
+      store
+        .dispatch("filledForm/submitForm", filledForm)
+        .then(() => {
+          router.push("/");
+        })
+        .catch((err) => {
+          window.alert("Something Went wrong");
+        });
     };
+
+    //Form Validator:
 
     //END OF SETUP
     return {

@@ -14,9 +14,14 @@ export default {
 
   actions: {
     async submitForm(context, payload) {
-      await axios.post(`${apiPath}/create`, payload.value).then((res) => {
-        console.log(res);
-      });
+      return await axios
+        .post(`${apiPath}/create`, payload.value)
+        .then((res) => {
+          return res;
+        })
+        .catch((err) => {
+          return err;
+        });
     }
   },
 

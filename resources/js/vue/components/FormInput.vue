@@ -3,6 +3,7 @@
     <div v-if="type == 'textarea'">
       <textarea
         class="textarea"
+        :class="validation ? 'is-danger' : ''"
         name="textarea"
         id=""
         cols="30"
@@ -11,7 +12,11 @@
         @input="emitValue"
       ></textarea>
     </div>
-    <div v-else-if="type == 'select'" class="select">
+    <div
+      v-else-if="type == 'select'"
+      class="select"
+      :class="validation ? 'is-danger' : ''"
+    >
       <select name="select" id="select" v-model="input" @change="emitValue">
         <option v-for="(option, index) in options" :key="index" :value="option">
           {{ option }}
@@ -21,6 +26,7 @@
     <div v-else>
       <input
         class="input"
+        :class="validation ? 'is-danger' : ''"
         :type="type"
         name="input"
         v-model="input"
