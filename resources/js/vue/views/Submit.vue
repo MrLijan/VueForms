@@ -1,13 +1,17 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
-    <section class="header px-5">
+    <section class="header">
       <div class="title">
         <h1 class="is-size-1">{{ form.name }}</h1>
-        <span class="tag is-light">Form ID: {{ form.key }}</span>
       </div>
-      <div class="tag is-success">Created by: {{ form.creator }}</div>
-      <p>{{ form.description }}</p>
+      <p class="pb-5">{{ form.description }}</p>
+      <div class="is-flex is-justify-content-end">
+        <span class="tag is-light">Form ID: {{ form.key }}</span>
+        <div class="tag is-success is-light">
+          Created by: {{ form.creator }}
+        </div>
+      </div>
     </section>
 
     <!-- FORM BODY -->
@@ -122,6 +126,11 @@ export default {
   overflow: hidden !important;
   font-weight: 900;
   padding: 8px 0;
+  color: var(--app-border);
+}
+
+.tag {
+  font-weight: 600 !important;
 }
 
 .container > * {
