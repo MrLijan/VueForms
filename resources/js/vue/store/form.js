@@ -56,6 +56,18 @@ export default {
           console.log(res.data);
           return res.data;
         });
+    },
+
+    async deleteForm(context, payload) {
+      await axios
+        .delete(`${apiPath}/${payload}/delete`)
+        .then((res) => {
+          context.dispatch("getForms");
+          return res.data;
+        })
+        .catch((err) => {
+          return err;
+        });
     }
   },
 

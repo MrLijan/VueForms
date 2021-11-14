@@ -34,7 +34,7 @@
                 @click="redirectUser(`/submit/${form.key}`)"
               />
               <Icon src="pen" @click="redirectUser(`/edit/${form.key}`)" />
-              <Icon src="trash" @click="userConfirmation(form.key)" />
+              <Icon src="trash" @click="deleteForm(form.key)" />
             </td>
           </tr>
         </tbody>
@@ -98,8 +98,16 @@ export default {
     const forms = computed(() => store.state.form.forms);
 
     // DELETION HANDLER:
-    const userConfirmation = (key) => {
-      modal.value = !modal.value;
+    const deleteForm = (key) => {
+      if (
+        window.confirm(
+          `You are about to delete Form number ${key}\n Are you sure?`
+        )
+      ) {
+        store.dispatch("form/deleteForm", key);
+      } else {
+        console.log("ABORT");
+      }
     };
 
     // END OF SETUP
@@ -108,7 +116,7 @@ export default {
       forms,
       fetchForms,
       modal,
-      userConfirmation
+      deleteForm
     };
   }
 };
