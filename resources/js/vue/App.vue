@@ -14,7 +14,8 @@
     </section>
     <footer class="footer is-size-7">
       <div class="has-text-centered">
-        Developed and created by MrLijan (liramj21@gmail.com)
+        Developed by
+        <a href="https://github.com/MrLijan">MrLijan (liramj21@gmail.com)</a>
       </div>
     </footer>
   </div>
