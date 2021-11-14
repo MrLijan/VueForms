@@ -37,7 +37,7 @@
           Update Form
         </button>
         <button class="button is-success" @click="saveForm" v-else>
-          Save Form
+          Create Form
         </button>
       </div>
     </section>
@@ -97,7 +97,15 @@ export default {
     // Save Form handler:
     const saveForm = () => {
       form.fields = field.value.logField();
-      store.dispatch("form/createNewForm", form);
+      store
+        .dispatch("form/createNewForm", form)
+        .then((res) => {
+          router.push("/");
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     const updateForm = () => {

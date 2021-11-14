@@ -47,13 +47,14 @@ export default {
     },
 
     async createNewForm(context, payload) {
-      const data = await axios
+      return await axios
         .post(`${apiPath}/create`, payload)
         .then((res) => {
           return res.data;
+        })
+        .catch((err) => {
+          return err;
         });
-
-      return data;
     },
 
     async updateForm(context, payload) {
