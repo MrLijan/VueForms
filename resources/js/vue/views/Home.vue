@@ -9,7 +9,7 @@
     </section>
 
     <!-- FORMS LIST -->
-    <section class="table-container">
+    <section class="table-container" v-if="forms.length != 0">
       <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
@@ -39,6 +39,12 @@
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- IF FORM IS EMPTY -->
+    <section class="table-container has-text-centered" v-else>
+      <h2>There are no forms here...</h2>
+      <p>You can create new form by clicking on NEW FORM</p>
     </section>
 
     <!-- MODAL -->
