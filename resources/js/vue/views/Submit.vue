@@ -5,7 +5,7 @@
       <div class="title">
         <h1 class="is-size-1">{{ form.name }}</h1>
       </div>
-      <p class="pb-5">{{ form.description }}</p>
+      <p class="subtitle">{{ form.description }}</p>
       <div class="is-flex is-justify-content-end">
         <span class="tag is-light">Form ID: {{ form.key }}</span>
         <div class="tag is-success is-light">
