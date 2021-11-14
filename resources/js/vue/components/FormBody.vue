@@ -31,6 +31,15 @@
       </div>
       <div class="required is-pulled-right"></div>
     </section>
+    <section v-if="field.type == 'select'">
+      <label class="label">Options</label>
+      <input
+        class="input"
+        type="text"
+        placeholder="Example: Sunday, Monday, Thursday"
+        @input="toOptionsArray(index, $event)"
+      />
+    </section>
 
     <!-- FIELD EXAMPLE -->
     <section class="section-footer">
@@ -60,7 +69,7 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue";
+import { ref } from "vue";
 import FormInput from "./FormInput.vue";
 
 export default {
@@ -82,6 +91,7 @@ export default {
     //   type: "textarea",
     //   isRequired: false,
     //   answer: ""
+    //   options: []
     // };
 
     const logField = () => {
@@ -102,11 +112,17 @@ export default {
       fields.value.splice(index, 1);
     };
 
+    const toOptionsArray = (index, event) => {
+      const options = event.target.value.split(",");
+      fields.value[index].options = options;
+    };
+
     return {
       fields,
       logField,
       addNewField,
-      deleteField
+      deleteField,
+      toOptionsArray
     };
   }
 };
