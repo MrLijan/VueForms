@@ -35,9 +35,11 @@
 
     <!-- FORM CONTROL -->
     <section>
-      <button class="button is-success is-pulled-right" @click="submitForm">
-        Submit Form
-      </button>
+      <div class="is-flex is-justify-content-end">
+        <button class="button is-success" @click="submitForm">
+          Submit Form
+        </button>
+      </div>
     </section>
   </div>
 </template>
