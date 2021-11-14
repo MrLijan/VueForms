@@ -29,12 +29,27 @@
             </td>
             <td>{{ form.creator }}</td>
             <td class="is-flex">
-              <Icon
-                src="arrow-top-right"
-                @click="redirectUser(`/submit/${form.key}`)"
-              />
-              <Icon src="pen" @click="redirectUser(`/edit/${form.key}`)" />
-              <Icon src="trash" @click="deleteForm(form.key)" />
+              <button class="button is-small is-light is-link">
+                <Icon
+                  src="external_link"
+                  @click="redirectUser(`/submit/${form.key}`)"
+                  class="ex-link"
+                />
+              </button>
+              <button class="button is-small is-light is-warning">
+                <Icon
+                  src="pen"
+                  @click="redirectUser(`/edit/${form.key}`)"
+                  stroke="hsl(48, 100%, 67%)"
+                />
+              </button>
+              <button class="button is-small is-light is-danger">
+                <Icon
+                  src="trash"
+                  @click="deleteForm(form.key)"
+                  stroke="hsl(11, 82%, 55%)"
+                />
+              </button>
             </td>
           </tr>
         </tbody>
@@ -75,6 +90,7 @@ import FormHeader from "../components/FormHeader";
 import FormBody from "../components/FormBody";
 import FormInput from "../components/FormInput";
 import Icon from "../components/Icon";
+// import Icon2 from "../components/Icon2";
 
 export default {
   components: {
@@ -82,6 +98,7 @@ export default {
     FormBody,
     FormInput,
     Icon
+    // Icon2
   },
   setup() {
     // Variables:
