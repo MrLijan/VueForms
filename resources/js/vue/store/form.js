@@ -57,13 +57,11 @@ export default {
     },
 
     async updateForm(context, payload) {
-      const data = await axios
+      return await axios
         .put(`${apiPath}/${payload.key}/update`, payload)
         .then((res) => {
           return res.data;
         });
-
-      return data;
     },
 
     async deleteForm(context, payload) {

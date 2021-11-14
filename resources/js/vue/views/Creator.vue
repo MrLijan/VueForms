@@ -46,7 +46,7 @@
 
 <script>
 import { ref, computed, reactive, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import FormBody from "../components/FormBody";
@@ -60,6 +60,7 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const field = ref();
     const formBodyKey = ref(1);
@@ -101,7 +102,15 @@ export default {
 
     const updateForm = () => {
       form.fields = field.value.logField();
-      store.dispatch("form/updateForm", form.value);
+      store
+        .dispatch("form/updateForm", form.value)
+        .then((res) => {
+          router.push("/");
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
     function addNewFieldAtChild() {
@@ -150,7 +159,7 @@ export default {
   position: fixed;
   bottom: 0;
   margin-bottom: 15px;
-  max-width: 33.3%;
+  max-width: 633.3px;
   background-color: white;
   padding: 15px 15px;
   border-radius: 15px;
