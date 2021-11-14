@@ -12,8 +12,8 @@
       ></textarea>
     </div>
     <div v-else-if="type == 'select'" class="select">
-      <select name="select" id="select" v-model="input" @input="emitValue">
-        <option v-for="option in options" :key="option" :value="option">
+      <select name="select" id="select" v-model="input" @change="emitValue">
+        <option v-for="(option, index) in options" :key="index" :value="option">
           {{ option }}
         </option>
       </select>

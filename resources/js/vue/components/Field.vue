@@ -29,7 +29,9 @@ export default {
     required: {
       type: Boolean
     },
-    options: {},
+    options: {
+      type: Array
+    },
     answer: {
       type: String
     }
