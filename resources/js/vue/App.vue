@@ -72,16 +72,9 @@ export default {
   --app-container-paddding: 25px 25px;
 }
 
-/* RESETS */
-/* #app {
-  width: 100vw;
-  height: 100vh;
-} */
-
 * {
   margin: 0;
   padding: 0;
-  /* overflow: auto !important; */
 }
 
 html {
@@ -130,6 +123,4 @@ footer {
 .toasts > div {
   margin-bottom: 10px;
 }
-
-/* ROUTER-VIEW */
 </style>
