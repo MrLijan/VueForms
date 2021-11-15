@@ -15,9 +15,15 @@ class FormController extends Controller
         return rand(100000, 999999);
     }
 
+    /*
+     * -> The following function will return the number of the filled
+     *    forms, grouped by key.
+    */
     protected function countFilled($key) 
     {
-        return FilledForm::where('form_key', (int) $key)->get();
+        $numOfFilled = FilledForm::where('form_key', (int) $key)->get(); 
+        
+        return $numOfFilled;
     }
 
 
@@ -32,6 +38,28 @@ class FormController extends Controller
 
 
         return $forms;
+    }
+
+    public function indexPaginated(Request $req) 
+    {
+        $numOfForms = Form::all()->count();
+        
+        $perPage = 10;
+        $page = $req->input('page', 1);
+        $pages = ceil($formsCount / $perPage);
+        $skip = ceil(($perPage * $page) - $perPage);
+
+        $forms = Form::skip($skip)
+                    ->take($perPage)
+                    ->get();
+
+
+        return [
+            'data' => $forms,
+            'total' => $formsCount,
+            'current_page' => $page,
+            'total_pages' => $pages
+        ];
     }
 
     
