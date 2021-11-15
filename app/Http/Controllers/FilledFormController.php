@@ -14,12 +14,6 @@ class FilledFormController extends Controller
         return rand(10000000, 99999999);
     }
 
-    protected function fetchKey($key)
-    {
-        $form = Form::where('key', (int) $key)->first();
-        return $form->id;
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -40,9 +34,8 @@ class FilledFormController extends Controller
     public function create(Request $req)
     {
         $filled = new FilledForm;
-        $form_key = $this->fetchKey($req->form_key);
         
-        $filled->form_key = $form_key;
+        $filled->form_key = $req->form_key;
         $filled->form_name = $req->form_name;
         $filled->filled_key = $this->randKey();
         $filled->filled_by = $req->filled_by;

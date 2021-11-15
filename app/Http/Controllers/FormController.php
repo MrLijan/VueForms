@@ -15,10 +15,23 @@ class FormController extends Controller
         return rand(100000, 999999);
     }
 
+    protected function countFilled($key) 
+    {
+        return FilledForm::where('form_key', (int) $key)->get();
+    }
+
 
     public function index() 
     {
-        return Form::all();
+        $forms = Form::all();
+
+        foreach($forms as $form)
+        {
+            $form->filled_count = count($this->countFilled($form->key));
+        }
+
+
+        return $forms;
     }
 
     

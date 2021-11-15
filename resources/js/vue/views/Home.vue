@@ -16,18 +16,24 @@
             <th>Key</th>
             <th>Name</th>
             <th>Creator</th>
+            <th>Count</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="form in forms" :key="form">
             <td>
-              <span class="tag is-light is-info">{{ form.key }}</span>
+              <span class="tag is-light is-info has-text-weight-semibold">{{
+                form.key
+              }}</span>
             </td>
-            <td>
-              <strong>{{ form.name }}</strong>
+            <td class="has-text-weight-bold">
+              {{ form.name }}
             </td>
             <td>{{ form.creator }}</td>
+            <td class="subtitle has-text-weight-semibold has-text-centered">
+              {{ form.filled_count }}
+            </td>
             <td class="is-flex">
               <button
                 class="button is-small is-light is-link"
