@@ -2,7 +2,7 @@
   <div>
     <!-- PAGE HEADER -->
     <section class="home-header">
-      <h1 class="is-size-1">Your Forms</h1>
+      <h1 class="is-size-1">All Forms</h1>
       <router-link to="/creator">
         <button class="button is-success">NEW FORM</button>
       </router-link>
@@ -15,7 +15,7 @@
           <tr>
             <th>Key</th>
             <th>Name</th>
-            <th>Creator</th>
+            <th>Author</th>
             <th>Count</th>
             <th>Actions</th>
           </tr>
@@ -23,9 +23,9 @@
         <tbody>
           <tr v-for="form in forms" :key="form">
             <td>
-              <span class="tag is-light is-info has-text-weight-semibold">{{
-                form.key
-              }}</span>
+              <span class="tag is-light is-info has-text-weight-semibold">
+                {{ form.key }}
+              </span>
             </td>
             <td class="has-text-weight-bold">
               {{ form.name }}
