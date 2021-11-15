@@ -15,7 +15,7 @@
     </section>
 
     <!-- FORM BODY -->
-    <form action="">
+    <form @submit.prevent="submitForm">
       <section>
         <Field
           title="Tell us your name"
@@ -37,16 +37,13 @@
           :key="fieldKey"
         />
       </section>
+      <!-- FORM CONTROL -->
+      <section>
+        <div class="is-flex is-justify-content-end">
+          <input class="button is-success" type="submit" />
+        </div>
+      </section>
     </form>
-
-    <!-- FORM CONTROL -->
-    <section>
-      <div class="is-flex is-justify-content-end">
-        <button class="button is-success" @click="submitForm">
-          Submit Form
-        </button>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -106,7 +103,7 @@ export default {
           router.push("/");
         })
         .catch((err) => {
-          window.alert("Something Went wrong");
+          window.alert("Something Went wrong", err);
         });
     };
 

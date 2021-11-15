@@ -10,6 +10,7 @@
         rows="5"
         v-model="input"
         @input="emitValue"
+        :required="required"
       ></textarea>
     </div>
     <div
@@ -17,8 +18,19 @@
       class="select"
       :class="validation ? 'is-danger' : ''"
     >
-      <select name="select" id="select" v-model="input" @change="emitValue">
-        <option v-for="(option, index) in options" :key="index" :value="option">
+      <select
+        name="select"
+        id="select"
+        v-model="input"
+        @change="emitValue"
+        :required="required"
+      >
+        <option
+          v-for="(option, index) in options"
+          :key="index"
+          :value="option"
+          :required="required"
+        >
           {{ option }}
         </option>
       </select>
@@ -31,6 +43,7 @@
         name="input"
         v-model="input"
         @input="emitValue"
+        :required="required"
       />
     </div>
     <div class="required" v-if="required">
