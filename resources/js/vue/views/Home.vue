@@ -65,6 +65,25 @@
       <p>You can create new form by clicking on NEW FORM</p>
     </section>
 
+    <section class="is-flex is-justify-content-center">
+      <div class="pagination">
+        <ul class="pagination-list">
+          <li
+            v-for="(page, index) in pagination.total_pages"
+            :key="index"
+            @click="fetchForms(page)"
+          >
+            <a
+              class="pagination-link"
+              :class="pagination.current_page == page ? 'is-current' : ''"
+            >
+              {{ page }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- MODAL -->
     <section class="modal-wrapper" v-if="modal">
       <div class="modal-card">
@@ -93,7 +112,6 @@ import FormHeader from "../components/FormHeader";
 import FormBody from "../components/FormBody";
 import FormInput from "../components/FormInput";
 import Icon from "../components/Icon";
-// import Icon2 from "../components/Icon2";
 
 export default {
   components: {
@@ -101,13 +119,15 @@ export default {
     FormBody,
     FormInput,
     Icon
-    // Icon2
   },
   setup() {
     // Variables:
     const store = useStore();
     const router = useRouter();
     let modal = ref(false);
+    const pagination = computed(() => {
+      return store.state.form.pagination;
+    });
 
     // Handle Redirecting:
     const redirectUser = (path) => {
@@ -115,8 +135,8 @@ export default {
     };
 
     // Dispatch Fetching the form
-    function fetchForms() {
-      store.dispatch("form/getForms");
+    function fetchForms(page = 1) {
+      store.dispatch("form/getForms", page);
     }
 
     fetchForms();
@@ -142,7 +162,8 @@ export default {
       forms,
       fetchForms,
       modal,
-      deleteForm
+      deleteForm,
+      pagination
     };
   }
 };
@@ -192,61 +213,9 @@ tr {
   border-bottom: 1px solid #dbdbdb;
 }
 
-/* MODAL STYLES */
-
-.modal-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--modal-bg);
-  z-index: 10;
-
-  display: grid;
-  place-items: center;
-}
-
-.modal-card {
-  max-width: 45%;
-  border-radius: 10px;
-  border: 1px solid var(--app-border);
-  background-color: white;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 10px;
-  z-index: 3;
-
-  box-shadow: var(--app-shadow);
-}
-
-.modal-header :nth-child(1) {
-  font-weight: 900;
-  font-size: 1.12em;
-}
-
-.modal-header :nth-child(2) {
-  cursor: pointer;
-}
-
-.modal-body {
-  padding: 25px 10px;
-  display: grid;
-  place-items: center;
-  font-size: 1.2em;
-}
-
-.modal-footer {
-  display: flex;
-  padding: 0;
-}
-
-.modal-footer :nth-child(1) {
-  flex-grow: 1;
+/* PAGINATION STYLES */
+.is-current {
+  background-color: var(--app-green) !important;
+  border-color: var(--app-green) !important;
 }
 </style>

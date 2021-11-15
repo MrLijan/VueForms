@@ -13,21 +13,17 @@ export default {
 
   state: {
     forms: {},
-    singleForm: {}
+    pagination: {
+      total: 0,
+      current_page: 1,
+      total_pages: 0
+    }
   },
 
   actions: {
-    async getForms(context) {
-      // const toast = {
-      //   id: randID(),
-      //   type: "info",
-      //   text: "Fetching all forms..."
-      // };
-
-      // context.dispatch("toast/newToast", toast, { root: true });
-
+    async getForms(context, payload) {
       const data = await axios
-        .get(apiPath)
+        .get(`${apiPath}/paginated?page=${payload}`)
         .then((res) => {
           context.commit("SET_FORMS", res.data);
         })
@@ -82,7 +78,12 @@ export default {
 
   mutations: {
     SET_FORMS(state, value) {
-      state.forms = value;
+      state.forms = value.data;
+      state.pagination = {
+        total: value.total,
+        current_page: value.current_page,
+        total_pages: value.total_pages
+      };
     },
     SET_SINGLE_FORM(state, value) {
       state.singleForm = value;

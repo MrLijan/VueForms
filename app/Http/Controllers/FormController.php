@@ -42,7 +42,7 @@ class FormController extends Controller
 
     public function indexPaginated(Request $req) 
     {
-        $numOfForms = Form::all()->count();
+        $formsCount = Form::all()->count();
         
         $perPage = 10;
         $page = $req->input('page', 1);
