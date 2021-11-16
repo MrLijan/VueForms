@@ -65,17 +65,18 @@
       <p>You can create new form by clicking on NEW FORM</p>
     </section>
 
-    <section class="is-flex is-justify-content-center">
+    <!-- PAGINATION -->
+    <section class="is-flex is-justify-content-center" v-if="total_pages > 1">
       <div class="pagination">
         <ul class="pagination-list">
           <li
-            v-for="(page, index) in pagination.total_pages"
+            v-for="(page, index) in total_pages"
             :key="index"
             @click="fetchForms(page)"
           >
             <a
               class="pagination-link"
-              :class="pagination.current_page == page ? 'is-current' : ''"
+              :class="current_page == page ? 'is-current' : ''"
             >
               {{ page }}
             </a>
@@ -84,7 +85,7 @@
       </div>
     </section>
 
-    <!-- MODAL -->
+    <!-- MODAL
     <section class="modal-wrapper" v-if="modal">
       <div class="modal-card">
         <div class="modal-header">
@@ -100,7 +101,7 @@
           <button class="button is-danger">Yes, I'm sure</button>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -124,10 +125,10 @@ export default {
     // Variables:
     const store = useStore();
     const router = useRouter();
-    let modal = ref(false);
-    const pagination = computed(() => {
-      return store.state.form.pagination;
+    const total_pages = computed(() => {
+      return store.state.form.total_pages;
     });
+    const current_page = computed(() => store.state.form.current_page);
 
     // Handle Redirecting:
     const redirectUser = (path) => {
@@ -161,9 +162,9 @@ export default {
       redirectUser,
       forms,
       fetchForms,
-      modal,
       deleteForm,
-      pagination
+      total_pages,
+      current_page
     };
   }
 };

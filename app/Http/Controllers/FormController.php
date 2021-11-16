@@ -23,44 +23,46 @@ class FormController extends Controller
     {
         $numOfFilled = FilledForm::where('form_key', (int) $key)->get(); 
         
-        return $numOfFilled;
+        return $numOfFilled->count();
     }
 
 
-    public function index() 
+    public function index(Request $req) 
     {
-        $forms = Form::all();
+        $perPage = 10;
+        $forms = Form::paginate($perPage);
 
         foreach($forms as $form)
         {
-            $form->filled_count = count($this->countFilled($form->key));
+            $form->filled_count = $this->countFilled($form->key);
         }
 
 
+        $forms->count_forms = $forms->count();
         return $forms;
     }
 
-    public function indexPaginated(Request $req) 
-    {
-        $formsCount = Form::all()->count();
+    // public function indexPaginated(Request $req) 
+    // {
+    //     $formsCount = Form::all()->count();
         
-        $perPage = 10;
-        $page = $req->input('page', 1);
-        $pages = ceil($formsCount / $perPage);
-        $skip = ceil(($perPage * $page) - $perPage);
+    //     $perPage = 10;
+    //     $page = $req->input('page', 1);
+    //     $pages = ceil($formsCount / $perPage);
+    //     $skip = ceil(($perPage * $page) - $perPage);
 
-        $forms = Form::skip($skip)
-                    ->take($perPage)
-                    ->get();
+    //     $forms = Form::skip($skip)
+    //                 ->take($perPage)
+    //                 ->get();
 
 
-        return [
-            'data' => $forms,
-            'total' => $formsCount,
-            'current_page' => $page,
-            'total_pages' => $pages
-        ];
-    }
+    //     return [
+    //         'data' => $forms,
+    //         'total' => $formsCount,
+    //         'current_page' => $page,
+    //         'total_pages' => $pages
+    //     ];
+    // }
 
     
     

@@ -13,18 +13,17 @@ export default {
 
   state: {
     forms: {},
-    pagination: {
-      total: 0,
-      current_page: 1,
-      total_pages: 0
-    }
+    total: 0,
+    current_page: 1,
+    total_pages: 0
   },
 
   actions: {
     async getForms(context, payload) {
       const data = await axios
-        .get(`${apiPath}/paginated?page=${payload}`)
+        .get(`${apiPath}?page=${payload}`)
         .then((res) => {
+          console.log(res.data);
           context.commit("SET_FORMS", res.data);
         })
         .catch((err) => {
@@ -79,11 +78,9 @@ export default {
   mutations: {
     SET_FORMS(state, value) {
       state.forms = value.data;
-      state.pagination = {
-        total: value.total,
-        current_page: value.current_page,
-        total_pages: value.total_pages
-      };
+      state.current_page = value.current_page;
+      state.total_pages = value.last_page;
+      state.total_forms = value.total;
     },
     SET_SINGLE_FORM(state, value) {
       state.singleForm = value;
