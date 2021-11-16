@@ -13,6 +13,7 @@ export default {
 
   state: {
     forms: {},
+    singleForm: {},
     total_forms: 0,
     current_page: 1,
     total_pages: 0

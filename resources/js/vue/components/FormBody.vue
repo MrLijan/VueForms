@@ -38,6 +38,7 @@
         type="text"
         placeholder="Example: Sunday, Monday, Thursday"
         @input="toOptionsArray(index, $event)"
+        :value="field.options"
       />
     </section>
 
@@ -105,7 +106,6 @@ export default {
         isRequired: false,
         answer: ""
       });
-      console.log(fields);
     };
 
     const deleteField = (index) => {
