@@ -1,23 +1,21 @@
 # VueForms
 
-## TL;DR
+## TL;DR - Setup Procedure:
 
-Setup Procedure:
-
-1. Clone this repo by using the following command:
+Clone this repo by using the following command:
 
 ```bash
 git clone https://github.com/MrLijan/VueForms.git
 cd VueForms
 ```
 
-1. Install all dependencies by running the following command:
+Install all dependencies by running the following command:
 
 ```bash
 composer install
 ```
 
-1. Edit the .env file as follows:
+Edit the .env file as follows:
 
 ```bash
 DB_USERNAME=<db username>
@@ -25,7 +23,7 @@ DB_PASSWORD=<db password>
 APP_KEY=<php artisan key:generate>
 ```
 
-1. Run the following command to build and serve the application
+Run the following command to build and serve the application
 
 ```bash
 npm run start
@@ -35,7 +33,6 @@ npm run start
 
 ## Mission Description
 
----
 
 Welcome to the Form Builder application exam. This app is a simple web
 application that allows the user to create a custom form to which anyone can
@@ -55,8 +52,6 @@ To complete the task, the following stack should be implemented:
 
 ## Mission Details
 
----
-
 The following pages should be created:
 
 1. *Forms List,*
@@ -65,7 +60,6 @@ The following pages should be created:
 
 ### 1. Form List page
 
----
 
 This page will include a list of all forms and also a link to create a new form. The list of forms is a table with the following columns:
 
@@ -76,7 +70,7 @@ This page will include a list of all forms and also a link to create a new form.
 
 ### 2. Form Builder page
 
----
+
 
 On this page, you'll implement a wizard to create a form. This wizard will contain a container where you are able to add:
 
@@ -94,15 +88,14 @@ page.
 
 ### 3. Form Submit page
 
----
 
 On this page, you'll display a specific form by its `id`. This form must include all the relevant fields and a submit button. On submit, all data will be saved.
 
 At the end of the submission process, the user should redirect to the forms
 list page.
 
+---
+
 ### Children Pages:
 
-[Setup](https://www.notion.so/Setup-14a550f88dbc47e281970eb0e616d5e2)
-
-[API Routes](https://www.notion.so/API-Routes-d55f41f8bcbd4718ae99934e2b1ab6aa)
+[API Routes](MrLijan/VueForms/blob/main/API-Routes.md)
