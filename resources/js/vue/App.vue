@@ -8,7 +8,7 @@
     <section class="container mt-5 is-max-desktop">
       <router-view />
     </section>
-    <footer class="footer is-size-7">
+    <footer class="footer is-size-7 pt-5">
       <div class="has-text-centered">
         Developed by
         <a href="https://github.com/MrLijan">MrLijan (liramj21@gmail.com)</a>
