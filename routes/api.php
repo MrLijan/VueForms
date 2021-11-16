@@ -21,7 +21,7 @@ use App\Http\Controllers\FilledFormController;
 // });
 
 Route::get('/forms', [FormController::class, 'index']);
-// Route::get('/forms/paginated', [FormController::class, 'indexPaginated']);
+// Route::get('/forms/paginated', [FormController::class, 'indexPaginated']); // -> Pagination testing
 Route::post('/forms/create', [FormController::class, 'create']);
 Route::get('/forms/{key}', [FormController::class, 'show']);
 Route::delete('/forms/{key}/delete', [FormController::class, 'destroy']);

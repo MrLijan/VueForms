@@ -23,7 +23,6 @@ export default {
       const data = await axios
         .get(`${apiPath}?page=${payload}`)
         .then((res) => {
-          console.log(res.data);
           context.commit("SET_FORMS", res.data);
         })
         .catch((err) => {

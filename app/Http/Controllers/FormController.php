@@ -41,7 +41,10 @@ class FormController extends Controller
         $forms->count_forms = $forms->count();
         return $forms;
     }
-
+    
+    /**
+     * Paginated endpoint method
+     */
     // public function indexPaginated(Request $req) 
     // {
     //     $formsCount = Form::all()->count();

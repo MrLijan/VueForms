@@ -84,24 +84,6 @@
         </ul>
       </div>
     </section>
-
-    <!-- MODAL
-    <section class="modal-wrapper" v-if="modal">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h5>We need your confirmation</h5>
-          <Icon src="close" @click="modal = !modal" />
-        </div>
-        <div class="modal-body">
-          <p>You are about to delete this entry,</p>
-          <p>Are you sure?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="button is-light">No, Abort!</button>
-          <button class="button is-danger">Yes, I'm sure</button>
-        </div>
-      </div>
-    </section> -->
   </div>
 </template>
 
@@ -125,26 +107,26 @@ export default {
     // Variables:
     const store = useStore();
     const router = useRouter();
-    const total_pages = computed(() => {
-      return store.state.form.total_pages;
-    });
+
+    // Pagination handling
+    const total_pages = computed(() => store.state.form.total_pages);
     const current_page = computed(() => store.state.form.current_page);
 
-    // Handle Redirecting:
+    // Handle User Redirection:
     const redirectUser = (path) => {
       router.push(path);
     };
 
-    // Dispatch Fetching the form
+    // Dispatch Fetching the form:
     function fetchForms(page = 1) {
       store.dispatch("form/getForms", page);
     }
 
-    fetchForms();
-
     const forms = computed(() => store.state.form.forms);
 
-    // DELETION HANDLER:
+    fetchForms();
+
+    // Deletion Handler:
     const deleteForm = (key) => {
       if (
         window.confirm(
