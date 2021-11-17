@@ -1,5 +1,35 @@
 # VueForms
 
+## TL;DR - Setup Procedure:
+
+Clone this repo by using the following command:
+
+```bash
+git clone https://github.com/MrLijan/VueForms.git
+cd VueForms
+```
+
+Install all dependencies by running the following command:
+
+```bash
+composer install
+```
+
+Edit the .env file as follows:
+
+```bash
+DB_USERNAME=<db username>
+DB_PASSWORD=<db password>
+APP_KEY=<php artisan key:generate>
+```
+
+Run the following command to build and serve the application
+
+```bash
+npm run start
+```
+
+ 
 
 ## Mission Description
 
@@ -22,7 +52,6 @@ To complete the task, the following stack should be implemented:
 
 ## Mission Details
 
-
 The following pages should be created:
 
 1. *Forms List,*
@@ -30,6 +59,7 @@ The following pages should be created:
 3. *Form Submit,*
 
 ### 1. Form List page
+
 
 This page will include a list of all forms and also a link to create a new form. The list of forms is a table with the following columns:
 
@@ -39,6 +69,9 @@ This page will include a list of all forms and also a link to create a new form.
 - Submit page redirection.
 
 ### 2. Form Builder page
+
+
+
 On this page, you'll implement a wizard to create a form. This wizard will contain a container where you are able to add:
 
 - Field label,
@@ -54,6 +87,8 @@ At the end of the creation process, the user should redirect to the `/forms list
 page.
 
 ### 3. Form Submit page
+
+
 On this page, you'll display a specific form by its `id`. This form must include all the relevant fields and a submit button. On submit, all data will be saved.
 
 At the end of the submission process, the user should redirect to the forms
@@ -63,4 +98,5 @@ list page.
 ---
 
 ### Children Pages:
-[API Routes](API-Routes.md)
+
+[API Routes](MrLijan/VueForms/blob/main/API-Routes.md)
