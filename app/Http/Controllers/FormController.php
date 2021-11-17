@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use App\Http\Requests\FormRequest;
 use App\Models\Form;
 use App\Models\FilledForm;
+use Illuminate\Support\Facades\Validator;
 
 class FormController extends Controller
 {
@@ -99,6 +100,24 @@ class FormController extends Controller
         $form->save();
 
         return response()->json(["result" => 'Created', 201]);
+
+    }
+
+    public function createForm(Request $request) 
+    {
+        $validator = Validator::make(request()->all(), [
+            'name' => "min:2|max:100"
+        ]);
+
+        
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        } else {
+            return response()->json(["result" => 'VALID', 201]);
+        }
+
+
+
 
     }
     
