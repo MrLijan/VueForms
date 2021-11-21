@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Models\Form;
 
 
 
@@ -27,16 +28,15 @@ class StoreFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => "string|required|max:100",
-            'description' => "nullable|string",
-            'creator' => "string|required|max:100",
-            'fields' => "array|required|min:1",
-            'fields.*.title' => "string|required|max:100",
-            'fields.*.type' => "string|required",
-            'fields.*.required' => "boolean|required",
-            'fields.*.answer' => "string|nullable"
-        ];
+        $rules = Form::validation_rules;
+
+        if($this->getMethod() == 'POST') {
+            $rules += ['key' => 'nullable'];
+        } else {
+            $rules['key'] = "required";
+        }
+
+        return $rules;
     }
 
     protected function failedValidation(Validator $validator)

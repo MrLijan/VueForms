@@ -63,28 +63,9 @@ class FormController extends Controller
     }
 
 
-    public function create(Request $req) 
+    public function create(StoreFormRequest $req) 
     {
-        $form = new Form;
-        
-        $form->name = $req->name;
-        $form->description = $req->description;
-        $form->key = $this->randKey();
-        $form->creator = $req->creator;
-        $form->fields = $req->fields;
-
-        
-        $form->save();
-
-        return response()->json(["result" => 'Created', 201]);
-
-    }
-
-    
-
-    public function createForm(StoreFormRequest $request) 
-    {
-        $validated = $request->validated();
+        $validated = $req->validated();
         $validated['key'] = $this->randKey();
        
         // Create the form
@@ -96,18 +77,23 @@ class FormController extends Controller
         ], 201);
 
     }
+
     
 
-    public function update(Request $req, $key) 
+    public function update(StoreFormRequest $req, $key) 
     {
-        $form = Form::firstWhere('key', (int)$key)->update([
-            "name" => $req->name,
-            "description" => $req->description,
-            "key" => $req->key,
-            "creator" => $req->creator,
-            "fields" => $req->fields
-        ]);
+        // $form = Form::firstWhere('key', (int)$key)->update([
+        //     "name" => $req->name,
+        //     "description" => $req->description,
+        //     "key" => $req->key,
+        //     "creator" => $req->creator,
+        //     "fields" => $req->fields
+        // ]);
 
+        
+        $form = Form::firstWhere('key', (int)$key)->update($req->validated());
+        
+        //dd($form);
 
         return response()->json(["result" => 'Updated', 201]);
     }
