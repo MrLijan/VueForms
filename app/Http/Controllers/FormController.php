@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 // use App\Http\Requests\FormRequest;
 use App\Models\Form;
 use App\Models\FilledForm;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreFormRequest;
 
 class FormController extends Controller
 {
@@ -41,89 +43,59 @@ class FormController extends Controller
         $forms->count_forms = $forms->count();
         return $forms;
     }
-    
-    /**
-     * Paginated endpoint method
-     */
-    // public function indexPaginated(Request $req) 
-    // {
-    //     $formsCount = Form::all()->count();
-        
-    //     $perPage = 10;
-    //     $page = $req->input('page', 1);
-    //     $pages = ceil($formsCount / $perPage);
-    //     $skip = ceil(($perPage * $page) - $perPage);
 
-    //     $forms = Form::skip($skip)
-    //                 ->take($perPage)
-    //                 ->get();
-
-
-    //     return [
-    //         'data' => $forms,
-    //         'total' => $formsCount,
-    //         'current_page' => $page,
-    //         'total_pages' => $pages
-    //     ];
-    // }
 
     
     
     public function show($key)
     {
-        return Form::where('key', (int)$key)->first();
+        return Form::where('key', (int)$key)->firstOrFail();
     }
 
     
     
     public function destroy($key)
     {
-        $form = Form::where('key', (int)$key);
+        $form = Form::where('key', (int)$key)->firstOrFail();
         $form->delete();
 
         return response()->json(['result' => 'Deleted'], 200);
     }
 
 
-    public function create(Request $req) 
+    public function create(StoreFormRequest $req) 
     {
-        $form = new Form;
+        $validated = $req->validated();
+        $validated['key'] = $this->randKey();
+       
+        // Create the form
+        $form = Form::create($validated);
         
-        $form->name = $req->name;
-        $form->description = $req->description;
-        $form->key = $this->randKey();
-        $form->creator = $req->creator;
-        $form->fields = $req->fields;
-
-        
-        $form->save();
-
-        return response()->json(["result" => 'Created', 201]);
+        return response()->json([
+            'result' => 'created',
+            'form_key' => $validated['key']
+        ], 201);
 
     }
+
     
 
-    public function update(Request $req, $key) 
+    public function update(StoreFormRequest $req, $key) 
     {
-        $form = Form::firstWhere('key', (int)$key)->update([
-            "name" => $req->name,
-            "description" => $req->description,
-            "key" => $req->key,
-            "creator" => $req->creator,
-            "fields" => $req->fields
-        ]);
-        
-            // $form->name = "LIRAM";
-            // $form->description = $req->description;
-            // $form->key = $req->key;
-            // $form->creator = $req->creator;
-            // $form->fields = $req->fields;
+        // $form = Form::firstWhere('key', (int)$key)->update([
+        //     "name" => $req->name,
+        //     "description" => $req->description,
+        //     "key" => $req->key,
+        //     "creator" => $req->creator,
+        //     "fields" => $req->fields
+        // ]);
 
         
+        $form = Form::firstWhere('key', (int)$key)->update($req->validated());
 
-        
-        // $form->save();
-
-        return response()->json(["result" => 'Updated', 201]);
+        return response()->json([
+            "result" => 'Updated',
+            "form_key" => $key
+        ], 201);
     }
 }
