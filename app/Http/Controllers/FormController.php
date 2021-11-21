@@ -93,6 +93,9 @@ class FormController extends Controller
         
         $form = Form::firstWhere('key', (int)$key)->update($req->validated());
 
-        return response()->json(["result" => 'Updated', 201]);
+        return response()->json([
+            "result" => 'Updated',
+            "form_key" => $key
+        ], 201);
     }
 }
