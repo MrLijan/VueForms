@@ -1,4 +1,5 @@
 import axios from "axios";
+import { fetchList, deleteForm } from "../../api/forms.api";
 
 const apiPath = `${process.env.MIX_API_URL}/forms`;
 
@@ -12,25 +13,22 @@ export default {
   namespaced: true,
 
   state: {
-    forms: {},
-    singleForm: {},
-    total_forms: 0,
-    current_page: 1,
-    total_pages: 0
+    list: {},
+    totalForms: 0,
+    currentPage: 1,
+    lastPage: 0,
+    singleForm: {}
   },
 
   actions: {
     async getForms(context, payload) {
-      const data = await axios
-        .get(`${apiPath}?page=${payload}`)
+      fetchList(payload)
         .then((res) => {
           context.commit("SET_FORMS", res.data);
         })
         .catch((err) => {
-          return err;
+          console.log(err);
         });
-
-      return data;
     },
 
     async getSingleForm(context, payload) {
@@ -61,27 +59,24 @@ export default {
     },
 
     async deleteForm(context, payload) {
-      const data = await axios
-        .delete(`${apiPath}/${payload}/delete`)
+      deleteForm(payload)
         .then((res) => {
           context.dispatch("getForms");
-          return res.data;
+          return res;
         })
-        .catch((err) => {
-          return err;
-        });
-
-      return data;
+        .catch((err) => console.log(err));
     }
   },
 
   mutations: {
+    // normalize the data
     SET_FORMS(state, value) {
-      state.forms = value.data;
-      state.current_page = value.current_page;
-      state.total_pages = value.last_page;
-      state.total_forms = value.total;
+      state.list = value.data;
+      state.totalForms = value.total_forms;
+      state.currentPage = value.current_page;
+      state.lastPage = value.last_page;
     },
+
     SET_SINGLE_FORM(state, value) {
       state.singleForm = value;
     }
