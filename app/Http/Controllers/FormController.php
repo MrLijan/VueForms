@@ -49,14 +49,14 @@ class FormController extends Controller
     
     public function show($key)
     {
-        return Form::where('key', (int)$key)->first();
+        return Form::where('key', (int)$key)->firstOrFail();
     }
 
     
     
     public function destroy($key)
     {
-        $form = Form::where('key', (int)$key);
+        $form = Form::where('key', (int)$key)->firstOrFail();
         $form->delete();
 
         return response()->json(['result' => 'Deleted'], 200);
