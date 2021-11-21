@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Form;
 use App\Models\FilledForm;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreFormRequest;
 
 class FormController extends Controller
 {
@@ -42,31 +43,7 @@ class FormController extends Controller
         $forms->count_forms = $forms->count();
         return $forms;
     }
-    
-    /**
-     * Paginated endpoint method
-     */
-    // public function indexPaginated(Request $req) 
-    // {
-    //     $formsCount = Form::all()->count();
-        
-    //     $perPage = 10;
-    //     $page = $req->input('page', 1);
-    //     $pages = ceil($formsCount / $perPage);
-    //     $skip = ceil(($perPage * $page) - $perPage);
 
-    //     $forms = Form::skip($skip)
-    //                 ->take($perPage)
-    //                 ->get();
-
-
-    //     return [
-    //         'data' => $forms,
-    //         'total' => $formsCount,
-    //         'current_page' => $page,
-    //         'total_pages' => $pages
-    //     ];
-    // }
 
     
     
@@ -103,21 +80,20 @@ class FormController extends Controller
 
     }
 
-    public function createForm(Request $request) 
+    
+
+    public function createForm(StoreFormRequest $request) 
     {
-        $validator = Validator::make(request()->all(), [
-            'name' => "min:2|max:100"
-        ]);
-
+        $validated = $request->validated();
+        $validated['key'] = $this->randKey();
+       
+        // Create the form
+        $form = Form::create($validated);
         
-        if($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        } else {
-            return response()->json(["result" => 'VALID', 201]);
-        }
-
-
-
+        return response()->json([
+            'result' => 'created',
+            'form_key' => $validated['key']
+        ], 201);
 
     }
     
@@ -131,17 +107,7 @@ class FormController extends Controller
             "creator" => $req->creator,
             "fields" => $req->fields
         ]);
-        
-            // $form->name = "LIRAM";
-            // $form->description = $req->description;
-            // $form->key = $req->key;
-            // $form->creator = $req->creator;
-            // $form->fields = $req->fields;
 
-        
-
-        
-        // $form->save();
 
         return response()->json(["result" => 'Updated', 201]);
     }
