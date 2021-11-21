@@ -22,6 +22,8 @@ class Form extends Model
         'fields.*.title' => "string|required|max:100",
         'fields.*.type' => "string|required",
         'fields.*.isRequired' => "boolean|required",
+        'fields.*.options' => "array|nullable",
+        'fields.*.options.*' => "string|max:25",
         'fields.*.answer' => "string|nullable"
     ];
 }
