@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchList, deleteForm } from "../../api/forms.api";
+import { fetchList, deleteForm, fetchForm } from "../../api/forms.api";
 
 const apiPath = `${process.env.MIX_API_URL}/forms`;
 
@@ -17,26 +17,18 @@ export default {
     totalForms: 0,
     currentPage: 1,
     lastPage: 0,
-    singleForm: {}
+    activeForm: {}
   },
 
   actions: {
-    async getForms(context, payload) {
+    async getList(context, payload) {
       fetchList(payload)
         .then((res) => {
-          context.commit("SET_FORMS", res.data);
+          context.commit("SET_LIST", res.data);
         })
         .catch((err) => {
           console.log(err);
         });
-    },
-
-    async getSingleForm(context, payload) {
-      const data = await axios.get(`${apiPath}/${payload}`).then((res) => {
-        context.commit("SET_SINGLE_FORM", res.data);
-      });
-
-      return data;
     },
 
     async createNewForm(context, payload) {
@@ -70,21 +62,11 @@ export default {
 
   mutations: {
     // normalize the data
-    SET_FORMS(state, value) {
+    SET_LIST(state, value) {
       state.list = value.data;
       state.totalForms = value.total_forms;
       state.currentPage = value.current_page;
       state.lastPage = value.last_page;
-    },
-
-    SET_SINGLE_FORM(state, value) {
-      state.singleForm = value;
-    }
-  },
-
-  getters: {
-    singleForm(state) {
-      return state.singleForm;
     }
   }
 };

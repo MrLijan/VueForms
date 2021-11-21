@@ -68,9 +68,9 @@ export default {
     const fieldKey = ref(1);
 
     // Dispatch Fetch Form action in store
-    store.dispatch("form/getSingleForm", route.params.key);
+    store.dispatch("submit/getForm", route.params.key);
 
-    const form = computed(() => store.state.form.singleForm);
+    const form = computed(() => store.getters["activeForm"]);
 
     let filledForm = computed(() => {
       return {
@@ -98,7 +98,7 @@ export default {
     // Submitting Form
     const submitForm = () => {
       store
-        .dispatch("filledForm/submitForm", filledForm)
+        .dispatch("submit/submitForm", filledForm.value)
         .then(() => {
           router.push("/");
         })

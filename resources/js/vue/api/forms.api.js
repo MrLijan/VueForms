@@ -20,3 +20,18 @@ export function deleteForm(key) {
     method: "delete"
   });
 }
+
+export function fetchForm(key) {
+  return request({
+    url: `/forms/${key}`,
+    method: "get"
+  });
+}
+
+export function submitForm(payload) {
+  return request({
+    url: "/filled/create",
+    method: "post",
+    data: payload
+  });
+}

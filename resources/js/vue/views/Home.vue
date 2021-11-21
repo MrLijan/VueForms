@@ -111,7 +111,7 @@ export default {
 
     // -> Table's data logics:
     function fetchList(page = 1) {
-      store.dispatch("form/getForms", page);
+      store.dispatch("form/getList", page);
     }
 
     const list = computed(() => store.getters.formsList);
