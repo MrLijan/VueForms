@@ -1,4 +1,5 @@
 import { fetchForm, submitForm } from "../../api/forms.api";
+import { create } from "../../api/filled.api";
 
 export default {
   namespaced: true,
@@ -19,7 +20,7 @@ export default {
     },
 
     async submitForm(context, payload) {
-      submitForm(payload)
+      create(payload)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     }

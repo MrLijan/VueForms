@@ -68,7 +68,7 @@ export default {
     const fieldKey = ref(1);
 
     // Dispatch Fetch Form action in store
-    store.dispatch("submit/getForm", route.params.key);
+    store.dispatch("filled/getForm", route.params.key);
 
     const form = computed(() => store.getters["activeForm"]);
 
