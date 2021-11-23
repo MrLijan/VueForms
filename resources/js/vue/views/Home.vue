@@ -66,7 +66,7 @@
     </section>
 
     <!-- PAGINATION -->
-    <section class="is-flex is-justify-content-center" v-show="lastPage > 1">
+    <section class="is-flex is-justify-content-center" v-if="lastPage > 1">
       <div class="pagination">
         <ul class="pagination-list">
           <li

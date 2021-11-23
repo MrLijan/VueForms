@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-if="type == 'textarea'">
+    <div v-if="inputType == 'textarea'">
       <textarea
         class="textarea"
         :class="validation ? 'is-danger' : ''"
@@ -14,7 +14,7 @@
       ></textarea>
     </div>
     <div
-      v-else-if="type == 'select'"
+      v-else-if="inputType == 'select'"
       class="select"
       :class="validation ? 'is-danger' : ''"
     >
@@ -39,7 +39,7 @@
       <input
         class="input"
         :class="validation ? 'is-danger' : ''"
-        :type="type"
+        :type="inputType"
         name="input"
         v-model="input"
         @input="emitValue"
@@ -73,6 +73,7 @@ export default {
   emits: ["onInput"],
 
   setup(props, { emit }) {
+    const inputType = ref(props.type);
     const input = ref(null);
 
     const emitValue = () => {
@@ -84,6 +85,7 @@ export default {
     });
 
     return {
+      inputType,
       input,
       emitValue,
       validation

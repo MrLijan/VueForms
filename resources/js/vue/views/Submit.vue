@@ -26,7 +26,7 @@
           :key="fieldKey"
         />
       </section>
-      <section v-for="(field, idx) in form.fields" :key="idx">
+      <section v-for="(field, index) in form.fields" :key="index">
         <Field
           :title="field.title"
           :inputType="field.type"
@@ -34,7 +34,7 @@
           :options="field.options"
           v-model:answer="answer"
           @answer="setAnswer(idx, $event)"
-          :key="fieldKey"
+          :key="index"
         />
       </section>
       <!-- FORM CONTROL -->
@@ -43,6 +43,12 @@
           <input class="button is-success" type="submit" />
         </div>
       </section>
+      <Input
+        :isRequired="true"
+        title="something"
+        inputType="text"
+        @value="log"
+      />
     </form>
   </div>
 </template>
@@ -54,12 +60,16 @@ import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
 import Field from "../components/Field";
 import FormInput from "../components/FormInput";
+import FormBody from "../components/Submit/FormBody";
+import Input from "../components/Base/Input";
 
 export default {
   components: {
     FormHeader,
     Field,
-    FormInput
+    FormInput,
+    FormBody,
+    Input
   },
   setup() {
     const route = useRoute();
@@ -107,6 +117,10 @@ export default {
         });
     };
 
+    const log = (e) => {
+      console.log(e);
+    };
+
     //Form Validator:
 
     //END OF SETUP
@@ -118,7 +132,8 @@ export default {
       setUser,
       user,
       submitForm,
-      filledForm
+      filledForm,
+      log
     };
   }
 };
