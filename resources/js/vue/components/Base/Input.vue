@@ -4,7 +4,10 @@
     <div class="control">
       <!-- If type is SELECT -->
       <div class="select" v-if="type == 'select'">
-        <select :required="isRequired">
+        <select
+          :required="isRequired"
+          @change="$emit('updated', e.target.value)"
+        >
           <option v-for="(item, index) in options" :key="index" :value="item">
             {{ item }}
           </option>
@@ -12,7 +15,10 @@
       </div>
       <!-- If type is textarea -->
       <div v-else-if="type == 'textarea'">
-        <textarea class="textarea"></textarea>
+        <textarea
+          class="textarea"
+          @input="$emit('updated', e.target.value)"
+        ></textarea>
       </div>
 
       <!-- Else -->
@@ -21,7 +27,7 @@
           class="input"
           :type="type"
           :required="isRequired"
-          @input="$emit('value', $e)"
+          @input="$emit('updated', e.target.value)"
         />
       </div>
     </div>
@@ -55,12 +61,15 @@ export default {
     }
   },
 
+  emits: ["updated"],
+
   setup(props) {
     const type = ref(props.inputType);
-    const label = ref(props.label);
+    const label = ref(props.title);
     const isRequired = ref(props.isRequired);
     const options = ref(props.options);
 
+    // END OF SETUP
     return {
       type,
       label,

@@ -1,9 +1,20 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <section v-for="(field, index) in fields" :key="index">
+      <Input
+        :inputType="field.type"
+        :title="field.title"
+        :isRequired="field.isRequired"
+        :options="field.options"
+      />
+    </section>
+  </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import Input from "../Base/Input";
+
 export default {
   props: {
     fields: {
@@ -12,11 +23,25 @@ export default {
     }
   },
 
+  components: {
+    Input
+  },
+
   setup(props) {
     const fields = ref(props.fields);
 
+    const addField = () => {
+      fields.value.push({
+        type: "textarea",
+        title: "Another field please...",
+        isRequired: false,
+        answer: null
+      });
+    };
+
     return {
-      fields
+      fields,
+      addField
     };
   }
 };
