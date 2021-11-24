@@ -6,7 +6,7 @@
       <div class="select" v-if="type == 'select'">
         <select
           :required="isRequired"
-          @change="$emit('updated', e.target.value)"
+          @change="$emit('updated', $event.target.value)"
         >
           <option v-for="(item, index) in options" :key="index" :value="item">
             {{ item }}
@@ -17,7 +17,7 @@
       <div v-else-if="type == 'textarea'">
         <textarea
           class="textarea"
-          @input="$emit('updated', e.target.value)"
+          @input="$emit('updated', $event.target.value)"
         ></textarea>
       </div>
 
@@ -27,7 +27,7 @@
           class="input"
           :type="type"
           :required="isRequired"
-          @input="$emit('updated', e.target.value)"
+          @input="$emit('updated', $event.target.value)"
         />
       </div>
     </div>
@@ -50,7 +50,7 @@ export default {
     },
 
     options: {
-      type: [Array, String],
+      type: Array,
       required: false
     },
 
