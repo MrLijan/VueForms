@@ -23,6 +23,7 @@
             :isRequired="true"
             title="Tell us your name"
             @updated="setName"
+            :key="renderKey"
           />
         </field>
       </section>
@@ -35,6 +36,7 @@
             :options="field.options"
             :title="field.title"
             @updated="setAnswer(index, $event)"
+            :key="renderKey"
           />
         </field>
       </section>
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-import { reactive, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
@@ -70,12 +72,16 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
+    let renderKey = ref(1);
 
     // Dispatch Fetch Form action in store:
     store.dispatch("filled/getForm", route.params.key);
 
     // Form setup:
-    const form = computed(() => store.getters["activeForm"]);
+    const form = computed(() => {
+      renderKey.value++;
+      return store.getters["activeForm"];
+    });
 
     // FilledForm var:
     let filledForm = computed(() => {
@@ -98,18 +104,17 @@ export default {
     };
 
     // Submitting Form
-    const submitForm = () => {
-      store
-        .dispatch("submit/submitForm", filledForm.value)
-        .then(() => {
-          router.push("/");
-        })
-        .catch((err) => {
-          window.alert("Something Went wrong", err);
-        });
+    const submitForm = async () => {
+      try {
+        await store
+          .dispatch("filled/submitForm", filledForm.value)
+          .then((res) => {
+            router.push("/");
+          });
+      } catch (err) {
+        window.alert(err);
+      }
     };
-
-    //Form Validator:
 
     //END OF SETUP
     return {
@@ -117,7 +122,8 @@ export default {
       setName,
       setAnswer,
       submitForm,
-      filledForm
+      filledForm,
+      renderKey
     };
   }
 };

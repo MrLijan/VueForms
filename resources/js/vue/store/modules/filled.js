@@ -20,9 +20,7 @@ export default {
     },
 
     async submitForm(context, payload) {
-      create(payload)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      return create(payload);
     }
   },
 
