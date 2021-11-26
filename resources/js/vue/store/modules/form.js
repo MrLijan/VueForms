@@ -61,7 +61,7 @@ export default {
     async deleteForm(context, payload) {
       deleteForm(payload)
         .then((res) => {
-          context.dispatch("getForms");
+          context.dispatch("getList");
           return res;
         })
         .catch((err) => console.log(err));
