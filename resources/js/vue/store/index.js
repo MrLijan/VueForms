@@ -1,13 +1,11 @@
 import { createStore } from "vuex";
 import form from "./modules/form";
 import filled from "./modules/filled";
-import filledForm from "./filledForm";
-import toast from "./toast";
+import toast from "./modules/toast";
 import getters from "./getters";
 
 const modules = {
   form,
-  filledForm,
   toast,
   filled
 };
