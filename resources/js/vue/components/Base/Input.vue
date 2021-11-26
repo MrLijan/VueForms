@@ -1,6 +1,6 @@
 <template>
   <div class="field">
-    <label class="label">{{ label }}</label>
+    <label class="label">{{ isRequired ? "*" + title : title }}</label>
     <div class="control">
       <!-- If type is SELECT -->
       <div class="select" v-if="type == 'select'">
@@ -17,6 +17,7 @@
       <div v-else-if="type == 'textarea'">
         <textarea
           class="textarea"
+          :required="isRequired"
           @input="$emit('updated', $event.target.value)"
         ></textarea>
       </div>

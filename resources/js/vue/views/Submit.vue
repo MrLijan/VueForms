@@ -17,50 +17,45 @@
     <!-- FORM BODY -->
     <form @submit.prevent="submitForm">
       <section>
-        <Field
-          title="Tell us your name"
-          inputType="text"
-          v-model:answer="user"
-          @answer="setUser"
-          :isRequired="true"
-          :key="fieldKey"
-        />
+        <field>
+          <Input
+            inputType="text"
+            :isRequired="true"
+            title="Tell us your name"
+            @updated="setName"
+          />
+        </field>
       </section>
-      <section v-for="(field, index) in form.fields" :key="index">
-        <Field
-          :title="field.title"
-          :inputType="field.type"
-          :isRequired="field.isRequired"
-          :options="field.options"
-          v-model:answer="answer"
-          @answer="setAnswer(idx, $event)"
-          :key="index"
-        />
+
+      <section>
+        <field v-for="(field, index) in form.fields" :key="index">
+          <Input
+            :inputType="field.type"
+            :isRequired="field.isRequired"
+            :options="field.options"
+            :title="field.title"
+            @updated="setAnswer(index, $event)"
+          />
+        </field>
       </section>
+
       <!-- FORM CONTROL -->
       <section>
         <div class="is-flex is-justify-content-end">
           <input class="button is-success" type="submit" />
         </div>
       </section>
-      <Input
-        :isRequired="true"
-        title="something"
-        inputType="text"
-        @value="log"
-      />
     </form>
   </div>
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import FormHeader from "../components/FormHeader";
-import Field from "../components/Field";
 import FormInput from "../components/FormInput";
-import FormBody from "../components/Submit/FormBody";
+import Field from "../components/Submit/Field";
 import Input from "../components/Base/Input";
 
 export default {
@@ -68,41 +63,38 @@ export default {
     FormHeader,
     Field,
     FormInput,
-    FormBody,
+    Field,
     Input
   },
   setup() {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
-    const fieldKey = ref(1);
 
-    // Dispatch Fetch Form action in store
+    // Dispatch Fetch Form action in store:
     store.dispatch("filled/getForm", route.params.key);
 
+    // Form setup:
     const form = computed(() => store.getters["activeForm"]);
 
+    // FilledForm var:
     let filledForm = computed(() => {
-      return {
+      return reactive({
         form_key: form.value.key,
         form_name: form.value.name,
         filled_by: "",
         fields: form.value.fields
-      };
+      });
     });
 
-    // Handling answer:
-    const answer = ref(null);
-    const user = ref(null);
-
     // Setting the user:
-    const setUser = (event) => {
+    const setName = (event) => {
       filledForm.value.filled_by = event;
     };
 
     // Setting the answer
-    const setAnswer = (idx, event) => {
-      filledForm.value.fields[idx].answer = event;
+    const setAnswer = (index, event) => {
+      filledForm.value.fields[index].answer = event;
     };
 
     // Submitting Form
@@ -117,23 +109,15 @@ export default {
         });
     };
 
-    const log = (e) => {
-      console.log(e);
-    };
-
     //Form Validator:
 
     //END OF SETUP
     return {
       form,
-      answer,
-      fieldKey,
+      setName,
       setAnswer,
-      setUser,
-      user,
       submitForm,
-      filledForm,
-      log
+      filledForm
     };
   }
 };
