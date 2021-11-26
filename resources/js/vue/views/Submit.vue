@@ -55,14 +55,12 @@
 import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import FormHeader from "../components/FormHeader";
 import FormInput from "../components/FormInput";
 import Field from "../components/Submit/Field";
 import Input from "../components/Base/Input";
 
 export default {
   components: {
-    FormHeader,
     Field,
     FormInput,
     Field,

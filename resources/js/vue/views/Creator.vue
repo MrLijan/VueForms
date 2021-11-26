@@ -1,33 +1,27 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
-    <section class="title" v-if="form.key">
-      <h1 class="is-size-1">{{ form.name }}</h1>
-      <span class="tag is-light">Form Key: {{ form.key }}</span>
-    </section>
-    <section class="title" v-else>
-      <h1 class="is-size-1">Create your form</h1>
-    </section>
-    <!-- FORM HEADER -->
     <section>
-      <FormHeader
+      <FormHeader :number="form.key" :title="form.title" />
+    </section>
+    <!-- FORM DETAILS -->
+    <section>
+      <FormDetails
         v-model:name="form.name"
         v-model:description="form.description"
         v-model:creator="form.creator"
       />
     </section>
 
-    <!-- FORM BODY -->
+    <!-- FORM FIELDS -->
     <section class="form-body">
-      <FormBody ref="field" :data="form.fields" :key="formBodyKey" />
+      <FormFields ref="fields" :fields="form.fields" />
     </section>
 
     <!-- FORM CONTROL -->
     <section class="form-control-wrapper is-flex is-justify-content-center">
       <div class="is-flex form-control">
-        <button class="button is-info" @click="addNewFieldAtChild()">
-          Add Section
-        </button>
+        <button class="button is-info" @click="addNewField">Add Section</button>
         <div class="vl"></div>
         <button
           class="button is-success"
@@ -48,21 +42,21 @@
 import { ref, computed, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import FormHeader from "../components/FormHeader";
-import FormBody from "../components/FormBody";
-import FormInput from "../components/FormInput";
+import FormHeader from "../components/Creator/FormHeader";
+import FormDetails from "../components/Creator/FormDetails";
+import FormFields from "../components/Creator/FormFields";
 
 export default {
   components: {
     FormHeader,
-    FormBody,
-    FormInput
+    FormDetails,
+    FormFields
   },
   setup() {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
-    const field = ref();
+    const fields = ref();
     const formBodyKey = ref(1);
 
     // Form Variables:
@@ -80,6 +74,42 @@ export default {
       ]
     });
 
+    // Add new field
+    function addNewField() {
+      form.fields.push({
+        title: "What do you whish to know?",
+        type: "textarea",
+        isRequired: false,
+        answer: ""
+      });
+    }
+
+    // Save Form handler:
+    const saveForm = () => {
+      store
+        .dispatch("form/createNewForm", form)
+        .then((res) => {
+          // router.push("/");
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    // Update Form handler:
+    const updateForm = () => {
+      store
+        .dispatch("form/updateForm", form)
+        .then((res) => {
+          // router.push("/");
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
     /* EDITOR PAGE HANDLER: */
     //If the router contain Keys, an dispatch method will be executed
     //in order to fetch the exact form.
@@ -94,37 +124,6 @@ export default {
       });
     }
 
-    // Save Form handler:
-    const saveForm = () => {
-      form.fields = field.value.logField();
-      store
-        .dispatch("form/createNewForm", form)
-        .then((res) => {
-          router.push("/");
-          return res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    const updateForm = () => {
-      form.fields = field.value.logField();
-      store
-        .dispatch("form/updateForm", form.value)
-        .then((res) => {
-          router.push("/");
-          return res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    function addNewFieldAtChild() {
-      field.value.addNewField();
-    }
-
     // END OF SETUP
     return {
       route,
@@ -132,8 +131,8 @@ export default {
       form,
       saveForm,
       updateForm,
-      field,
-      addNewFieldAtChild,
+      fields,
+      addNewField,
       formBodyKey
     };
   }
@@ -141,24 +140,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  overflow: hidden !important;
-}
-
-.title > .tag {
-  padding: 0 20px;
-  overflow: hidden !important;
-}
-
-.title > h1 {
-  font-weight: 900;
-  color: var(--app-border);
-  padding: 8px;
-}
-
 .container > * {
   margin-bottom: 20px;
 }
