@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted } from "vue";
+import { useStore } from "vuex";
 import Icon from "./Icon.vue";
 
 export default {
@@ -16,9 +17,15 @@ export default {
     type: {
       type: String
     },
+
     text: {
       type: String,
       default: "Default Toast Text"
+    },
+
+    id: {
+      type: String,
+      required: true
     }
   },
 
@@ -27,13 +34,19 @@ export default {
   },
 
   setup(props) {
-    const text = ref(props.text);
-    const type = ref(props.type);
+    const store = useStore();
 
-    return {
-      text,
-      type
+    const destroyToast = (id) => {
+      store.dispatch("toast/remove", id);
     };
+
+    onMounted(() => {
+      setTimeout(() => {
+        destroyToast(props.id);
+      }, 5000);
+    });
+
+    return {};
   }
 };
 </script>

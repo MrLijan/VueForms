@@ -1,41 +1,40 @@
-// Form Store Module:
+/**
+ * --> TOASTS STORE MODULE
+ */
+
+const randKey = () => {
+  return (Math.random().toString(36) + Date.now().toString(36)).substr(2);
+};
+
 export default {
   namespaced: true,
 
   state: {
-    toasts: []
+    messages: []
   },
 
   actions: {
-    newToast(context, payload) {
-      context.commit("SET_NEW_TOAST", payload);
+    new(context, payload) {
+      context.commit("NEW_TOAST", payload);
+    },
+
+    remove(context, payload) {
+      context.commit("REMOVE_TOAST", payload);
     }
   },
 
   mutations: {
-    SET_NEW_TOAST(state, value) {
-      state.toasts.push({
-        id: value.id,
+    NEW_TOAST(state, value) {
+      state.messages.push({
+        id: randKey(),
         type: value.type,
         text: value.text
       });
     },
 
-    SET_TOAST_ON_SUCCESS(state, value) {
-      const index = state.toasts
-        .map((toast) => {
-          return toast.id;
-        })
-        .indexOf(value.id);
-
-      state.toasts[index].type = "success";
-      state.toasts[index].text = "Fetching completed";
-    }
-  },
-
-  getters: {
-    toasts(state) {
-      return state.toasts;
+    REMOVE_TOAST(state, value) {
+      const index = state.messages.map((el) => el.id).indexOf(value.id);
+      state.messages.splice(index, 1);
     }
   }
 };

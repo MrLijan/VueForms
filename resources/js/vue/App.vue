@@ -2,7 +2,7 @@
   <div>
     <section class="toasts">
       <div v-for="(toast, index) in toasts" :key="index">
-        <Toast :type="toast.type" :text="toast.text" />
+        <Toast :id="toast.id" :type="toast.type" :text="toast.text" />
       </div>
     </section>
     <section class="container mt-5 is-max-desktop">
@@ -29,9 +29,7 @@ export default {
 
   setup() {
     const store = useStore();
-    const toasts = computed(() => {
-      return store.state.toast.activeToasts;
-    });
+    const toasts = computed(() => store.getters["activeToasts"]);
 
     return {
       toasts
