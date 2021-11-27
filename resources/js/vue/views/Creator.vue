@@ -45,6 +45,7 @@
 import { ref, computed, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+
 import FormHeader from "../components/Creator/FormHeader";
 import FormDetails from "../components/Creator/FormDetails";
 import FormFields from "../components/Creator/FormFields";
@@ -60,7 +61,6 @@ export default {
     const router = useRouter();
     const store = useStore();
     const fields = ref();
-    const formBodyKey = ref(1);
 
     // Form Variables:
     let form = reactive({
@@ -134,8 +134,7 @@ export default {
       saveForm,
       updateForm,
       fields,
-      addNewField,
-      formBodyKey
+      addNewField
     };
   }
 };

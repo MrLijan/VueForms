@@ -92,14 +92,10 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-import FormBody from "../components/FormBody";
-import FormInput from "../components/FormInput";
 import Icon from "../components/Icon";
 
 export default {
   components: {
-    FormBody,
-    FormInput,
     Icon
   },
 
