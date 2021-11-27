@@ -34,7 +34,7 @@ export default {
     async getForm(context, payload) {
       fetchForm(payload)
         .then((res) => {
-          return res.data;
+          context.commit("SET_ACTIVE_FORM", res);
         })
         .catch((err) => err);
     },
@@ -61,7 +61,7 @@ export default {
     async deleteForm(context, payload) {
       deleteForm(payload)
         .then((res) => {
-          context.dispatch("getForms");
+          context.dispatch("getList");
           return res;
         })
         .catch((err) => console.log(err));
@@ -75,6 +75,10 @@ export default {
       state.totalForms = value.total_forms;
       state.currentPage = value.current_page;
       state.lastPage = value.last_page;
+    },
+
+    SET_ACTIVE_FORM(state, value) {
+      state.activeForm = value.data;
     }
   }
 };

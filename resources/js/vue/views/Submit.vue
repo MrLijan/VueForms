@@ -17,7 +17,7 @@
     <!-- FORM BODY -->
     <form @submit.prevent="submitForm">
       <section>
-        <field>
+        <div class="field-wrapper">
           <Input
             inputType="text"
             :isRequired="true"
@@ -25,11 +25,15 @@
             @updated="setName"
             :key="renderKey"
           />
-        </field>
+        </div>
       </section>
 
       <section>
-        <field v-for="(field, index) in form.fields" :key="index">
+        <div
+          class="field-wrapper"
+          v-for="(field, index) in form.fields"
+          :key="index"
+        >
           <Input
             :inputType="field.type"
             :isRequired="field.isRequired"
@@ -38,7 +42,7 @@
             @updated="setAnswer(index, $event)"
             :key="renderKey"
           />
-        </field>
+        </div>
       </section>
 
       <!-- FORM CONTROL -->
@@ -55,17 +59,11 @@
 import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import FormHeader from "../components/FormHeader";
-import FormInput from "../components/FormInput";
-import Field from "../components/Submit/Field";
+
 import Input from "../components/Base/Input";
 
 export default {
   components: {
-    FormHeader,
-    Field,
-    FormInput,
-    Field,
     Input
   },
   setup() {
@@ -149,5 +147,16 @@ export default {
 
 .container > * {
   margin-bottom: 20px;
+}
+
+.field-wrapper {
+  box-sizing: border-box;
+  padding: var(--app-container-paddding);
+
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  background-color: var(--app-white);
+  border-top: 6px solid var(--app-blue);
+  margin-bottom: 15px;
 }
 </style>
