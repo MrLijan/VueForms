@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- IF ON EDIT MODE -->
-    <div class="title" v-if="key">
+    <div class="title" v-if="number">
       <h1 class="is-size-1">{{ formTitle }}</h1>
       <span class="tag is-light">Form Key: {{ formKey }}</span>
     </div>

@@ -1,8 +1,11 @@
 <template>
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
-    <section>
+    <section v-if="route.params.key">
       <FormHeader :number="form.key" :title="form.title" />
+    </section>
+    <section v-else>
+      <FormHeader />
     </section>
     <!-- FORM DETAILS -->
     <section>
@@ -100,7 +103,7 @@ export default {
     // Update Form handler:
     const updateForm = () => {
       store
-        .dispatch("form/updateForm", form)
+        .dispatch("form/updateForm", form.value)
         .then((res) => {
           // router.push("/");
           return res.data;
@@ -115,12 +118,11 @@ export default {
     //in order to fetch the exact form.
     if (route.params.key) {
       onMounted(() => {
-        store.dispatch("form/getSingleForm", route.params.key);
+        store.dispatch("form/getForm", route.params.key);
       });
 
       form = computed(() => {
-        formBodyKey.value++;
-        return store.state.form.singleForm;
+        return store.getters["activeEditForm"];
       });
     }
 

@@ -57,7 +57,7 @@ export default {
   components: { Input },
 
   setup(props) {
-    const data = ref(props.fields);
+    // const data = ref(props.fields);
 
     const fieldTypes = [
       "textarea",
@@ -71,7 +71,7 @@ export default {
 
     const toOptionsArray = (index, event) => {
       const options = event.split(",");
-      data.value[index].options = options;
+      props.fields[index].options = options;
     };
 
     // Return Fields Config and Value
@@ -80,7 +80,7 @@ export default {
     };
 
     return {
-      data,
+      // data,
       fieldTypes,
       toOptionsArray,
       logFields
