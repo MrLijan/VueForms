@@ -2,8 +2,8 @@
   <section>
     <!-- IF ON EDIT MODE -->
     <div class="title" v-if="number">
-      <h1 class="is-size-1">{{ formTitle }}</h1>
-      <span class="tag is-light">Form Key: {{ formKey }}</span>
+      <h1 class="is-size-1">{{ title }}</h1>
+      <span class="tag is-light">Form Key: {{ number }}</span>
     </div>
 
     <!-- ELSE ON CREATE NEW MODE -->
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   props: {
     number: {
@@ -26,17 +24,13 @@ export default {
       type: String,
       required: false
     }
-  },
-  setup(props) {
-    const formKey = ref(props.number);
-    const formTitle = ref(props.title);
-
-    // END OF SETUP
-    return {
-      formKey,
-      formTitle
-    };
   }
+
+  // setup() {
+
+  //   //END OF SETUP
+  //   return {};
+  // }
 };
 </script>
 

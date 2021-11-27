@@ -2,7 +2,7 @@
   <div class="container is-max-desktop">
     <!-- PAGE TITLE -->
     <section v-if="route.params.key">
-      <FormHeader :number="form.key" :title="form.title" />
+      <FormHeader :number="form.key" :title="form.name" />
     </section>
     <section v-else>
       <FormHeader />
@@ -77,6 +77,19 @@ export default {
       ]
     });
 
+    /* EDITOR PAGE HANDLER: */
+    //If the router contain Keys, an dispatch method will be executed
+    //in order to fetch the exact form.
+    if (route.params.key) {
+      onMounted(() => {
+        store.dispatch("form/getForm", route.params.key);
+      });
+
+      form = computed(() => {
+        return store.getters["activeEditForm"];
+      });
+    }
+
     // Add new field
     function addNewField() {
       form.fields.push({
@@ -112,19 +125,6 @@ export default {
           console.log(err);
         });
     };
-
-    /* EDITOR PAGE HANDLER: */
-    //If the router contain Keys, an dispatch method will be executed
-    //in order to fetch the exact form.
-    if (route.params.key) {
-      onMounted(() => {
-        store.dispatch("form/getForm", route.params.key);
-      });
-
-      form = computed(() => {
-        return store.getters["activeEditForm"];
-      });
-    }
 
     // END OF SETUP
     return {
