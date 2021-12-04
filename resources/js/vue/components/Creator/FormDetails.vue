@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <div class="container">
     <div class="field">
       <label class="label">Give it a name</label>
       <div class="control">
@@ -34,7 +34,7 @@
         @input="$emit('update:description', $event.target.value)"
       ></textarea>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>

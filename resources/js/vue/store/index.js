@@ -1,18 +1,17 @@
 import { createStore } from "vuex";
-import form from "./form";
-import filledForm from "./filledForm";
-import toast from "./toast";
+import form from "./modules/form";
+import filled from "./modules/filled";
+import toast from "./modules/toast";
+import getters from "./getters";
+
+const modules = {
+  form,
+  toast,
+  filled
+};
 
 // Create main store with Modules:
 export default createStore({
-  state: {},
-  actions: {},
-  mutations: {},
-  getters: {},
-
-  modules: {
-    form,
-    filledForm,
-    toast
-  }
+  getters,
+  modules
 });

@@ -17,26 +17,34 @@
     <!-- FORM BODY -->
     <form @submit.prevent="submitForm">
       <section>
-        <Field
-          title="Tell us your name"
-          inputType="text"
-          v-model:answer="user"
-          @answer="setUser"
-          :isRequired="true"
-          :key="fieldKey"
-        />
+        <div class="field-wrapper">
+          <Input
+            inputType="text"
+            :isRequired="true"
+            title="Tell us your name"
+            @updated="setName"
+            :key="renderKey"
+          />
+        </div>
       </section>
-      <section v-for="(field, idx) in form.fields" :key="idx">
-        <Field
-          :title="field.title"
-          :inputType="field.type"
-          :isRequired="field.isRequired"
-          :options="field.options"
-          v-model:answer="answer"
-          @answer="setAnswer(idx, $event)"
-          :key="fieldKey"
-        />
+
+      <section>
+        <div
+          class="field-wrapper"
+          v-for="(field, index) in form.fields"
+          :key="index"
+        >
+          <Input
+            :inputType="field.type"
+            :isRequired="field.isRequired"
+            :options="field.options"
+            :title="field.title"
+            @updated="setAnswer(index, $event)"
+            :key="renderKey"
+          />
+        </div>
       </section>
+
       <!-- FORM CONTROL -->
       <section>
         <div class="is-flex is-justify-content-end">
@@ -48,77 +56,72 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import FormHeader from "../components/FormHeader";
-import Field from "../components/Field";
-import FormInput from "../components/FormInput";
+
+import Input from "../components/Base/Input";
 
 export default {
   components: {
-    FormHeader,
-    Field,
-    FormInput
+    Input
   },
   setup() {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
-    const fieldKey = ref(1);
+    let renderKey = ref(1);
 
-    // Dispatch Fetch Form action in store
-    store.dispatch("form/getSingleForm", route.params.key);
+    // Dispatch Fetch Form action in store:
+    store.dispatch("filled/getForm", route.params.key);
 
-    const form = computed(() => store.state.form.singleForm);
+    // Form setup:
+    const form = computed(() => {
+      renderKey.value++;
+      return store.getters["activeForm"];
+    });
 
+    // FilledForm var:
     let filledForm = computed(() => {
-      return {
+      return reactive({
         form_key: form.value.key,
         form_name: form.value.name,
         filled_by: "",
         fields: form.value.fields
-      };
+      });
     });
 
-    // Handling answer:
-    const answer = ref(null);
-    const user = ref(null);
-
     // Setting the user:
-    const setUser = (event) => {
+    const setName = (event) => {
       filledForm.value.filled_by = event;
     };
 
     // Setting the answer
-    const setAnswer = (idx, event) => {
-      filledForm.value.fields[idx].answer = event;
+    const setAnswer = (index, event) => {
+      filledForm.value.fields[index].answer = event;
     };
 
     // Submitting Form
-    const submitForm = () => {
-      store
-        .dispatch("filledForm/submitForm", filledForm)
-        .then(() => {
-          router.push("/");
-        })
-        .catch((err) => {
-          window.alert("Something Went wrong", err);
-        });
+    const submitForm = async () => {
+      try {
+        await store
+          .dispatch("filled/submitForm", filledForm.value)
+          .then((res) => {
+            router.push("/");
+          });
+      } catch (err) {
+        window.alert(err);
+      }
     };
-
-    //Form Validator:
 
     //END OF SETUP
     return {
       form,
-      answer,
-      fieldKey,
+      setName,
       setAnswer,
-      setUser,
-      user,
       submitForm,
-      filledForm
+      filledForm,
+      renderKey
     };
   }
 };
@@ -144,5 +147,16 @@ export default {
 
 .container > * {
   margin-bottom: 20px;
+}
+
+.field-wrapper {
+  box-sizing: border-box;
+  padding: var(--app-container-paddding);
+
+  border-radius: 8px;
+  border: 1px solid var(--app-border);
+  background-color: var(--app-white);
+  border-top: 6px solid var(--app-blue);
+  margin-bottom: 15px;
 }
 </style>

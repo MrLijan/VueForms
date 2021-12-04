@@ -9,25 +9,25 @@
     </section>
 
     <!-- FORMS LIST -->
-    <section class="table-container" v-if="forms.length != 0">
+    <section class="table-container" v-if="list.length != 0">
       <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>Key</th>
             <th>Name</th>
-            <th>Author</th>
-            <th>Count</th>
+            <th class="">Author</th>
+            <th class="has-text-centered">Count</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="form in forms" :key="form">
+          <tr v-for="(form, index) in list" :key="index">
             <td>
               <span class="tag is-light is-info has-text-weight-semibold">
                 {{ form.key }}
               </span>
             </td>
-            <td class="has-text-weight-bold">
+            <td class="has-text-weight-bold form-name">
               {{ form.name }}
             </td>
             <td>{{ form.creator }}</td>
@@ -66,17 +66,17 @@
     </section>
 
     <!-- PAGINATION -->
-    <section class="is-flex is-justify-content-center" v-if="total_pages > 1">
+    <section class="is-flex is-justify-content-center" v-if="lastPage > 1">
       <div class="pagination">
         <ul class="pagination-list">
           <li
-            v-for="(page, index) in total_pages"
+            v-for="(page, index) in lastPage"
             :key="index"
-            @click="fetchForms(page)"
+            @click="fetchList(page)"
           >
             <a
               class="pagination-link"
-              :class="current_page == page ? 'is-current' : ''"
+              :class="currentPage == page ? 'is-current' : ''"
             >
               {{ page }}
             </a>
@@ -88,49 +88,45 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import FormHeader from "../components/FormHeader";
-import FormBody from "../components/FormBody";
-import FormInput from "../components/FormInput";
+
 import Icon from "../components/Icon";
 
 export default {
   components: {
-    FormHeader,
-    FormBody,
-    FormInput,
     Icon
   },
+
   setup() {
-    // Variables:
+    // VARS:
     const store = useStore();
     const router = useRouter();
 
-    // Pagination handling
-    const total_pages = computed(() => store.state.form.total_pages);
-    const current_page = computed(() => store.state.form.current_page);
+    // -> Table's data logics:
+    function fetchList(page = 1) {
+      store.dispatch("form/getList", page);
+    }
 
-    // Handle User Redirection:
+    const list = computed(() => store.getters.formsList);
+
+    fetchList();
+
+    // -> Table pagination:
+    const lastPage = computed(() => store.getters["lastPage"]);
+    const currentPage = computed(() => store.getters["currentPage"]);
+
+    // -> User redirection logics:
     const redirectUser = (path) => {
       router.push(path);
     };
 
-    // Dispatch Fetching the form:
-    function fetchForms(page = 1) {
-      store.dispatch("form/getForms", page);
-    }
-
-    const forms = computed(() => store.state.form.forms);
-
-    fetchForms();
-
-    // Deletion Handler:
+    // -> Form deletion logics:
     const deleteForm = (key) => {
       if (
         window.confirm(
-          `You are about to delete Form number ${key}\n Are you sure?`
+          `You are about to delete the following form:\n FormID: ${key}\n Are you sure?`
         )
       ) {
         store.dispatch("form/deleteForm", key);
@@ -141,12 +137,12 @@ export default {
 
     // END OF SETUP
     return {
+      fetchList,
+      list,
       redirectUser,
-      forms,
-      fetchForms,
       deleteForm,
-      total_pages,
-      current_page
+      lastPage,
+      currentPage
     };
   }
 };
@@ -194,6 +190,10 @@ td {
 
 tr {
   border-bottom: 1px solid #dbdbdb;
+}
+
+.form-name {
+  width: 100%;
 }
 
 /* PAGINATION STYLES */
