@@ -46,7 +46,7 @@ services:
       - sailor
 
   # -------------------------------------------------
-  # PHP-FPM - via port 33601
+  # PHP-FPM
   # -------------------------------------------------
   php:
     build:
@@ -58,5 +58,27 @@ services:
 
     ports:
       - "9000:9000"
+    networks:
+      - sailor
+
+  # -------------------------------------------------
+  # Composer
+  # -------------------------------------------------
+  composer:
+    image: composer:latest
+    container_name: sailor_composer
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - sailor
+
+  node:
+    image: node:lts-alpine3.15
+    container_name: sailor_node
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    command: "npm run hot"
     networks:
       - sailor
