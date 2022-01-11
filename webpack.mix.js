@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,9 +11,39 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.options({
+  hmrOptions: {
+    host: "localhost",
+    port: "8000"
+  }
+});
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.webpackConfig({
+  devServer: {
+    proxy: {
+      "*": "0.0.0.0:8000"
+    }
+  }
+});
+
+mix
+  .js("resources/js/app.js", "public/js")
+  .vue()
+  .postCss("resources/css/app.css", "public/css", [
+    //
+  ]);
+
+// mix.options({
+//   hmrOptions: {
+//     host: "localhost",
+//     port: "8080"
+//   }
+// });
+
+// mix.webpackConfig({
+//   devServer: {
+//     proxy: {
+//       "*": "http://localhost:8080"
+//     }
+//   }
+// });
