@@ -8,7 +8,7 @@
     "hot": "mix watch --hot",
     "prod": "npm run production",
     "production": "mix --production",
-    "prepare": "npm run production && php artisan migrate:fresh",
+    "up": "npm run production && php artisan migrate:fresh",
     "start": "npm run prepare && php artisan serve"
   },
   "devDependencies": {
