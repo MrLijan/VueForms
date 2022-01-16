@@ -1,68 +1,56 @@
-version: "3.7"
-
-# networks:
-#   - sailor
-
+# For more information: https://laravel.com/docs/sail
+version: '3'
 services:
-  # -------------------------------------------------
-  # NGINX -> via port 8088
-  # -------------------------------------------------
-  nginx:
-    image: nginx:stable-alpine
-    ports:
-      - "8000:80"
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - php
-      - node
-
-  # -------------------------------------------------
-  # PHP-FPM
-  # -------------------------------------------------
-  php:
-    build:
-      context: ./docker/php
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/var/www/html
-    command: "php artisan serve --host=0.0.0.0 --port=8000"
-
-  # -------------------------------------------------
-  # MYSQL SERVER - via port 33601
-  # -------------------------------------------------
-  # mysql:
-  #   image: mysql:8.0.27
-  #   restart: unless-stopped
-  #   tty: true
-
-  #   ports:
-  #     - "33061:3306"
-
-  #   environment:
-  #     MYSQL_DATABASE: homestead
-  #     MYSQL_USER: mrlijan
-  #     MYSQL_PASSWORD: secret
-  #     MYSQL_ROOT_PASSWORD: supersecret
-  #     SERVICE_TAGS: dev
-  #     SERVICE_NAME: mysql
-
-  # -------------------------------------------------
-  # Composer
-  # -------------------------------------------------
-  composer:
-    image: composer:latest
-    volumes:
-      - ./:/var/www/html
-    working_dir: /var/www/html
-
-  node:
-    image: node:current-alpine
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    environment:
-      NODE_ENV: development
-    command: "npm run hot"
-    depends_on:
-      - php
+    vue_forms:
+        build:
+            context: ./docker/8.1
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.1/app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - mysql
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sailmysql:/var/lib/mysql'
+        networks:
+            - sail
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+    mongo:
+        image: mongo
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sailmysql:
+        driver: local
