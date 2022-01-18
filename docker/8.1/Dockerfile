@@ -47,9 +47,12 @@ RUN apt-get update \
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.1
 
-# Support MongoDB
-RUN apt install php8.1-mongodb
-RUN echo "extension=mongodb.so" > /etc/php/8.1/cli/php.ini
+# # Support MongoDB
+RUN echo "deb http://ppa.launchpad.net/ondrej/apache2/ubuntu hirsute main" > /etc/apt/sources.list.d/ppa_ondrej_apache2.list \
+    && apt-get update \
+    && apt install php8.1-mongodb -y
+    # RUN pecl install mongodb \
+#     && echo "extension=mongodb.so" >> /usr/local/etc/php/php.ini
 
 
 RUN groupadd --force -g $WWWGROUP sail
