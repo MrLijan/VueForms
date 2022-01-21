@@ -14,7 +14,7 @@ const mix = require("laravel-mix");
 mix.options({
   hmrOptions: {
     host: "localhost",
-    port: "8000"
+    port: "8001"
   }
 });
 
