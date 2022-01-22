@@ -19,11 +19,11 @@ class AuthController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        // $token = $user->createToken('myapptoken')->plainTextToken;
 
         return response([
             'message' => 'User Created',
-            'data' => $token
+            'data' => $user['email']
         ], 201);
     }
 
@@ -40,14 +40,13 @@ class AuthController extends Controller
                 'message' => 'Bad Credentials'
             ], 401);
         }
+        // dd($user);
+        // Issue Token
+        $token = $user->createToken('myapptoken')->plainTextToken;
 
-        // dd($user->createToken('lala'));
-        dd($user);
-        // $token = $req->user()->createToken($req->token_name);
-
-        // return response([
-        //     'message' => 'User Authenticated',
-        //     'token' => $token
-        // ], 201);
+        return response([
+            'message' => 'User Authenticated',
+            'token' => $token
+        ], 201);
     }
 }
