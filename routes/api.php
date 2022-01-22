@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FilledFormController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,22 @@ use App\Http\Controllers\FilledFormController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+/**
+ * Authentication routes
+ */
+
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+//     Route::get('mw', function(Request $req) {
+//         return auth()->user();
+//     });
+
+//     Route::post('auth/logout', [AuthController::class, 'logout']);
+// });
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request, Response $response) {
 //     return $request->user();
 // });
 

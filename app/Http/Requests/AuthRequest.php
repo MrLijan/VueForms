@@ -5,11 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Models\Form;
+use Illuminate\Support\Facades\Route;
 
 
-
-class StoreFormRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,21 +21,35 @@ class StoreFormRequest extends FormRequest
     }
 
     /**
+     * Method to determine if the request is Login/Register.
+     * @return string
+     */
+    private function checkRoute()
+    {
+        $uri = Route::current()->uri();
+        return explode('/', $uri)[2];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
-        $rules = Form::validation_rules;
-
-        if($this->getMethod() == 'POST') {
-            $rules += ['key' => 'nullable'];
-        } else {
-            $rules['key'] = "required";
+        if($this->checkRoute() === 'register') {
+            return [
+                'name' => 'required|string|max:25',
+                'email' => 'required|string|email|unique:users,email',
+                'password' => 'required|string|min:6|confirmed'
+            ];
         }
 
-        return $rules;
+        return [
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:6'
+        ];
+
     }
 
     protected function failedValidation(Validator $validator)
