@@ -11,7 +11,7 @@
         <form action="#" class="form">
           <base-input
             inputType="text"
-            title="Tell us your name"
+            title="What's your name?"
             isRequired
           ></base-input>
           <base-input
@@ -93,6 +93,10 @@ export default {
   padding: var(--app-container-paddding);
   padding-bottom: 30px;
   padding-top: 30px;
+}
+
+.form > * {
+  margin-top: -10px;
 }
 
 .form > button {

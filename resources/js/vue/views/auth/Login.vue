@@ -90,6 +90,10 @@ export default {
   margin-top: 25px;
 }
 
+.form > * {
+  margin-top: -10px;
+}
+
 .actions {
   padding-top: 15px;
   font-size: 0.95em;
