@@ -8,16 +8,18 @@
         <p class="subtitle">Please login to get achieve all the benefits</p>
       </section>
       <section class="content">
-        <form action="#" class="form">
+        <form class="form" @submit.prevent="submitForm">
           <base-input
             inputType="email"
             title="Email Address"
             isRequired
+            @updated="form.email = $event"
           ></base-input>
           <base-input
             inputType="password"
             title="Password"
             isRequired
+            @updated="form.password = $event"
           ></base-input>
           <button class="button is-success">Click to Login</button>
         </form>
@@ -26,12 +28,13 @@
           <router-link to="/register">Create now</router-link>
         </div>
       </section>
-      <section class="actions"></section>
     </div>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { reactive } from "vue";
 import BaseInput from "../../components/Base/Input.vue";
 
 export default {
@@ -39,7 +42,30 @@ export default {
     BaseInput
   },
   setup() {
-    return {};
+    const store = useStore();
+
+    // form values
+    const form = reactive({
+      email: null,
+      password: null
+    });
+
+    const submitForm = () => {
+      store
+        .dispatch("auth/submitLogin", form)
+        .then((res) => {
+          console.log("SUCCESS", res);
+        })
+        .catch((err) => {
+          console.log("ERR");
+        });
+    };
+
+    // END OF SETUP
+    return {
+      submitForm,
+      form
+    };
   }
 };
 </script>

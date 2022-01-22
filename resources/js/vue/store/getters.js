@@ -1,4 +1,5 @@
 const getters = {
+  getToken: (state) => state.auth.token,
   formsList: (state) => state.form.list,
   totalPages: (state) => state.form.totalPages,
   currentPage: (state) => state.form.currentPage,
