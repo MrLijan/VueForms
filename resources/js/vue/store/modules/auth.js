@@ -58,13 +58,13 @@ export default {
   mutations: {
     SET_ACTIVE_USER(state, value) {
       state.token = value.token;
-      state.name = value.name;
+      state.username = value.name;
       ls.save("token", value.token);
     },
 
     SET_LOGOUT(state) {
       state.token = null;
-      state.name = null;
+      state.username = null;
       ls.remove(token);
     }
   }

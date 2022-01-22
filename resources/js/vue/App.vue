@@ -1,5 +1,18 @@
 <template>
   <div>
+    <section class="navbar is-success">
+      <div class="right">
+        <span class="is-size-4">VueForms</span>
+      </div>
+      <div class="left">
+        <div class="username">
+          <span class="is-size-6">Hello, {{ username }}</span>
+        </div>
+        <button class="button is-light is-danger" @click="submitLogout">
+          Logout
+        </button>
+      </div>
+    </section>
     <section class="toasts">
       <div v-for="(toast, index) in toasts" :key="index">
         <Toast :type="toast.type" :text="toast.text" />
@@ -20,6 +33,7 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import Toast from "./components/Toast.vue";
 
 export default {
@@ -29,12 +43,25 @@ export default {
 
   setup() {
     const store = useStore();
+    const router = useRouter();
     const toasts = computed(() => {
       return store.state.toast.activeToasts;
     });
 
+    const username = computed(() => {
+      return store.getters["getUsername"];
+    });
+
+    const submitLogout = () => {
+      store.dispatch("auth/submitLogout").then(() => {
+        router.push("/");
+      });
+    };
+
+    // END OF SETUP
     return {
-      toasts
+      toasts,
+      username
     };
   }
 };
@@ -84,7 +111,7 @@ body {
   display: grid;
 }
 
-nav {
+.navbar {
   display: flex;
   justify-content: space-between;
 
@@ -95,10 +122,20 @@ nav {
   background-color: var(--app-white);
   color: var(--app-text);
   box-shadow: var(--app-shadow);
+  border-radius: 0 0 6px 6px;
 }
 
-nav > h2 {
-  font-weight: 900 !important;
+.navbar > .right > span {
+  font-weight: 700 !important;
+}
+
+.navbar > .left {
+  display: flex;
+  align-items: center;
+}
+.navbar > .left :first-child {
+  margin-right: 10px;
+  font-weight: 500 !important;
 }
 
 footer {
