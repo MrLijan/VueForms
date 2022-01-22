@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home";
 import Creator from "../views/Creator";
 import Submit from "../views/Submit";
+import Login from "../views/auth/Login";
+import Register from "../views/auth/Register";
 
 const routes = [
   {
@@ -24,6 +26,16 @@ const routes = [
     path: "/edit/:key",
     name: "Edit",
     component: Creator
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   }
 ];
 
