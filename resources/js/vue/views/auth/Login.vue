@@ -35,6 +35,7 @@
 <script>
 import { useStore } from "vuex";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import BaseInput from "../../components/Base/Input.vue";
 
 export default {
@@ -43,6 +44,7 @@ export default {
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     // form values
     const form = reactive({
@@ -54,10 +56,11 @@ export default {
       store
         .dispatch("auth/submitLogin", form)
         .then((res) => {
-          console.log("SUCCESS", res);
+          console.log("User Logged in successfully");
+          router.push("/");
         })
         .catch((err) => {
-          console.log("ERR");
+          console.log("Something went wrong");
         });
     };
 

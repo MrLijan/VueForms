@@ -2,6 +2,7 @@
  * Authentication Module
  */
 import * as auth from "../../api/auth.api";
+import * as ls from "../../helpers/localStorage";
 
 export default {
   namespaced: true,
@@ -36,14 +37,18 @@ export default {
       });
     },
 
-    async submitLogout(context, payload) {
-      logout(payload)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    submitLogout(context, payload) {
+      return new Promise((resolve, reject) => {
+        auth
+          .logout(payload)
+          .then((res) => {
+            context.commit("SET_LOGOUT", res.code);
+            resolve(res.code);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     }
   },
 
@@ -51,6 +56,13 @@ export default {
     SET_ACTIVE_USER(state, value) {
       state.token = value.token;
       state.name = value.name;
+      ls.save("token", value.token);
+    },
+
+    SET_LOGOUT(state) {
+      state.token = null;
+      state.name = null;
+      ls.remove(token);
     }
   }
 };
