@@ -22,7 +22,7 @@ export default {
         });
     },
 
-    async submitLogin(context, payload) {
+    submitLogin(context, payload) {
       return new Promise((resolve, reject) => {
         auth
           .login(payload)

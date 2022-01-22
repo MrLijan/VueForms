@@ -47,7 +47,8 @@ class AuthController extends Controller
 
         return response([
             'message' => 'User Authenticated',
-            'token' => $token
+            'token' => $token,
+            'name' => $user->name,
         ], 201);
     }
 
