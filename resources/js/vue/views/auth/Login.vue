@@ -14,6 +14,7 @@
             title="Email Address"
             isRequired
             @updated="form.email = $event"
+            :value="email"
           ></base-input>
           <base-input
             inputType="password"
@@ -42,13 +43,21 @@ export default {
   components: {
     BaseInput
   },
-  setup() {
+
+  props: {
+    email: {
+      type: String,
+      required: false
+    }
+  },
+
+  setup(props) {
     const store = useStore();
     const router = useRouter();
 
     // form values
     const form = reactive({
-      email: null,
+      email: props.email,
       password: null
     });
 

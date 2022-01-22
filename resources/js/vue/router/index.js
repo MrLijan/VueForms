@@ -28,13 +28,14 @@ const routes = [
     component: Creator
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/login",
+    name: "Login",
+    component: Login,
+    props: true
   },
   {
-    path: '/register',
-    name: 'Register',
+    path: "/register",
+    name: "Register",
     component: Register
   }
 ];

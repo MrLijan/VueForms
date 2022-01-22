@@ -8,26 +8,30 @@
         <p class="subtitle">You can create an account to achieve all content</p>
       </section>
       <section class="content">
-        <form action="#" class="form">
+        <form class="form" @submit.prevent="submitForm">
           <base-input
             inputType="text"
             title="What's your name?"
             isRequired
+            @updated="form.name = $event"
           ></base-input>
           <base-input
             inputType="email"
             title="Email Address"
             isRequired
+            @updated="form.email = $event"
           ></base-input>
           <base-input
             inputType="password"
             title="Password"
             isRequired
+            @updated="form.password = $event"
           ></base-input>
           <base-input
             inputType="password"
             title="Confirm Password"
             isRequired
+            @updated="form.password_confirmation = $event"
           ></base-input>
           <button class="button is-success">Click to Register</button>
         </form>
@@ -42,6 +46,9 @@
 </template>
 
 <script>
+import { reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import BaseInput from "../../components/Base/Input.vue";
 
 export default {
@@ -49,7 +56,39 @@ export default {
     BaseInput
   },
   setup() {
-    return {};
+    const store = useStore();
+    const router = useRouter();
+
+    // Form values
+    const form = reactive({
+      name: null,
+      email: null,
+      password: null,
+      password_confirmation: null
+    });
+
+    const submitForm = () => {
+      store
+        .dispatch("auth/submitRegister", form)
+        .then((res) => {
+          console.log("User created successfully");
+          router.push({
+            name: "Login",
+            params: {
+              email: form.email
+            }
+          });
+        })
+        .catch((err) => {
+          console.log("Something went wrong", err);
+        });
+    };
+
+    // END OF SETUP
+    return {
+      form,
+      submitForm
+    };
   }
 };
 </script>

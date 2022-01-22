@@ -13,14 +13,17 @@ export default {
   },
 
   actions: {
-    async submitRegister(context, payload) {
-      await register(payload)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    submitRegister(context, payload) {
+      return new Promise((resolve, reject) => {
+        auth
+          .register(payload)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
 
     submitLogin(context, payload) {

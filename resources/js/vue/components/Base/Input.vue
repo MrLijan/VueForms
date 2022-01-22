@@ -19,6 +19,7 @@
           class="textarea"
           :required="isRequired"
           @input="$emit('updated', $event.target.value)"
+          :value="value"
         ></textarea>
       </div>
 
@@ -30,6 +31,7 @@
           :required="isRequired"
           @input="$emit('updated', $event.target.value)"
           :placeholder="placeholder"
+          :value="value"
         />
       </div>
     </div>
@@ -62,6 +64,11 @@ export default {
     },
 
     placeholder: {
+      type: String,
+      required: false
+    },
+
+    value: {
       type: String,
       required: false
     }
