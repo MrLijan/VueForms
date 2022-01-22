@@ -45,6 +45,13 @@ class AuthRequest extends FormRequest
             ];
         }
 
+        if ($this->checkRoute() === 'logout')
+        {
+            return [
+                'token' => 'required|string|min:50'
+            ];
+        }
+
         return [
             'email' => 'required|string|email',
             'password' => 'required|string|min:6'
