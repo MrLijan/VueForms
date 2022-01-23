@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home";
 import Creator from "../views/Creator";
 import Submit from "../views/Submit";
+import Test from "../views/Test";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 
@@ -37,6 +38,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register
+  },
+  {
+    path: "/test",
+    name: "Test",
+    component: Test
   }
 ];
 
