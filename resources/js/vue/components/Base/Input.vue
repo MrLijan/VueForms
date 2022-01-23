@@ -31,7 +31,6 @@
           :required="isRequired"
           @input="$emit('updated', $event.target.value)"
           :placeholder="placeholder"
-          :value="value"
         />
       </div>
     </div>

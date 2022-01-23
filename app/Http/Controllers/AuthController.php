@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
         // dd($user);
         // Issue Token
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken($user['email'])->plainTextToken;
 
         return response([
             'message' => 'User Authenticated',
