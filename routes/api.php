@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FilledFormController;
 use App\Http\Controllers\AuthController;
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ use App\Http\Controllers\AuthController;
 /**
  * Authentication routes
  */
-
+Route::get('sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {

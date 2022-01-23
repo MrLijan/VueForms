@@ -28,15 +28,17 @@ export default {
 
     submitLogin(context, payload) {
       return new Promise((resolve, reject) => {
-        auth
-          .login(payload)
-          .then((res) => {
-            context.commit("SET_ACTIVE_USER", res.data);
-            resolve(res.data);
-          })
-          .catch((err) => {
-            reject(err);
-          });
+        auth.csrf().then(() => {
+          auth
+            .login(payload)
+            .then((res) => {
+              context.commit("SET_ACTIVE_USER", res.data);
+              resolve(res.data);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        });
       });
     },
 

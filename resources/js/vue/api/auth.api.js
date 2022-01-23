@@ -4,6 +4,13 @@
 
 import request from "./request";
 
+export function csrf() {
+  return request({
+    url: "/sanctum/csrf-cookie",
+    method: "get"
+  });
+}
+
 export function register(payload) {
   return request({
     url: "/auth/register",
