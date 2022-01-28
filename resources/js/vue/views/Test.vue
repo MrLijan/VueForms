@@ -8,7 +8,7 @@
           v-for="(item, index) in form"
           :key="index"
           @updated="item.value = $event"
-          :value="item.text"
+          :value="item.value"
         ></base-input>
       </div>
     </base-card>
@@ -28,12 +28,12 @@ export default {
     BaseInput,
     BaseTextarea,
     BaseSelect,
-    BaseCard
+    BaseCard,
   },
 
   setup() {
     const form = reactive([
-      { name: "text", text: "This this", value: null },
+      { name: "text", text: "This this", value: 'liram' },
       { name: "text", text: "This this", value: null },
       { name: "text", text: "This this", value: null },
       { name: "text", text: "This this", value: null }
