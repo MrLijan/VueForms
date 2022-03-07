@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  app:
+  
+  database:
+    image: mongodb:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME: root
+      - MONGO_INITDB_ROOT_PASSWORD:
+      - MONGO_INITDB_ALLOW_EMPTY_PASSWORD: true
+    volumes: 
+      - .docker/database:/data/db
