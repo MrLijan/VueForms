@@ -1,16 +1,37 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  app:
-  
-  database:
-    image: mongodb:latest
-    restart: always
+  laravel:
+    container_name: vueforms_laravel
+    build:
+        context: ./laravel
+        dockerfile: Dockerfile
     ports:
-      - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME: root
-      - MONGO_INITDB_ROOT_PASSWORD:
-      - MONGO_INITDB_ALLOW_EMPTY_PASSWORD: true
-    volumes: 
-      - .docker/database:/data/db
+        - 8000:8000
+    volumes:
+        - ../:/var/www/html
+    # command: "php artisan serve --port=8000 --host=0.0.0.0"
+
+  node:
+    container_name: vueforms_node
+    build:
+        context: ./node
+        dockerfile: Dockerfile
+    ports:
+        - 8080:8080
+    volumes:
+        - ../:/front_app
+    # command: "php artisan serve --port=8000 --host=0.0.0.0"
+
+
+#   database:
+#     image: mongodb:latest
+#     restart: always
+#     ports:
+#       - 27017:27017
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME: root
+#       - MONGO_INITDB_ROOT_PASSWORD:
+#       - MONGO_INITDB_ALLOW_EMPTY_PASSWORD: true
+#     volumes:
+#       - .docker/database:/data/db
