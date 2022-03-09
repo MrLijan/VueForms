@@ -18,15 +18,12 @@ mix.js('resources/js/app.js', 'public/js')
         //
     ]);
 
-mix.options({
-    hmrOptions: {
-        host: 'localhost',
-        port: '8080'
-    }
-})
-
 mix.webpackConfig({
     devServer: {
-        port:8000
+        proxy: {
+            'http://localhost:8080': 'http://nginx:8000'
+        },
+        host: '0.0.0.0',
+        port: 8080
     }
 })
